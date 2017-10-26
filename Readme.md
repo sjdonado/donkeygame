@@ -6,16 +6,16 @@
 * Barriles
 * Princesa
 * Fondo pantalla inicio
-* Boton pantalla inicio
-* Titulo pantalla inicio (Nombre, ganaste, perdiste)
+* Botón pantalla inicio
+* Título pantalla inicio (Nombre, ganaste, perdiste)
 
-## Mecanica
+## Mecánica
 * Mario -Movimiento y colisiones
 * Barriles -Movimiento y colisiones
 * DonKey Kong -Movimiento
 * Posiciones iniciales
 
-## Logica del juego
+## Lógica del juego
 * Recolectar estrellas
 * Colisiones reiniciar juego (ir a pantalla de inicio)
 * Ganar el juego (10 estrellas y colision con la princesa)
