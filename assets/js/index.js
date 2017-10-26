@@ -39,16 +39,15 @@ var states = {
     }
 }
 
-function change_state(start_state, pause_state){
-    game.state.pause(pause_state);
-    game.state.resume(start_state);
+function change_state(state){
+    game.state.start(state);
 }
 
 game.state.add('start', states['start']);
 game.state.add('main', states['main']);
 game.state.add('finish', states['finish']);
-game.state.start('start');
-game.state.start('main');
-game.state.start('finish');
-game.state.pause('main');
-game.state.pause('finish');
+
+change_state('start');
+
+console.log(game.state.checkState('main'))
+console.log(game.state.checkState('finish'))
