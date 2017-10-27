@@ -2,6 +2,7 @@ var game = new Phaser.Game((screen.availWidth - screen.availHeight*0.3)/2 , scre
 
 var controllers;
 mario.game = game;
+dk.game = game;
 
 var states = {
     start: {
@@ -10,22 +11,28 @@ var states = {
         },
 
         create: function() {
-            controllers = game.input.keyboard.createCursorKeys();
+            controllers = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
         },
 
         update: function() {
+            if(controllers.isDown){
+                game.state.start('main')
+            }
         }
     },
-    main:{
+    main: {
         preload: function() {
             game.stage.backgroundColor="#ffff";
             game.load.spritesheet('mario', mario.sprites.url, mario.sprites.x, mario.sprites.y);
+            game.load.spritesheet('dk', dk.sprites.url, dk.sprites.x, dk.sprites.y);
         },
 
         create: function() {
             controllers = game.input.keyboard.createCursorKeys();
             mario.init();            
             mario.setAnimations();
+            dk.init();
+            dk.setAnimations();
         },
 
         update: function() {
@@ -38,9 +45,10 @@ var states = {
             }else{
                 mario.motionLess();
             }
+            dk.move();
         }
     },
-    finish:{
+    finish: {
         preload: function() {
             game.stage.backgroundColor="#fafafa";
         },
@@ -55,6 +63,5 @@ var states = {
 
 game.state.add('start', states['start']);
 game.state.add('main', states['main']);
-game.state.add('finish', states['finish']);
 
-game.state.start('main');
+game.state.start('start');
