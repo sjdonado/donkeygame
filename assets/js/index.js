@@ -39,7 +39,7 @@ var states = {
     }
 }
 
-function change_state(state){
+function changeState(state){
     game.state.start(state);
 }
 
@@ -47,7 +47,4 @@ game.state.add('start', states['start']);
 game.state.add('main', states['main']);
 game.state.add('finish', states['finish']);
 
-change_state('start');
-
-console.log(game.state.checkState('main'))
-console.log(game.state.checkState('finish'))
+changeState('start');
