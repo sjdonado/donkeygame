@@ -14,7 +14,6 @@ var donkey = {
 	},
 	setAnimations: () => {
 		this.entity.frame = 0;
-		this.entity.animations.add('barril', [2,3]);
 		this.entity.animations.add('golpear', [1,4]);
 		this.cont = 0;
 	},
@@ -24,13 +23,14 @@ var donkey = {
 			this.entity.animations.play('golpear', 2, true);
 		}else{
 			if(this.cont == 200){
-				this.entity.animations.play('barril', 2);
+				this.entity.animations.stop();
+				this.entity.frame = 3;
 			}
 			if(this.cont == 240){
 				barrel.addBarrel(this.num);
 				this.entity.frame = 2;
 			}
-			if(this.cont == 300){
+			if(this.cont == 270){
 				this.cont = -1;
 			}
 		}
