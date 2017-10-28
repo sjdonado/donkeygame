@@ -1,4 +1,4 @@
-var dk = {
+var donkey = {
 	sprites:{
 		x: 51,
 		y: 36,
@@ -8,7 +8,7 @@ var dk = {
 	init: () =>{
 		this.entity = this.game.add.sprite(100,100, 'dk');
 		this.game.physics.arcade.enable(this.entity);
-        this.entity.body.bounce.y = 0.3;
+        this.entity.body.bounce.x = 0.3;
         this.entity.body.collideWorldBounds = true;
 	},
 	setAnimations: () => {
@@ -19,9 +19,9 @@ var dk = {
 	},
 	move: () => {
 		if(this.cont == 0){
-			var num = Math.floor((Math.random() * 10) + 1);
+			this.num = Math.floor((Math.random()) * 2);
 		}else if(this.cont < 15){
-			if(num > 5){
+			if(this.num == 1){
 				this.entity.frame = 0;
 				this.entity.body.x -= 1;
 			}else{
@@ -33,6 +33,7 @@ var dk = {
 		}else{
 			if(this.cont == 190){
 				this.entity.animations.play('barril', 2, true);
+				barrel.addBarrel(this.num);
 			}
 			if(this.cont >= 240){
 				this.entity.frame = 3;
@@ -41,7 +42,6 @@ var dk = {
 				this.cont = -1;
 			}
 		}
-		console.log(num)
 		this.cont += 1;
 	}
 }

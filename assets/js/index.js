@@ -2,7 +2,8 @@ var game = new Phaser.Game((screen.availWidth - screen.availHeight*0.3)/2 , scre
 
 var controllers;
 mario.game = game;
-dk.game = game;
+donkey.game = game;
+barrel.game = game;
 
 var states = {
     start: {
@@ -24,28 +25,31 @@ var states = {
         preload: function() {
             game.stage.backgroundColor="#ffff";
             game.load.spritesheet('mario', mario.sprites.url, mario.sprites.x, mario.sprites.y);
-            game.load.spritesheet('dk', dk.sprites.url, dk.sprites.x, dk.sprites.y);
+            game.load.spritesheet('dk', donkey.sprites.url, donkey.sprites.x, donkey.sprites.y);
+            game.load.spritesheet('barrel', barrel.sprites.url, barrel.sprites.x, barrel.sprites.y);
         },
 
         create: function() {
             controllers = game.input.keyboard.createCursorKeys();
+            barrel.init();
+            donkey.init();
             mario.init();            
+            donkey.setAnimations();
             mario.setAnimations();
-            dk.init();
-            dk.setAnimations();
         },
 
         update: function() {
+            donkey.move();
             mario.entity.body.velocity.x = 0;
-            if(controllers.left.isDown){
+            if (controllers.left.isDown){
                 mario.moveLeft();
             }
-            else if(controllers.right.isDown){
+            if (controllers.right.isDown){
                 mario.moveRight();
-            }else{
-                mario.motionLess();
             }
-            dk.move();
+            if(controllers.up.isDown && mario.entity.body.touching.down){
+                mario.jump();
+            }
         }
     },
     finish: {
