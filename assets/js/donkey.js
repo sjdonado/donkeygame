@@ -1,7 +1,7 @@
 var donkey = {
 	sprites:{
-		x: 51,
-		y: 36,
+		x: 52,
+		y: 37,
 		url: 'assets/sprites/dk.png'
 
 	},
@@ -9,6 +9,7 @@ var donkey = {
 		this.entity = this.game.add.sprite(100,100, 'dk');
 		this.game.physics.arcade.enable(this.entity);
         this.entity.body.bounce.x = 0.3;
+        this.entity.anchor.setTo(0.5);
         this.entity.body.collideWorldBounds = true;
 	},
 	setAnimations: () => {
@@ -32,11 +33,11 @@ var donkey = {
 			this.entity.animations.play('golpear', 2, true);
 		}else{
 			if(this.cont == 190){
-				this.entity.animations.play('barril', 2, true);
-				barrel.addBarrel(this.num);
+				this.entity.animations.play('barril', 2);
 			}
-			if(this.cont >= 240){
-				this.entity.frame = 3;
+			if(this.cont == 240){
+				barrel.addBarrel(this.num, this.entity.body.x);
+				this.entity.frame = 2;
 			}
 			if(this.cont == 340){
 				this.cont = -1;
