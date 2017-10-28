@@ -4,6 +4,7 @@ var controllers;
 mario.game = game;
 donkey.game = game;
 barrel.game = game;
+//platform.game = game;
 
 var states = {
     start: {
@@ -27,13 +28,15 @@ var states = {
             game.load.spritesheet('mario', mario.sprites.url, mario.sprites.x, mario.sprites.y);
             game.load.spritesheet('dk', donkey.sprites.url, donkey.sprites.x, donkey.sprites.y);
             game.load.spritesheet('barrel', barrel.sprites.url, barrel.sprites.x, barrel.sprites.y);
+            //game.load.spritesheet('platform', platfom.sprites.url, platfom.sprites.x, platfom.sprites.y);
         },
 
         create: function() {
             controllers = game.input.keyboard.createCursorKeys();
             barrel.init();
             donkey.init();
-            mario.init();            
+            mario.init();
+            //platform.init();
             donkey.setAnimations();
             mario.setAnimations();
         },
@@ -57,7 +60,7 @@ var states = {
             game.stage.backgroundColor="#fafafa";
         },
 
-        create: function() {    
+        create: function() {
         },
 
         update: function() {

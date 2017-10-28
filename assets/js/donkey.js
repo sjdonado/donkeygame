@@ -6,7 +6,7 @@ var donkey = {
 
 	},
 	init: () =>{
-		this.entity = this.game.add.sprite(100,100, 'dk');
+		this.entity = this.game.add.sprite(280,100, 'dk');
 		this.game.physics.arcade.enable(this.entity);
         this.entity.body.bounce.x = 0.3;
         this.entity.anchor.setTo(0.5);
@@ -21,25 +21,16 @@ var donkey = {
 	move: () => {
 		if(this.cont == 0){
 			this.num = Math.floor((Math.random()) * 2);
-		}else if(this.cont < 15){
-			if(this.num == 1){
-				this.entity.frame = 0;
-				this.entity.body.x -= 1;
-			}else{
-				this.entity.frame = 5;
-				this.entity.body.x += 1;
-			}
-		}else if(this.cont == 15){
 			this.entity.animations.play('golpear', 2, true);
 		}else{
-			if(this.cont == 190){
+			if(this.cont == 200){
 				this.entity.animations.play('barril', 2);
 			}
 			if(this.cont == 240){
-				barrel.addBarrel(this.num, this.entity.body.x);
+				barrel.addBarrel(this.num);
 				this.entity.frame = 2;
 			}
-			if(this.cont == 340){
+			if(this.cont == 300){
 				this.cont = -1;
 			}
 		}
