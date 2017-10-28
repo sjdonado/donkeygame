@@ -13,29 +13,35 @@ var dk = {
 	},
 	setAnimations: () => {
 		this.entity.frame = 0;
-		this.entity.animations.add('left', [0,1,2,3], 2, true);
-		this.entity.animations.add('right', [5,2,2,3], 2, true);
-		this.entity.body.animations.play('right');
-		this.entity.body.animations.play('left');
+		this.entity.animations.add('barril', [2,3]);
+		this.entity.animations.add('golpear', [1,4]);
+		this.cont = 0;
 	},
 	move: () => {
-		// num = Math.floor((Math.random() * 10) + 1);
-		// console.log(num);
-		// if(num > 5){
-		// 	this.entity.body.velocity.x -= 1;
-		// 	this.entity.animations.play('left');
-		// 	await sleep(2000);
-		// }else if(num < 5){
-		// 	this.entity.body.velocity.x += 1;
-		// 	this.entity.animations.play('right');
-		// 	await sleep(2000);
-		// }else{
-	        // this.entity.body.velocity.x = 0;
-        	// this.entity.frame = 2;
-		// }
+		if(this.cont == 0){
+			var num = Math.floor((Math.random() * 10) + 1);
+		}else if(this.cont < 15){
+			if(num > 5){
+				this.entity.frame = 0;
+				this.entity.body.x -= 1;
+			}else{
+				this.entity.frame = 5;
+				this.entity.body.x += 1;
+			}
+		}else if(this.cont == 15){
+			this.entity.animations.play('golpear', 2, true);
+		}else{
+			if(this.cont == 190){
+				this.entity.animations.play('barril', 2, true);
+			}
+			if(this.cont >= 240){
+				this.entity.frame = 3;
+			}
+			if(this.cont == 340){
+				this.cont = -1;
+			}
+		}
+		console.log(num)
+		this.cont += 1;
 	}
-}
-
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
 }
