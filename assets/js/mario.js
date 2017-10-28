@@ -13,19 +13,18 @@ var mario = {
         this.entity.frame = 4;
     },
     setAnimations: function(){
-        this.entity.animations.add('left', [1,2,3], 10, true);
-        this.entity.animations.add('right', [4,5,6], 10, true);
+        this.entity.animations.add('left', [2,3], 5);
+        this.entity.animations.add('right', [5,4], 5);
     },
     moveLeft: function(){
-        this.entity.body.velocity.x = -100;
-        this.entity.animations.play('left')
+        this.entity.body.velocity.x = -150;
+        this.entity.animations.play('left');
     },
     moveRight: function(){
-        this.entity.body.velocity.x = 100;
-        this.entity.animations.play('right')
+        this.entity.body.velocity.x = 150;
+        this.entity.animations.play('right');
     },
-    motionLess: function(){
-        this.entity.body.velocity.x = 0;
-        this.entity.frame = 4;
+    jump: () => {
+        this.entity.body.velocity.y = -350;
     }
 }
