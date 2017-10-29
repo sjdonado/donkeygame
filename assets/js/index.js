@@ -47,8 +47,10 @@ var states = {
         },
 
         update: function() {
+            barrel.startGame();
             donkey.move();
             platform.physics();
+            barrel.physics();
             mario.physics();
             mario.collides();
             princess.move();

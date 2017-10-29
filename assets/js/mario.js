@@ -18,11 +18,11 @@ var mario = {
         marioObject.animations.add('right', [5,4], 5);
     },
     moveLeft: function(){
-        marioObject.body.velocity.x = -60;
+        marioObject.body.velocity.x = -80;
         marioObject.animations.play('left');
     },
     moveRight: function(){
-        marioObject.body.velocity.x = 60;
+        marioObject.body.velocity.x = 80;
         marioObject.animations.play('right');
     },
     jump: () => {
