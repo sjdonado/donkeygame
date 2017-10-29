@@ -1,8 +1,8 @@
 var donkey = {
 	sprites:{
-		x: 52,
-		y: 37,
-		url: 'assets/sprites/dk.png'
+		x: 47,
+		y: 32,
+		url: 'assets/sprites/dk2.png'
 
 	},
 	init: () =>{
