@@ -5,13 +5,13 @@ var barrel = {
 		url: 'assets/sprites/barrel2.png'
 	},
 	init: () =>{
-		sprite = this.game.add.sprite(280,100, 'barrel');
+		sprite = this.game.add.sprite(this.game.width/2,100, 'barrel');
 		sprite.visible = false;
 		barriles = this.game.add.group();
 		barriles.enableBody = true;
 	},
 	addBarrel: (value, position) => {
-		barrelObject = barriles.create(280, 100, 'barrel');
+		barrelObject = barriles.create(this.game.width/2, 100, 'barrel');
 		barrelObject.collideWorldBounds = true;
 		barrelObject.body.gravity.y = 300;
 		barrelObject.body.bounce.y = 0.3;

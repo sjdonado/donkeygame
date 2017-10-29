@@ -3,14 +3,13 @@ var donkey = {
 		x: 47,
 		y: 32,
 		url: 'assets/sprites/dk2.png'
-
 	},
 	init: () =>{
-		this.entity = this.game.add.sprite(280,100, 'dk');
+		this.entity = this.game.add.sprite(this.game.width/2,this.game.height-540, 'dk');
 		this.game.physics.arcade.enable(this.entity);
-        this.entity.body.bounce.x = 0.3;
-        this.entity.anchor.setTo(0.5);
-        this.entity.body.collideWorldBounds = true;
+    this.entity.body.bounce.x = 0.3;
+    this.entity.anchor.setTo(0.5);
+    this.entity.body.collideWorldBounds = true;
 	},
 	setAnimations: () => {
 		this.entity.frame = 0;

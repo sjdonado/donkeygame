@@ -10,9 +10,13 @@ var platform = {
 	},
 	addPlatform: (x,y,factor) => {
 		i = 0;
-
-		platformO = platforms.create(x, y, 'platform');
-		platformO.body.immovable = true;
+		xi = x;
+		while(i<factor){
+			platformO = platforms.create(xi, y, 'platform');
+			platformO.body.immovable = true;
+			xi += 16;
+			i += 1;
+		}
 	},
 	addGround:()=>{
 		x = 0;
