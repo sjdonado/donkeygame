@@ -4,7 +4,7 @@ var controllers;
 mario.game = game;
 donkey.game = game;
 barrel.game = game;
-//platform.game = game;
+platform.game = game;
 
 var states = {
     start: {
@@ -28,7 +28,7 @@ var states = {
             game.load.spritesheet('mario', mario.sprites.url, mario.sprites.x, mario.sprites.y);
             game.load.spritesheet('dk', donkey.sprites.url, donkey.sprites.x, donkey.sprites.y);
             game.load.spritesheet('barrel', barrel.sprites.url, barrel.sprites.x, barrel.sprites.y);
-            //game.load.spritesheet('platform', platfom.sprites.url, platfom.sprites.x, platfom.sprites.y);
+            game.load.spritesheet('platform', platform.sprites.url, platform.sprites.x, platform.sprites.y);
         },
 
         create: function() {
@@ -36,9 +36,12 @@ var states = {
             barrel.init();
             donkey.init();
             mario.init();
-            //platform.init();
+            platform.init();
             donkey.setAnimations();
             mario.setAnimations();
+
+            platform.addGround();
+            //platform.addPlatform(16,this.game.height-8,3,1);
         },
 
         update: function() {
@@ -53,6 +56,7 @@ var states = {
             if(controllers.up.isDown && mario.entity.body.touching.down){
                 mario.jump();
             }
+            platform.physics();
         }
     },
     finish: {
