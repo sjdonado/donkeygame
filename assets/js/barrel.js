@@ -11,7 +11,7 @@ var barrel = {
 		barriles.enableBody = true;
 	},
 	addBarrel: (value) => {
-		barrelObject = barriles.create(this.game.width/2, 80, 'barrel');
+		barrelObject = barriles.create(this.game.width/2, 90, 'barrel');
 		barrelObject.body.collideWorldBounds = true;
 		barrelObject.body.gravity.y = 300;
 		barrelObject.body.bounce.y = 0.5;

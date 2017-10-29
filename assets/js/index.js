@@ -3,7 +3,7 @@ var game = new Phaser.Game((screen.availWidth - screen.availWidth*0.3)/2 , scree
 var controllers;
 mario.game = game;
 donkey.game = game;
-pauline.game = game;
+princess.game = game;
 barrel.game = game;
 platform.game = game;
 
@@ -28,7 +28,7 @@ var states = {
             game.stage.backgroundColor="#ffff";
             game.load.spritesheet('mario', mario.sprites.url, mario.sprites.x, mario.sprites.y);
             game.load.spritesheet('dk', donkey.sprites.url, donkey.sprites.x, donkey.sprites.y);
-            game.load.spritesheet('pauline', pauline.sprites.url, pauline.sprites.x, pauline.sprites.y);
+            game.load.spritesheet('pauline', princess.sprites.url, princess.sprites.x, princess.sprites.y);
             game.load.spritesheet('barrel', barrel.sprites.url, barrel.sprites.x, barrel.sprites.y);
             game.load.spritesheet('platform', platform.sprites.url, platform.sprites.x, platform.sprites.y);
         },
@@ -38,11 +38,11 @@ var states = {
             barrel.init();
             donkey.init();
             mario.init();
+            princess.init();
             platform.init();
-            //pauline.init();
             donkey.setAnimations();
             mario.setAnimations();
-            pauline.setAnimations();
+            princess.setAnimations();
             platform.generateWord();
         },
 
@@ -51,6 +51,7 @@ var states = {
             platform.physics();
             mario.physics();
             mario.collides();
+            princess.move();
             if (controllers.left.isDown){
                 mario.moveLeft();
             }

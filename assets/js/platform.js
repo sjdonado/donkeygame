@@ -31,6 +31,7 @@ var platform = {
 		this.game.physics.arcade.collide(marioObject, platforms);
 		this.game.physics.arcade.collide(barriles, platforms);
 		this.game.physics.arcade.collide(donkeyObject, platforms);
+		this.game.physics.arcade.collide(pauline, platforms);
 	},
 	generateWord: () => {
             //world's paltforms:

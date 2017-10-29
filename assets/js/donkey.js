@@ -7,7 +7,8 @@ var donkey = {
 	init: () =>{
 		donkeyObject = this.game.add.sprite(this.game.width/2,80, 'dk');
 		this.game.physics.arcade.enable(donkeyObject);
-        donkeyObject.body.bounce.x = 0.3;
+        donkeyObject.enableBody = true;
+        donkeyObject.body.bounce.y = 0.1;
         donkeyObject.anchor.setTo(0.5);
         donkeyObject.body.gravity.y = 300;
         donkeyObject.body.collideWorldBounds = true;

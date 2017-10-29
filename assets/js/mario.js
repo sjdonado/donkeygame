@@ -34,10 +34,17 @@ var mario = {
     collides: () => {
         collideBarriles = game.physics.arcade.collide(marioObject, barriles);
         if(collideBarriles){
+            console.log('PERDISTE') 
             game.state.start('finish')
         }
         collideDonkey = game.physics.arcade.collide(marioObject, donkeyObject);
         if(collideDonkey){
+            console.log('PERDISTE')
+            game.state.start('finish')
+        }
+        collidePauline = game.physics.arcade.collide(marioObject, pauline);
+        if(collidePauline){
+            console.log('GANASTE')
             game.state.start('finish')
         }
     }
