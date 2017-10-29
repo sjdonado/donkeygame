@@ -39,24 +39,23 @@ var states = {
             platform.init();
             donkey.setAnimations();
             mario.setAnimations();
-
             platform.addGround();
             //platform.addPlatform(16,this.game.height-8,3,1);
         },
 
         update: function() {
-            donkey.move();
-            mario.entity.body.velocity.x = 0;
+            donkey.move(this);
+            platform.physics();
+            mario.physics();
             if (controllers.left.isDown){
                 mario.moveLeft();
             }
             if (controllers.right.isDown){
                 mario.moveRight();
             }
-            if(controllers.up.isDown && mario.entity.body.touching.down){
+            if(controllers.up.isDown && marioObject.body.touching.down){
                 mario.jump();
             }
-            platform.physics();
         }
     },
     finish: {
@@ -74,5 +73,4 @@ var states = {
 
 game.state.add('start', states['start']);
 game.state.add('main', states['main']);
-
 game.state.start('start');

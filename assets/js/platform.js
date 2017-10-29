@@ -6,11 +6,11 @@ var platform = {
 	},
 	init: () =>{
 		platforms = this.game.add.group();
+		// this.game.physics.arcade.enable(platforms);
 		platforms.enableBody = true;
 	},
 	addPlatform: (x,y,factor) => {
 		i = 0;
-
 		platformO = platforms.create(x, y, 'platform');
 		platformO.body.immovable = true;
 	},
@@ -21,10 +21,9 @@ var platform = {
 			platformO.body.immovable = true;
 			x += 16;
 		}
-
 	},
 	physics: ()=>{
-		this.game.physics.arcade.collide(mario,platforms);
-		this.game.physics.arcade.collide(barriles,platforms);
+		this.game.physics.arcade.collide(marioObject, platforms);
+		this.game.physics.arcade.collide(barriles, platforms);
 	}
 }

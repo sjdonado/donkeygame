@@ -5,26 +5,30 @@ var mario = {
         url:'assets/sprites/mario2.png'
     },
     init: function(){
-        this.entity = this.game.add.sprite(100, this.game.height-8, 'mario');
-        this.game.physics.arcade.enable(this.entity);
-        this.entity.body.gravity.y = 300;
-        this.entity.body.collideWorldBounds = true;
-        this.entity.frame = 4;
-        this.entity.enableBody = true;
+        marioObject = this.game.add.sprite(0, 0, 'mario');
+        this.game.physics.arcade.enable(marioObject);
+        marioObject.enableBody = true;
+        marioObject.body.bounce.y = 0.1;
+        marioObject.body.gravity.y = 300;
+        marioObject.body.collideWorldBounds = true;
+        marioObject.frame = 4;
     },
     setAnimations: function(){
-        this.entity.animations.add('left', [2,3], 5);
-        this.entity.animations.add('right', [5,4], 5);
+        marioObject.animations.add('left', [2,3], 5);
+        marioObject.animations.add('right', [5,4], 5);
     },
     moveLeft: function(){
-        this.entity.body.velocity.x = -150;
-        this.entity.animations.play('left');
+        marioObject.body.velocity.x = -150;
+        marioObject.animations.play('left');
     },
     moveRight: function(){
-        this.entity.body.velocity.x = 150;
-        this.entity.animations.play('right');
+        marioObject.body.velocity.x = 150;
+        marioObject.animations.play('right');
     },
     jump: () => {
-        this.entity.body.velocity.y = -350;
+        marioObject.body.velocity.y = -200;
+    },
+    physics: ()=>{
+        marioObject.body.velocity.x = 0;
     }
 }
