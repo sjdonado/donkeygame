@@ -1,13 +1,12 @@
 var mario = {
     sprites:{
-        x:15,
+        x:16,
         y:16,
-        url:'assets/sprites/mario.png'
+        url:'assets/sprites/mario2.png'
     },
     init: function(){
-        this.entity = this.game.add.sprite(this.sprites.x, 100, 'mario');
+        this.entity = this.game.add.sprite(100, this.game.height-8, 'mario');
         this.game.physics.arcade.enable(this.entity);
-        //this.entity.body.bounce.y = 0.3;
         this.entity.body.gravity.y = 300;
         this.entity.body.collideWorldBounds = true;
         this.entity.frame = 4;
