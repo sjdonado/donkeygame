@@ -6,12 +6,12 @@ var win = false;
 var scoreText;
 var scContText;
 
-mario.game = game;
-donkey.game = game;
-princess.game = game;
-barrel.game = game;
-platform.game = game;
-star.game = game;
+// mario.game = game;
+// donkey.game = game;
+// princess.game = game;
+// barrel.game = game;
+// platform.game = game;
+// star.game = game;
 
 var states = {
     start: {
@@ -58,6 +58,7 @@ var states = {
             princess.setAnimations();
             star.generateStars();
             platform.generateWord();
+            swFall = true;
         },
 
         update: function() {
@@ -88,15 +89,24 @@ var states = {
                     mario.jump(-1);
                 }
             }
+            if(swFall){
+                setTimer(() => {}, () => {
+                    princess.fall();
+                    donkey.fall();
+                    swFall = false;
+                }, 1000);
+            }
             scContText.text = score.total;
         }
     },
     finish: {
         preload: function() {
             game.stage.backgroundColor="#fafafa";
+            console.log(win);
         },
 
         create: function() {
+            console.log(win);
             controllers = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
         },
 

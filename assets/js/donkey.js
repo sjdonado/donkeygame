@@ -5,8 +5,8 @@ var donkey = {
 		url: 'assets/sprites/dk2.png'
 	},
 	init: () =>{
-		donkeyObject = this.game.add.sprite(this.game.width/2, this.game.height*0.12, 'dk');
-		this.game.physics.arcade.enable(donkeyObject);
+		donkeyObject = game.add.sprite(game.width/2, game.height*0.12, 'dk');
+		game.physics.arcade.enable(donkeyObject);
         donkeyObject.enableBody = true;
         donkeyObject.body.bounce.y = 0.1;
         donkeyObject.anchor.setTo(0.5);
@@ -43,5 +43,8 @@ var donkey = {
 		        }, 1000);
 		    }, 2000);
 		}
+	},
+	fall: () => {
+		donkeyObject.body.moves = false;
 	}
 }

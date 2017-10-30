@@ -5,13 +5,13 @@ var princess = {
 		url: 'assets/sprites/pauline.png'
 	},
 	init: () =>{
-		pauline = this.game.add.sprite(this.game.width/2 - 25,24, 'pauline');
-		this.game.physics.arcade.enable(pauline);
-    pauline.enableBody = true;
+		pauline = game.add.sprite(game.width/2 - 25, game.height*0.04, 'pauline');
+		game.physics.arcade.enable(pauline);
+    	pauline.enableBody = true;
 		pauline.body.bounce.y = 0.1;
-    pauline.anchor.setTo(0.5);
-    pauline.body.gravity.y = 300;
-    pauline.body.collideWorldBounds = true;
+	    pauline.anchor.setTo(0.5);
+	    pauline.body.gravity.y = 300;
+	    pauline.body.collideWorldBounds = true;
 	},
 	setAnimations: () => {
 		pauline.animations.add('right', [2,3]);
@@ -33,5 +33,8 @@ var princess = {
 			}
 			contPauline += 1;
 		}
+	},
+	fall: () => {
+		pauline.body.moves = false;
 	}
 }

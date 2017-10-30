@@ -5,9 +5,9 @@ var barrel = {
 		url: 'assets/sprites/barrel2.png'
 	},
 	init: () =>{
-		sprite = this.game.add.sprite(0, 0, 'barrel');
+		sprite = game.add.sprite(0, 0, 'barrel');
 		sprite.visible = false;
-		barriles = this.game.add.group();
+		barriles = game.add.group();
 		barriles.enableBody = true;
 		contStart = 0;
 	},
@@ -25,7 +25,7 @@ var barrel = {
 		}
 	},
 	addBarrel: (value) => {
-		barrelObject = barriles.create(this.game.width/2, this.game.height*0.11, 'barrel');
+		barrelObject = barriles.create(game.width/2, game.height*0.11, 'barrel');
 		barrelObject.body.collideWorldBounds = true;
 		barrelObject.body.gravity.y = 300;
 		barrelObject.body.bounce.y = 0.5;
@@ -40,11 +40,11 @@ var barrel = {
 		}
 	},
 	physics: () =>{
-		this.game.physics.arcade.collide(barriles, barriles);
+		game.physics.arcade.collide(barriles, barriles);
 	},
 	killBarrel: () => {
 		barriles.forEach(function(member, param) {
-			if(this.game.height - 50 <= member.y){
+			if(game.height - 50 <= member.y){
 				member.body.collideWorldBounds = false;
 				member.body.outOfBoundsKill = true;
 			}

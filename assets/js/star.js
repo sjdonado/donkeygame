@@ -6,15 +6,15 @@ var star = {
 
  },
  init: () =>{
-   stars = this.game.add.group();
+   stars = game.add.group();
    stars.enableBody = true;
-   //this.entity = this.game.add.sprite(0,this.game.height-38, 'star');
-   //this.game.physics.arcade.enable(this.entity);
-   //this.entity.body.collideWorldBounds = true;
+   //gamety = game.add.sprite(0,game.height-38, 'star');
+   //game.physics.arcade.enable(gamety);
+   //gamety.body.collideWorldBounds = true;
  },
  addStar: (x,y) => {
    starO = stars.create(x, y, 'star');
-   starO.body.immovable = true;
+   // starO.body.immovable = true;
    starO.animations.add('main', [1,2,3,2,1]);
    starO.animations.play('main', 8, true);
  },
@@ -31,7 +31,7 @@ var star = {
    star.addStar(this.game.width-16,this.game.height-166);
  },
  physics: () =>{
-   this.game.physics.arcade.collide(marioObject, stars, (mario, star) => {
+   game.physics.arcade.collide(marioObject, stars, (mario, star) => {
       star.kill();
       score.total += 1;
    }, null, this);
