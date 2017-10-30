@@ -3,22 +3,27 @@ var game = new Phaser.Game((screen.availWidth - screen.availWidth*0.3)/2 , scree
 var controllers;
 var timer;
 var win = false;
+var bmpText;
 
-mario.game = game;
-donkey.game = game;
-princess.game = game;
-barrel.game = game;
-platform.game = game;
-star.game = game;
+// mario.game = game;
+// donkey.game = game;
+// princess.game = game;
+// barrel.game = game;
+// platform.game = game;
+// star.game = game;
 
 var states = {
     start: {
         preload: function() {
-            game.stage.backgroundColor="#e52325";
+            game.stage.backgroundColor="#ffff";
+            game.load.bitmapFont('carrier_command', '/assets/fonts/carrier_command.png', '/assets/fonts/carrier_command.xml');
         },
 
         create: function() {
             controllers = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+            bmpText = game.add.bitmapText(10, 100, 'carrier_command','Press [SPACEBAR] to start !',34);
+            bmpText.inputEnabled = true;
+            bmpText.input.enableDrag();
         },
 
         update: function() {

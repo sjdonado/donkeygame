@@ -5,8 +5,8 @@ var mario = {
         url:'assets/sprites/mario2.png'
     },
     init: function(){
-        marioObject = this.game.add.sprite(0, screen.availHeight - screen.availHeight*0.19, 'mario');
-        this.game.physics.arcade.enable(marioObject);
+        marioObject = game.add.sprite(0, screen.availHeight - screen.availHeight*0.19, 'mario');
+        game.physics.arcade.enable(marioObject);
         marioObject.enableBody = true;
         marioObject.body.bounce.y = 0.1;
         marioObject.body.gravity.y = 300;
@@ -20,13 +20,13 @@ var mario = {
     },
     moveLeft: function(){
         if(move){
-            marioObject.body.velocity.x = -80;
+            marioObject.body.velocity.x = -100;
             marioObject.animations.play('left');
         }
     },
     moveRight: function(){
         if(move){
-            marioObject.body.velocity.x = 80;
+            marioObject.body.velocity.x = 100;
             marioObject.animations.play('right');
         }
     },
@@ -61,13 +61,14 @@ var mario = {
         },null, this);
         game.physics.arcade.collide(marioObject, pauline, (mario, pauline) => {
             lose(marioObject, game);
-            setTimer(() => {
-                move = false;
-                pauline.frame = 4;
-                win = true;
-            }, () => {
-                game.state.start('finish');
-            }, 1000);
+            if(score.total == 10){
+                setTimer(() => {
+                    move = false;
+                    pauline.frame = 4;
+                }, () => {
+                    game.state.start('finish');
+                }, 1000);
+            }
         },null, this);
     }
 }
