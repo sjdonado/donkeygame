@@ -45,7 +45,7 @@ var states = {
         create: function() {
             controllers = game.input.keyboard.createCursorKeys();
             scoreText = game.add.bitmapText(12,10,'font','Score',16);
-            scContText = game.add.bitmapText(45,30,'font','0',16);
+            scContText = game.add.bitmapText(30,30,'font','0',16);
             timer = game.time.create(false);
             barrel.init();
             donkey.init();
