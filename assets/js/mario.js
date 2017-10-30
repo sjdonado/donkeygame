@@ -53,16 +53,14 @@ var mario = {
         marioObject.body.velocity.x = 0;
     },
     collides: () => {
-        collideBarriles = game.physics.arcade.collide(marioObject, barriles);
-        if(collideBarriles){
+        game.physics.arcade.collide(marioObject, barriles, (mario, barrel) => {
             lose(marioObject, game);
-        }
-        collideDonkey = game.physics.arcade.collide(marioObject, donkeyObject);
-        if(collideDonkey){
+        },null, this);
+        game.physics.arcade.collide(marioObject, donkeyObject, (mario, donkey) => {
             lose(marioObject, game);
-        }
-        collidePauline = game.physics.arcade.collide(marioObject, pauline);
-        if(collidePauline){
+        },null, this);
+        game.physics.arcade.collide(marioObject, pauline, (mario, pauline) => {
+            lose(marioObject, game);
             setTimer(() => {
                 move = false;
                 pauline.frame = 4;
@@ -70,7 +68,7 @@ var mario = {
             }, () => {
                 game.state.start('finish');
             }, 1000);
-        }
+        },null, this);
     }
 }
 

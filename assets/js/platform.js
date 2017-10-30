@@ -53,7 +53,7 @@ var platform = {
             platform.addPlatform(128,this.game.height-480,3);
             platform.addPlatform(this.game.width/2 - 132,this.game.height-566,2);
             //center
-            platform.addPlatform(86,this.game.height-96,25);
+            platform.addPlatform(86,this.game.height-96,20);
             platform.addPlatform(this.game.width/2-79,this.game.height-192,10);
             platform.addPlatform(this.game.width/2-63,this.game.height-288,8);
             platform.addPlatform(this.game.width/2-143,this.game.height-384,18);

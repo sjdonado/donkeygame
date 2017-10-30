@@ -9,6 +9,7 @@ donkey.game = game;
 princess.game = game;
 barrel.game = game;
 platform.game = game;
+star.game = game;
 
 var states = {
     start: {
@@ -34,6 +35,7 @@ var states = {
             game.load.spritesheet('pauline', princess.sprites.url, princess.sprites.x, princess.sprites.y);
             game.load.spritesheet('barrel', barrel.sprites.url, barrel.sprites.x, barrel.sprites.y);
             game.load.spritesheet('platform', platform.sprites.url, platform.sprites.x, platform.sprites.y);
+            game.load.spritesheet('star', star.sprites.url, star.sprites.x, star.sprites.y);
         },
 
         create: function() {
@@ -44,10 +46,13 @@ var states = {
             mario.init();
             princess.init();
             platform.init();
+            star.init();
             donkey.setAnimations();
             mario.setAnimations();
             princess.setAnimations();
+            star.generateStars();
             platform.generateWord();
+            //star.move();
         },
 
         update: function() {
@@ -59,6 +64,7 @@ var states = {
             mario.collides();
             princess.move();
             barrel.killBarrel();
+            star.physics();
             if (controllers.left.isDown){
                 mario.moveLeft();
             }
