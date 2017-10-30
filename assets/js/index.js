@@ -102,7 +102,8 @@ var states = {
 
         update: function() {
             if(controllers.isDown){
-                game.state.start('main')
+                game.state.start('main');
+                score.total = 0;
             }
         }
     }
