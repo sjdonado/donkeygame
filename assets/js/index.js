@@ -2,7 +2,7 @@ var game = new Phaser.Game((screen.availWidth - screen.availWidth*0.3)/2 , scree
 
 var controllers;
 var timer;
-var win = false;
+var win;
 var scoreText;
 var scContText;
 
@@ -59,6 +59,7 @@ var states = {
             star.generateStars();
             platform.generateWord();
             swFall = true;
+            win = false;
         },
 
         update: function() {
@@ -102,7 +103,6 @@ var states = {
     finish: {
         preload: function() {
             game.stage.backgroundColor="#fafafa";
-            console.log(win);
         },
 
         create: function() {
