@@ -34,7 +34,6 @@ var star = {
    this.game.physics.arcade.collide(marioObject, stars, (mario, star) => {
       star.kill();
       score.total += 1;
-      score.log();
    }, null, this);
  }
 }
