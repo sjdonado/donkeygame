@@ -60,10 +60,10 @@ var mario = {
             lose(marioObject, game);
         },null, this);
         game.physics.arcade.collide(marioObject, pauline, (mario, pauline) => {
-            lose(marioObject, game);
             if(score.total == 10){
                 setTimer(() => {
                     move = false;
+                    win = true;
                     pauline.frame = 4;
                 }, () => {
                     game.state.start('finish');

@@ -3,7 +3,8 @@ var game = new Phaser.Game((screen.availWidth - screen.availWidth*0.3)/2 , scree
 var controllers;
 var timer;
 var win = false;
-var bmpText;
+var scoreText;
+var scContText;
 
 // mario.game = game;
 // donkey.game = game;
@@ -15,15 +16,12 @@ var bmpText;
 var states = {
     start: {
         preload: function() {
-            game.stage.backgroundColor="#ffff";
-            game.load.bitmapFont('carrier_command', '/assets/fonts/carrier_command.png', '/assets/fonts/carrier_command.xml');
+            game.stage.backgroundColor="#e52325";
+            game.load.bitmapFont('font','assets/fonts/font.png','assets/fonts/font.fnt');
         },
 
         create: function() {
             controllers = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-            bmpText = game.add.bitmapText(10, 100, 'carrier_command','Press [SPACEBAR] to start !',34);
-            bmpText.inputEnabled = true;
-            bmpText.input.enableDrag();
         },
 
         update: function() {
@@ -35,6 +33,7 @@ var states = {
     main: {
         preload: function() {
             game.stage.backgroundColor="#ffff";
+            game.load.bitmapFont('font','assets/fonts/font.png','assets/fonts/font.fnt');
             game.load.spritesheet('mario', mario.sprites.url, mario.sprites.x, mario.sprites.y);
             game.load.spritesheet('dk', donkey.sprites.url, donkey.sprites.x, donkey.sprites.y);
             game.load.spritesheet('pauline', princess.sprites.url, princess.sprites.x, princess.sprites.y);
@@ -45,6 +44,8 @@ var states = {
 
         create: function() {
             controllers = game.input.keyboard.createCursorKeys();
+            scoreText = game.add.bitmapText(12,10,'font','Score',16);
+            scContText = game.add.bitmapText(45,30,'font','0',16);
             timer = game.time.create(false);
             barrel.init();
             donkey.init();
@@ -57,7 +58,7 @@ var states = {
             princess.setAnimations();
             star.generateStars();
             platform.generateWord();
-            //star.move();
+            swFall = true;
         },
 
         update: function() {
@@ -88,20 +89,31 @@ var states = {
                     mario.jump(-1);
                 }
             }
+            if(swFall){
+                setTimer(() => {}, () => {
+                    princess.fall();
+                    donkey.fall();
+                    swFall = false;
+                }, 1000);
+            }
+            scContText.text = score.total;
         }
     },
     finish: {
         preload: function() {
             game.stage.backgroundColor="#fafafa";
+            console.log(win);
         },
 
         create: function() {
+            console.log(win);
             controllers = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
         },
 
         update: function() {
             if(controllers.isDown){
-                game.state.start('main')
+                game.state.start('main');
+                score.total = 0;
             }
         }
     }

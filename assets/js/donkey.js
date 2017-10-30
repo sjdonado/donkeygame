@@ -43,5 +43,8 @@ var donkey = {
 		        }, 1000);
 		    }, 2000);
 		}
+	},
+	fall: () => {
+		donkeyObject.body.moves = false;
 	}
 }
