@@ -5,8 +5,8 @@ var barrel = {
 		url: 'assets/sprites/barrel2.png'
 	},
 	init: () =>{
-		sprite = game.add.sprite(0, 0, 'barrel');
-		sprite.visible = false;
+		// sprite = game.add.sprite(0, 0, 'barrel');
+		// sprite.visible = false;
 		barriles = game.add.group();
 		barriles.enableBody = true;
 		contStart = 0;
