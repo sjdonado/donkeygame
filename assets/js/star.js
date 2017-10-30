@@ -1,7 +1,7 @@
 var star = {
  sprites:{
    x: 16,
-   y: 32,
+   y: 24,
    url: 'assets/sprites/star.png'
 
  },
@@ -15,8 +15,8 @@ var star = {
  addStar: (x,y) => {
    starO = stars.create(x, y, 'star');
    starO.body.immovable = true;
-   starO.animations.add('main', [0,1,2,3,4,3,2,1,0]);
-   starO.animations.play('main', 10, true);
+   starO.animations.add('main', [1,2,3,2,1]);
+   starO.animations.play('main', 8, true);
  },
  generateStars: () => {
    star.addStar(this.game.width-16,this.game.height-40);
