@@ -1,6 +1,9 @@
 var game = new Phaser.Game((screen.availWidth - screen.availWidth*0.3)/2 , screen.availHeight - screen.availHeight*0.15, Phaser.CANVAS, '');
 
 var controllers;
+var timer;
+var win = false;
+
 mario.game = game;
 donkey.game = game;
 princess.game = game;
@@ -35,6 +38,7 @@ var states = {
 
         create: function() {
             controllers = game.input.keyboard.createCursorKeys();
+            timer = game.time.create(false);
             barrel.init();
             donkey.init();
             mario.init();
@@ -54,14 +58,24 @@ var states = {
             mario.physics();
             mario.collides();
             princess.move();
+            barrel.killBarrel();
             if (controllers.left.isDown){
                 mario.moveLeft();
             }
             if (controllers.right.isDown){
                 mario.moveRight();
             }
-            if(controllers.up.isDown && marioObject.body.touching.down){
-                mario.jump();
+            if(marioObject.body.touching.down){
+                if(controllers.up.isDown){
+                    mario.jump(0);
+                }
+            }else{
+                if(controllers.right.isDown){
+                    mario.jump(1);
+                }
+                if(controllers.left.isDown){
+                    mario.jump(-1);
+                }
             }
         }
     },
@@ -71,9 +85,13 @@ var states = {
         },
 
         create: function() {
+            controllers = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
         },
 
         update: function() {
+            if(controllers.isDown){
+                game.state.start('main')
+            }
         }
     }
 }
@@ -82,3 +100,9 @@ game.state.add('start', states['start']);
 game.state.add('main', states['main']);
 game.state.add('finish', states['finish']);
 game.state.start('start');
+
+function setTimer(doBefore, doAfter, time){
+    doBefore();
+    timer.add(time, doAfter, this);
+    timer.start();
+}

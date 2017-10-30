@@ -19,18 +19,19 @@ var princess = {
 		contPauline = 0;
 	},
 	move: () => {
-		if(contPauline < 50){
-			pauline.x += 1;
-			pauline.animations.play('right', 5);
+		if(move){
+			if(contPauline < 50){
+				pauline.x += 1;
+				pauline.animations.play('right', 5);
+			}
+			if(contPauline >= 50 && contPauline < 100){
+				pauline.x -= 1;
+				pauline.animations.play('left', 5);
+			}
+			if(contPauline == 100){
+				contPauline = -1;
+			}
+			contPauline += 1;
 		}
-		if(contPauline >= 50 && contPauline < 100){
-			pauline.x -= 1;
-			pauline.animations.play('left', 5);
-		}
-		if(contPauline == 100){
-			console.log(pauline.x)
-			contPauline = -1;
-		}
-		contPauline += 1;
 	}
 }

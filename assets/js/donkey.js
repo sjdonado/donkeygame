@@ -5,7 +5,7 @@ var donkey = {
 		url: 'assets/sprites/dk2.png'
 	},
 	init: () =>{
-		donkeyObject = this.game.add.sprite(this.game.width/2,80, 'dk');
+		donkeyObject = this.game.add.sprite(this.game.width/2, this.game.height*0.12, 'dk');
 		this.game.physics.arcade.enable(donkeyObject);
         donkeyObject.enableBody = true;
         donkeyObject.body.bounce.y = 0.1;
@@ -16,25 +16,32 @@ var donkey = {
 	setAnimations: () => {
 		donkeyObject.frame = 0;
 		donkeyObject.animations.add('golpear', [1,4]);
-		this.cont = 0;
+		donkeyObject.animations.add('barril', [2,3]);
+		sw = true;
 	},
 	move: () => {
-		if(this.cont == 0){
-			this.num = Math.floor((Math.random()) * 2);
-			donkeyObject.animations.play('golpear', 2, true);
-		}else{
-			if(this.cont == 110){
-				donkeyObject.animations.stop();
-				donkeyObject.frame = 3;
-			}
-			if(this.cont == 150){
-				barrel.addBarrel(this.num);
-				donkeyObject.frame = 2;
-			}
-			if(this.cont == 180){
-				this.cont = -1;
-			}
+		if(sw){
+			setTimer(() => {
+		        num = Math.floor((Math.random()) * 2);
+				donkeyObject.animations.play('golpear', 2, true);
+				sw = false;
+		    }, () => {
+				setTimer(() => {
+					donkeyObject.animations.stop();
+					donkeyObject.animations.play('barril', 2, false);
+		        }, () => {
+			        setTimer(() => {
+						if(num == 1){
+							donkeyObject.frame = 0;
+						}else{
+							donkeyObject.frame = 5;
+						}
+						barrel.addBarrel(num);
+			        }, () => {
+			        	sw = true;
+			        }, 400);
+		        }, 1000);
+		    }, 2000);
 		}
-		this.cont += 1;
 	}
 }

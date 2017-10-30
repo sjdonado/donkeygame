@@ -10,23 +10,44 @@ var mario = {
         marioObject.enableBody = true;
         marioObject.body.bounce.y = 0.1;
         marioObject.body.gravity.y = 300;
-        marioObject.body.collideWorldBounds = false;
+        marioObject.body.collideWorldBounds = true;
         marioObject.frame = 4;
+        move = true;
     },
     setAnimations: function(){
         marioObject.animations.add('left', [2,3], 5);
         marioObject.animations.add('right', [5,4], 5);
     },
     moveLeft: function(){
-        marioObject.body.velocity.x = -80;
-        marioObject.animations.play('left');
+        if(move){
+            marioObject.body.velocity.x = -80;
+            marioObject.animations.play('left');
+        }
     },
     moveRight: function(){
-        marioObject.body.velocity.x = 80;
-        marioObject.animations.play('right');
+        if(move){
+            marioObject.body.velocity.x = 80;
+            marioObject.animations.play('right');
+        }
     },
-    jump: () => {
-        marioObject.body.velocity.y = -175;
+    jump: (value) => {
+        if(move){
+            if(value == 1){
+                setTimer(() => {
+                    marioObject.frame = 6;
+                }, () => {
+                    marioObject.frame = 4;
+                }, 1);
+            }else if(value == -1){
+                setTimer(() => {
+                    marioObject.frame = 1;
+                }, () => {
+                    marioObject.frame = 3;
+                }, 1);
+            }else{
+                marioObject.body.velocity.y = -175;
+            }
+        }
     },
     physics: () => {
         marioObject.body.velocity.x = 0;
@@ -34,18 +55,30 @@ var mario = {
     collides: () => {
         collideBarriles = game.physics.arcade.collide(marioObject, barriles);
         if(collideBarriles){
-            console.log('PERDISTE') 
-            game.state.start('finish')
+            lose(marioObject, game);
         }
         collideDonkey = game.physics.arcade.collide(marioObject, donkeyObject);
         if(collideDonkey){
-            console.log('PERDISTE')
-            game.state.start('finish')
+            lose(marioObject, game);
         }
         collidePauline = game.physics.arcade.collide(marioObject, pauline);
         if(collidePauline){
-            console.log('GANASTE')
-            game.state.start('finish')
+            setTimer(() => {
+                move = false;
+                pauline.frame = 4;
+                win = true;
+            }, () => {
+                game.state.start('finish');
+            }, 1000);
         }
     }
+}
+
+function lose(marioObject, game){
+    setTimer(() => {
+        move = false;
+        marioObject.frame = 0;
+    }, () => {
+        game.state.start('finish');
+    }, 1000);
 }
