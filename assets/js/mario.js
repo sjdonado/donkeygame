@@ -20,13 +20,13 @@ var mario = {
     },
     moveLeft: function(){
         if(move){
-            marioObject.body.velocity.x = -100;
+            marioObject.body.velocity.x = -70;
             marioObject.animations.play('left');
         }
     },
     moveRight: function(){
         if(move){
-            marioObject.body.velocity.x = 100;
+            marioObject.body.velocity.x = 70;
             marioObject.animations.play('right');
         }
     },

@@ -102,12 +102,24 @@ var states = {
     },
     finish: {
         preload: function() {
-            game.stage.backgroundColor="#fafafa";
+            game.stage.backgroundColor="#ffff";
+            game.load.bitmapFont('font','assets/fonts/font.png','assets/fonts/font.fnt');
         },
 
         create: function() {
             console.log(win);
             controllers = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+            if(win){
+                text = 'YOU WIN';
+                xWin = game.width*0.225;
+                game.add.bitmapText(game.world.centerX - game.width*0.33, game.world.centerY,'font', 'CONGRATULATIONS!', 36);
+            }else{
+                text = 'GAME OVER';
+                xWin = game.width*0.305;
+                game.add.bitmapText(game.world.centerX - game.width*0.16, game.world.centerY,'font', 'SCORE: ' + score.total, 36);
+            }
+            game.add.bitmapText(game.world.centerX - xWin, game.world.centerY - 100, 'font', text, 56);
+            game.add.bitmapText(game.world.centerX - game.width*0.42, game.world.centerY + 100, 'font', 'Press [SPACEBAR] to restart',26);
         },
 
         update: function() {
