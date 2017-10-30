@@ -3,6 +3,8 @@ var game = new Phaser.Game((screen.availWidth - screen.availWidth*0.3)/2 , scree
 var controllers;
 var timer;
 var win = false;
+var scoreText;
+var scContText;
 
 mario.game = game;
 donkey.game = game;
@@ -15,6 +17,7 @@ var states = {
     start: {
         preload: function() {
             game.stage.backgroundColor="#e52325";
+            game.load.bitmapFont('font','assets/fonts/font.png','assets/fonts/font.fnt');
         },
 
         create: function() {
@@ -30,6 +33,7 @@ var states = {
     main: {
         preload: function() {
             game.stage.backgroundColor="#ffff";
+            game.load.bitmapFont('font','assets/fonts/font.png','assets/fonts/font.fnt');
             game.load.spritesheet('mario', mario.sprites.url, mario.sprites.x, mario.sprites.y);
             game.load.spritesheet('dk', donkey.sprites.url, donkey.sprites.x, donkey.sprites.y);
             game.load.spritesheet('pauline', princess.sprites.url, princess.sprites.x, princess.sprites.y);
@@ -40,6 +44,8 @@ var states = {
 
         create: function() {
             controllers = game.input.keyboard.createCursorKeys();
+            scoreText = game.add.bitmapText(12,10,'font','Score',16);
+            scContText = game.add.bitmapText(45,30,'font','0',16);
             timer = game.time.create(false);
             barrel.init();
             donkey.init();
@@ -52,7 +58,6 @@ var states = {
             princess.setAnimations();
             star.generateStars();
             platform.generateWord();
-            //star.move();
         },
 
         update: function() {
@@ -83,6 +88,7 @@ var states = {
                     mario.jump(-1);
                 }
             }
+            scContText.text = score.total;
         }
     },
     finish: {

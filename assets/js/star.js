@@ -19,16 +19,16 @@ var star = {
    starO.animations.play('main', 8, true);
  },
  generateStars: () => {
-   star.addStar(this.game.width-16,this.game.height-40);
-   star.addStar(this.game.width/2-8,this.game.height-129);
-   star.addStar(0,this.game.height-366);
-   star.addStar(this.game.width-16,this.game.height-369);
-   star.addStar(this.game.width/2 - 80,this.game.height-561);
-   star.addStar(this.game.width-174,this.game.height-561);
-   star.addStar(this.game.width/2-8,this.game.height-225);
-   star.addStar(this.game.width/2-8,this.game.height-417);
-   star.addStar(0,this.game.height-177);
-   star.addStar(this.game.width-16,this.game.height-177);
+   star.addStar(this.game.width-16,this.game.height-30);
+   star.addStar(this.game.width/2-8,this.game.height-118);
+   star.addStar(0,this.game.height-358);
+   star.addStar(this.game.width-16,this.game.height-358);
+   star.addStar(this.game.width/2 - 80,this.game.height-550);
+   star.addStar(this.game.width-174,this.game.height-550);
+   star.addStar(this.game.width/2-8,this.game.height-214);
+   star.addStar(this.game.width/2-8,this.game.height-406);
+   star.addStar(0,this.game.height-166);
+   star.addStar(this.game.width-16,this.game.height-166);
  },
  physics: () =>{
    this.game.physics.arcade.collide(marioObject, stars, (mario, star) => {
