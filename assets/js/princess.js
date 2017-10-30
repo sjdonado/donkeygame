@@ -7,11 +7,11 @@ var princess = {
 	init: () =>{
 		pauline = this.game.add.sprite(this.game.width/2 - 25,24, 'pauline');
 		this.game.physics.arcade.enable(pauline);
-        pauline.enableBody = true;        
+    pauline.enableBody = true;
 		pauline.body.bounce.y = 0.1;
-        pauline.anchor.setTo(0.5);
-        pauline.body.gravity.y = 300;
-        pauline.body.collideWorldBounds = true;
+    pauline.anchor.setTo(0.5);
+    pauline.body.gravity.y = 300;
+    pauline.body.collideWorldBounds = true;
 	},
 	setAnimations: () => {
 		pauline.animations.add('right', [2,3]);
