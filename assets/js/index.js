@@ -127,7 +127,7 @@ var states = {
             }else{
                 text = 'GAME OVER';
                 xWin = game.width*0.305;
-                game.add.bitmapText(game.world.centerX - game.width*0.16, game.world.centerY,'font', 'SCORE: ' + score.total, 36);
+                game.add.bitmapText(game.world.centerX - game.width*0.17, game.world.centerY,'font', 'SCORE: ' + score.total, 36);
             }
             game.add.bitmapText(game.world.centerX - xWin, game.world.centerY - 100, 'font', text, 56);
             game.add.bitmapText(game.world.centerX - game.width*0.42, game.world.centerY + 100, 'font', 'Press [SPACEBAR] to restart',26);
