@@ -32,7 +32,7 @@ var barrel = {
 		barrelObject.body.bounce.x = 0.9;
 		barrelObject.animations.add('animation', [0,3,4,1]);
 		barrelObject.animations.play('animation', 5, true);
-		num = Math.floor(Math.random()*80 + 10);
+		num = Math.floor(Math.random()*60 + 10);
 		if(value == 1){
 			barrelObject.body.velocity.x = -100 - num;
 		}else{
