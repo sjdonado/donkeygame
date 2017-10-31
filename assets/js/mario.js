@@ -1,7 +1,7 @@
 var mario = {
     sprites: {
-        x:16,
-        y:16,
+        x:18,
+        y:18,
         url:'assets/sprites/mario.png'
     },
     init: function(){
