@@ -1,8 +1,8 @@
 var donkey = {
 	sprites:{
-		x: 47,
-		y: 32,
-		url: 'assets/sprites/dk2.png'
+		x: 49,
+		y: 35,
+		url: 'assets/sprites/dk.png'
 	},
 	init: () =>{
 		donkeyObject = game.add.sprite(game.width/2, game.height*0.12, 'dk');

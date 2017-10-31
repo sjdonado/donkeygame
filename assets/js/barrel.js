@@ -2,7 +2,7 @@ var barrel = {
 	sprites:{
 		x: 17,
 		y: 10,
-		url: 'assets/sprites/barrel2.png'
+		url: 'assets/sprites/barrel.png'
 	},
 	init: () =>{
 		// sprite = game.add.sprite(0, 0, 'barrel');

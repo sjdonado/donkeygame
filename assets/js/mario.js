@@ -2,7 +2,7 @@ var mario = {
     sprites: {
         x:16,
         y:16,
-        url:'assets/sprites/mario2.png'
+        url:'assets/sprites/mario.png'
     },
     init: function(){
         marioObject = game.add.sprite(0, screen.availHeight - screen.availHeight*0.19, 'mario');
