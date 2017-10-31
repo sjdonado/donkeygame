@@ -16,17 +16,28 @@ var scContText;
 var states = {
     start: {
         preload: function() {
-            game.stage.backgroundColor="#e52325";
+            game.stage.backgroundColor="#ffff";
             game.load.bitmapFont('font','assets/fonts/font.png','assets/fonts/font.fnt');
         },
 
         create: function() {
             controllers = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+            var mainText= game.add.bitmapText(game.width/2 - 115,game.height/2,'font','Press [SPACEBAR] to start',16);
+            var authorsT = game.add.bitmapText(game.width/2-40,game.height -200,'font','Authors',16);
+            var brText = game.add.bitmapText(game.width/2-70,game.height -180,'font','Brian Ramirez',16);
+            var jrText = game.add.bitmapText(game.width/2-75,game.height -160,'font','Juan Rodriguez',16);
+            var javText = game.add.bitmapText(game.width/2-80,game.height -140,'font','Javier Roncallo',16);
+
         },
 
         update: function() {
             if(controllers.isDown){
-                game.state.start('main')
+                game.time.events.add(2000, function() {    game.add.tween(maintText).to({y: 0}, 1500, Phaser.Easing.Linear.None, true);    game.add.tween(maintText).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);}, this);
+                game.time.events.add(2000, function() {    game.add.tween(authorsT).to({y: 0}, 1500, Phaser.Easing.Linear.None, true);    game.add.tween(authorsT).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);}, this);
+                game.time.events.add(2000, function() {    game.add.tween(brText).to({y: 0}, 1500, Phaser.Easing.Linear.None, true);    game.add.tween(brText).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);}, this);
+                game.time.events.add(2000, function() {    game.add.tween(jrText).to({y: 0}, 1500, Phaser.Easing.Linear.None, true);    game.add.tween(jrText).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);}, this);
+                game.time.events.add(2000, function() {    game.add.tween(javText).to({y: 0}, 1500, Phaser.Easing.Linear.None, true);    game.add.tween(javText).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);}, this);
+                game.state.start('main');
             }
         }
     },
