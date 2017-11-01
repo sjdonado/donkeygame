@@ -1,4 +1,4 @@
-var game = new Phaser.Game((screen.availWidth - screen.availWidth*0.3)/2 , screen.availHeight - screen.availHeight*0.15, Phaser.CANVAS, '');
+var game = new Phaser.Game(478, 630, Phaser.CANVAS, '');
 
 var controllers;
 var timer;
