@@ -5,7 +5,7 @@ var princess = {
 		url: 'assets/sprites/pauline.png'
 	},
 	init: () =>{
-		pauline = game.add.sprite(game.width/2 - 25, game.height*0.04, 'pauline');
+		pauline = game.add.sprite(game.width/2 - 25, game.height*0.05, 'pauline');
 		game.physics.arcade.enable(pauline);
     	pauline.enableBody = true;
 		pauline.body.bounce.y = 0.1;

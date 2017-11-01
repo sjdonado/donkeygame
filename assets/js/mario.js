@@ -5,7 +5,7 @@ var mario = {
         url:'assets/sprites/mario.png'
     },
     init: function(){
-        marioObject = game.add.sprite(0, game.height - 8, 'mario');
+        marioObject = game.add.sprite(0, game.height - 26, 'mario');
         game.physics.arcade.enable(marioObject);
         marioObject.enableBody = true;
         marioObject.body.bounce.y = 0.1;
