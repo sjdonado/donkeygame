@@ -12,9 +12,9 @@ var barrel = {
 		contStart = 0;
 	},
 	startGame: () => {
-		if((contStart/2) % 10 == 0){
+		if((contStart/2) % 10 === 0){
 			num = Math.floor(Math.random()*2);
-			if(num == 0){
+			if(num === 0){
 				barrel.addBarrel(1);
 			}else{
 				barrel.addBarrel(-1);
