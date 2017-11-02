@@ -66,7 +66,6 @@ var mario = {
                     move = false;
                     if(!win){game.add.audio('win').play();}
                     win = true;
-                    game.add.audio('win').play();
                     pauline.frame = 4;
                 }, () => {
                     game.state.start('finish');

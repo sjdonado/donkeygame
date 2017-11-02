@@ -5,6 +5,8 @@ var timer;
 var win;
 var scoreText;
 var scContText;
+var mainMusic;
+var startMusic;
 
 // mario.game = game;
 // donkey.game = game;
@@ -18,6 +20,8 @@ var states = {
         preload: function() {
             game.stage.backgroundColor="#ffff";
             game.load.bitmapFont('font','assets/fonts/font.png','assets/fonts/font.fnt');
+            game.load.audio('mainMusic','assets/audios/mainMusic.mp3');
+            game.load.audio('startMusic','assets/audios/startMusic.mp3');
         },
 
         create: function() {
@@ -27,7 +31,9 @@ var states = {
             var brText = game.add.bitmapText(game.width/2-70,game.height -180,'font','Brian Ramirez',16);
             var jrText = game.add.bitmapText(game.width/2-75,game.height -160,'font','Juan Rodriguez',16);
             var javText = game.add.bitmapText(game.width/2-80,game.height -140,'font','Javier Roncallo',16);
-
+            mainMusic = game.add.audio('mainMusic');
+            startMusic = game.add.audio('startMusic');
+            startMusic.play();
         },
 
         update: function() {
@@ -42,7 +48,7 @@ var states = {
         }
     },
     main: {
-        preload: function() {
+        preload: function(){
             game.stage.backgroundColor="#ffff";
             game.load.bitmapFont('font','assets/fonts/font.png','assets/fonts/font.fnt');
             game.load.spritesheet('mario', mario.sprites.url, mario.sprites.x, mario.sprites.y);
@@ -75,6 +81,8 @@ var states = {
             platform.generateWord();
             swFall = true;
             win = false;
+            startMusic.stop();
+            mainMusic.play();
         },
 
         update: function() {
@@ -115,13 +123,14 @@ var states = {
             scContText.text = score.total;
         }
     },
-    finish: {
+    finish: {        
         preload: function() {
             game.stage.backgroundColor="#ffff";
             game.load.bitmapFont('font','assets/fonts/font.png','assets/fonts/font.fnt');
         },
-
+        
         create: function() {
+            mainMusic.stop();
             console.log(win);
             controllers = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
             if(win){
