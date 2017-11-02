@@ -30,7 +30,7 @@ var mario = {
             marioObject.animations.play('right');
         }
     },
-    jump: (value) => {
+    jump: function(value){
         if(move){
             if(value == 1){
                 setTimer(() => {
@@ -45,6 +45,7 @@ var mario = {
                     marioObject.frame = 3;
                 }, 1);
             }else{
+                game.add.audio('jump').play();
                 marioObject.body.velocity.y = -175;
             }
         }
@@ -63,7 +64,9 @@ var mario = {
             if(score.total == 10){
                 setTimer(() => {
                     move = false;
+                    if(!win){game.add.audio('win').play();}
                     win = true;
+                    game.add.audio('win').play();
                     pauline.frame = 4;
                 }, () => {
                     game.state.start('finish');
@@ -76,6 +79,7 @@ var mario = {
 function lose(marioObject, game){
     setTimer(() => {
         move = false;
+        if (marioObject.frame != 0) {game.add.audio('marioDies').play();}
         marioObject.frame = 0;
     }, () => {
         game.state.start('finish');

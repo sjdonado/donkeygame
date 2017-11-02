@@ -3,7 +3,6 @@ var star = {
    x: 16,
    y: 24,
    url: 'assets/sprites/star.png'
-
  },
  init: () =>{
    stars = game.add.group();
@@ -33,6 +32,7 @@ var star = {
  physics: () =>{
    game.physics.arcade.collide(marioObject, stars, (mario, star) => {
       star.kill();
+      game.add.audio('starCollide').play();
       score.total += 1;
    }, null, this);
  }

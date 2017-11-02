@@ -51,6 +51,10 @@ var states = {
             game.load.spritesheet('barrel', barrel.sprites.url, barrel.sprites.x, barrel.sprites.y);
             game.load.spritesheet('platform', platform.sprites.url, platform.sprites.x, platform.sprites.y);
             game.load.spritesheet('star', star.sprites.url, star.sprites.x, star.sprites.y);
+            game.load.audio('jump','assets/audios/marioJump.wav');
+            game.load.audio('marioDies','assets/audios/marioDies.wav');
+            game.load.audio('starCollide','assets/audios/starCollide.wav');
+            game.load.audio('win','assets/audios/win.wav');
         },
 
         create: function() {
