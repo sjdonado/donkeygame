@@ -1,5 +1,5 @@
 var client = {
-	socket: io.connect('http://localhost:8080', {'forceNew': true}),
+	socket: io.connect('http://port-8080.centos-sjdonado454850.codeanyapp.com', {'forceNew': true}),
 	playerMap: {},
 	askNewPlayer: ()=>{
 		client.socket.emit('newPlayer');
