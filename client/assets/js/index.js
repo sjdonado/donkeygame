@@ -8,8 +8,6 @@ var scContText;
 var mainMusic;
 var startMusic;
 
-client.askNewPlayer();
-
 var states = {
     start: {
         preload: function() {
@@ -56,8 +54,7 @@ var states = {
             game.load.audio('marioDies','assets/audios/marioDies.wav');
             game.load.audio('starCollide','assets/audios/starCollide.wav');
             game.load.audio('win','assets/audios/win.wav');
-            client.newPlayer();
-            client.allPlayers();
+            client.askNewPlayer();
         },
 
         create: function() {
@@ -162,3 +159,6 @@ function setTimer(doBefore, doAfter, time){
     timer.add(time, doAfter, this);
     timer.start();
 }
+
+client.newPlayer();
+client.allPlayers();
