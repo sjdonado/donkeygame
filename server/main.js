@@ -21,7 +21,7 @@ io.on('connection', (socket)=>{
     });
 });
 
-server.listen(8080, ()=>{
+server.listen(443, ()=>{
 	console.log('Listening on '+ server.address().address);
 });
 
