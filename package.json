@@ -4,7 +4,7 @@
   "description": "* Fondo (Con escaleras) * Barras * Mario * DonKey Kong * Barriles * Princesa * Fondo pantalla inicio * Botón pantalla inicio * Título pantalla inicio (Nombre, ganaste, perdiste)",
   "main": "index.js",
   "scripts": {
-    "start": "node server/main.js",
+    "start": "nodemon server/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
