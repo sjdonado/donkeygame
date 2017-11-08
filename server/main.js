@@ -9,19 +9,26 @@ var clients = [];
 var lastPlayderID = 0;
 
 io.on('connection', (socket)=>{
-	console.log("New connection with client "+socket.handshake.address);
-	socket.on('newPlayer',function(){
+	console.log("New connection with client " + socket.handshake.address);
+	socket.on('newPlayer', ()=>{
         socket.player = {
-            id: lastPlayderID++,
-            x: 0,
-            y: 0,
+            id: lastPlayderID++
         };
         socket.emit('allPlayers', getAllPlayers());
         socket.broadcast.emit('newPlayer', socket.player);
     });
+	socket.on('movePlayer', (data)=>{
+		socket.broadcast.emit('moveAllPlayers', data);
+	})
+	socket.on('disconnect', ()=>{
+		console.log("Disconnect client: " + socket.handshake.address);
+		//io.emit('remove', socket.player.id);
+	})
 });
 
-server.listen(8080, ()=>{
+var port = process.env.PORT || 8080;
+
+server.listen(port, ()=>{
 	console.log('Listening on '+ server.address().address);
 });
 

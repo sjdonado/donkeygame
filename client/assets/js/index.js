@@ -8,6 +8,8 @@ var scContText;
 var mainMusic;
 var startMusic;
 
+//mario = new mario();
+
 var states = {
     start: {
         preload: function() {
@@ -44,7 +46,7 @@ var states = {
         preload: function(){
             game.stage.backgroundColor="#ffff";
             game.load.bitmapFont('font','assets/fonts/font.png','assets/fonts/font.fnt');
-            game.load.spritesheet('mario', mario.sprites.url, mario.sprites.x, mario.sprites.y);
+            game.load.spritesheet('mario', 'assets/sprites/mario.png', 18, 18);
             game.load.spritesheet('dk', donkey.sprites.url, donkey.sprites.x, donkey.sprites.y);
             game.load.spritesheet('pauline', princess.sprites.url, princess.sprites.x, princess.sprites.y);
             game.load.spritesheet('barrel', barrel.sprites.url, barrel.sprites.x, barrel.sprites.y);
@@ -54,7 +56,6 @@ var states = {
             game.load.audio('marioDies','assets/audios/marioDies.wav');
             game.load.audio('starCollide','assets/audios/starCollide.wav');
             game.load.audio('win','assets/audios/win.wav');
-            client.askNewPlayer();
         },
 
         create: function() {
@@ -64,17 +65,21 @@ var states = {
             timer = game.time.create(false);
             barrel.init();
             donkey.init();
-            mario.init();
+            client.playerMap.forEach((element)=>{
+              element.init();
+              element.setAnimations();
+            });
             princess.init();
             platform.init();
             star.init();
             donkey.setAnimations();
-            mario.setAnimations();
             princess.setAnimations();
             star.generateStars();
             platform.generateWord();
             swFall = true;
             win = false;
+            moveStatusSend = null;
+            moveStatus = null;
             startMusic.stop();
             mainMusic.play();
         },
@@ -84,27 +89,34 @@ var states = {
             donkey.move();
             platform.physics();
             barrel.physics();
-            mario.physics();
-            mario.collides();
+            client.playerMap.forEach((element)=>{
+              element.physics();
+              element.collides();
+            });
             princess.move();
             barrel.killBarrel();
             star.physics();
             if (controllers.left.isDown){
                 mario.moveLeft();
+                moveStatus = 'left';
             }
             if (controllers.right.isDown){
                 mario.moveRight();
+                moveStatus = 'right';
             }
-            if(marioObject.body.touching.down){
+            if(mario.object.body.touching.down){
                 if(controllers.up.isDown){
                     mario.jump(0);
+                    moveStatus = 'jump0';
                 }
             }else{
                 if(controllers.right.isDown){
                     mario.jump(1);
+                    moveStatus = 'jump1';
                 }
                 if(controllers.left.isDown){
                     mario.jump(-1);
+                    moveStatus = 'jump-1';
                 }
             }
             if(swFall){
@@ -115,6 +127,13 @@ var states = {
                 }, 1000);
             }
             scContText.text = score.total;
+            if(controllers.up.isUp && controllers.down.isUp && controllers.left.isUp && controllers.right.isUp){
+              moveStatus = 'stop';
+            }
+            if(moveStatus != moveStatusSend){
+              client.movePlayer(moveStatus);
+              moveStatusSend = moveStatus;
+            }
         }
     },
     finish: {        
@@ -160,5 +179,8 @@ function setTimer(doBefore, doAfter, time){
     timer.start();
 }
 
+client.askNewPlayer();
 client.newPlayer();
 client.allPlayers();
+client.moveAllPlayers();
+client.removePlayer();

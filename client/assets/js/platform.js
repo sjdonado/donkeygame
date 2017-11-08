@@ -28,7 +28,7 @@ var platform = {
 		}
 	},
 	physics: ()=>{
-		game.physics.arcade.collide(marioObject, platforms);
+		game.physics.arcade.collide(mario.object, platforms);
 		game.physics.arcade.collide(barriles, platforms);
 		game.physics.arcade.collide(donkeyObject, platforms);
 		game.physics.arcade.collide(pauline, platforms);
