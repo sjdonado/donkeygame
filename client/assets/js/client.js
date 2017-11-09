@@ -9,8 +9,6 @@ var client = {
 		client.socket.on('newPlayer', (data)=>{
 			console.log(data);
 		 	client.addNewPlayer(data);
-		 	client.playerMap[data].init();
-            client.playerMap[data].setAnimations();
 		});
 	},
 	allPlayers: ()=>{
