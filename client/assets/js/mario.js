@@ -14,26 +14,26 @@ class mario {
     this.entity.body.gravity.y = 300;
     this.entity.body.collideWorldBounds = true;
     this.entity.frame = 4;
-    mario.move = true;
+    this.move = true;
   }
   setAnimations () {
     this.entity.animations.add('left', [2,3], 5);
     this.entity.animations.add('right', [5,4], 5);
   }
   moveLeft () {
-    if(mario.move){
+    if(this.move){
       this.entity.body.velocity.x = -70;
       this.entity.animations.play('left');
     }
   }
   moveRight () {
-    if(mario.move){
+    if(this.move){
         this.entity.body.velocity.x = 70;
         this.entity.animations.play('right');
     }
   }
   jump (value) {
-    if(mario.move){
+    if(this.move){
         if(value == 1){
             setTimer(() => {
                 this.entity.frame = 6;
@@ -58,15 +58,15 @@ class mario {
   collides () {
     game.physics.arcade.collide(this.entity, platforms);
     game.physics.arcade.collide(this.entity, barriles, (mario, barrel) => {
-        lose(this.entity, game);
+        lose(this.entity, this.move);
     },null, this);
     game.physics.arcade.collide(this.entity, donkeyObject, (mario, donkey) => {
-        lose(this.entity, game);
+        lose(this.entity, this.move);
     },null, this);
     game.physics.arcade.collide(this.entity, pauline, (mario, pauline) => {
       if(score.total == 10){
           setTimer(() => {
-              mario.move = false;
+              this.move = false;
               if(!win){game.add.audio('win').play();}
               win = true;
               pauline.frame = 4;
@@ -75,12 +75,17 @@ class mario {
           }, 1000);
       }
     },null, this);
+    game.physics.arcade.collide(this.entity, stars, (mario, star) => {
+      star.kill();
+      game.add.audio('starCollide').play();
+      score.total += 1;
+   }, null, this);
   }
 }
 
-function lose (object, game){
+function lose (object, game, move){
   setTimer(() => {
-    mario.move = false;
+    move = false;
     if (object.frame != 0) {game.add.audio('marioDies').play();}
     object.frame = 0;
   }, () => {

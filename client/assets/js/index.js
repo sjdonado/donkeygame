@@ -59,6 +59,7 @@ var states = {
         },
 
         create: function() {
+            game.stage.disableVisibilityChangue = true;
             controllers = game.input.keyboard.createCursorKeys();
             scoreText = game.add.bitmapText(12,10,'font','Score',16);
             scContText = game.add.bitmapText(30,30,'font','0',16);
@@ -96,7 +97,6 @@ var states = {
             });
             princess.move();
             barrel.killBarrel();
-            star.physics();
             if(swFall){
                 setTimer(() => {}, () => {
                     princess.fall();
@@ -106,12 +106,12 @@ var states = {
             }
             client.moveAllPlayers((data)=>{
                 if(swMovePlayer != data.move){
-                    console.log(data.move);
+                    console.log('id:' + data.id + ' move:' + data.move);
                     if(data.move != 'stop'){
                         if (data.move == 'left'){
                             client.playerMap[data.id].moveLeft();
                         }
-                        if (data.move == 'right'){
+                        if (data.move == 'right'){   
                             client.playerMap[data.id].moveRight();
                         }
                         if(client.playerMap[data.id].entity.body.touching.down){

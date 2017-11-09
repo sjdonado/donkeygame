@@ -28,12 +28,5 @@ var star = {
    star.addStar(this.game.width/2-8,this.game.height-406);
    star.addStar(0,this.game.height-166);
    star.addStar(this.game.width-16,this.game.height-166);
- },
- physics: () =>{
-   game.physics.arcade.collide(mario.object, stars, (mario, star) => {
-      star.kill();
-      game.add.audio('starCollide').play();
-      score.total += 1;
-   }, null, this);
  }
 }

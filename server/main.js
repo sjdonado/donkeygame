@@ -23,7 +23,7 @@ io.on('connection', (socket)=>{
 	})
 	socket.on('disconnect', ()=>{
 		console.log("Disconnect client: " + socket.handshake.address);
-		//io.emit('remove', socket.playerID);
+		io.emit('remove', socket.playerID);
 	})
 });
 

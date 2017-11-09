@@ -1,5 +1,5 @@
 var client = {
-	socket: io.connect('localhost:8080', {'forceNew': true}),
+	socket: io.connect('https://gamephaser.herokuapp.com', {'forceNew': true}),
 	playerMap: [],
 	id: null,
 	askNewPlayer: ()=>{
@@ -37,7 +37,7 @@ var client = {
 	},
 	removePlayer: ()=>{
 		client.socket.on('remove', (id)=>{
-			//client.playerMap[id].destroy();
+			// client.playerMap[id].destroy();
 			delete client.playerMap[id];
 			console.log(client.playerMap);
 		});
