@@ -8,7 +8,9 @@ var scContText;
 var mainMusic;
 var startMusic;
 
-//mario = new mario();
+client.askNewPlayer();
+client.allPlayers();
+// client.removePlayer();
 
 var states = {
     start: {
@@ -28,7 +30,7 @@ var states = {
             var javText = game.add.bitmapText(game.width/2-80,game.height -140,'font','Javier Roncallo',16);
             mainMusic = game.add.audio('mainMusic');
             startMusic = game.add.audio('startMusic');
-            startMusic.play();
+            // startMusic.play();
         },
 
         update: function() {
@@ -67,9 +69,13 @@ var states = {
             barrel.init();
             donkey.init();
             princess.init();
-            client.playerMap.forEach((mario)=>{
-              mario.init();
-              mario.setAnimations();
+            client.arrayPlayers.forEach((mario)=>{
+                mario.init();
+                mario.setAnimations();
+            });
+            client.newPlayer((newPlayer)=>{
+                newPlayer.init();
+                newPlayer.setAnimations(); 
             });
             platform.init();
             star.init();
@@ -82,7 +88,7 @@ var states = {
             moveStatusSend = null;
             moveStatus = null;
             startMusic.stop();
-            mainMusic.play();
+            // mainMusic.play();
             swMovePlayer = null;
         },
 
@@ -91,10 +97,12 @@ var states = {
             donkey.move();
             platform.physics();
             barrel.physics();
-            client.playerMap.forEach((mario)=>{
-                mario.physics();
-                mario.collides();
-            });
+            // client.arrayPlayers.forEach((mario)=>{
+            //     mario.physics();
+            //     mario.collides();
+            // });
+            client.arrayPlayers[client.id].physics();
+            client.arrayPlayers[client.id].collides();
             princess.move();
             barrel.killBarrel();
             if(swFall){
@@ -107,25 +115,27 @@ var states = {
             client.moveAllPlayers((data)=>{
                 if(swMovePlayer != data.move){
                     console.log('id:' + data.id + ' move:' + data.move);
-                    if(data.move != 'stop'){
-                        if (data.move == 'left'){
-                            client.playerMap[data.id].moveLeft();
+                    if (data.move == 'left'){
+                        client.arrayPlayers[data.id].moveLeft();
+                    }
+                    if (data.move == 'right'){   
+                        client.arrayPlayers[data.id].moveRight();
+                    }
+                    if(client.arrayPlayers[data.id].entity.body.touching.down){
+                        if(data.move == 'jump0'){
+                            client.arrayPlayers[data.id].jump(0);
                         }
-                        if (data.move == 'right'){   
-                            client.playerMap[data.id].moveRight();
+                    }else{
+                        if(data.move == 'jump1'){
+                            client.arrayPlayers[data.id].jump(1);
                         }
-                        if(client.playerMap[data.id].entity.body.touching.down){
-                            if(data.move == 'jump0'){
-                                client.playerMap[data.id].jump(0);
-                            }
-                        }else{
-                            if(data.move == 'jum1'){
-                                client.playerMap[data.id].jump(1);
-                            }
-                            if(data.move == 'jum-1'){
-                                client.playerMap[data.id].jump(-1);
-                            }
+                        if(data.move == 'jump-1'){
+                            client.arrayPlayers[data.id].jump(-1);
                         }
+                    }
+                    if(data.move == 'stop'){
+                        client.arrayPlayers[data.id].entity.body.velocity.x = 0;
+                        client.arrayPlayers[data.id].entity.animations.stop();
                     }
                     swMovePlayer = data.move;
                 }
@@ -135,25 +145,25 @@ var states = {
                 moveStatus = 'stop';
             }else{
                 if (controllers.left.isDown){
-                    client.playerMap[client.id].moveLeft();
+                    client.arrayPlayers[client.id].moveLeft();
                     moveStatus = 'left';
                 }
                 if (controllers.right.isDown){
-                    client.playerMap[client.id].moveRight();
+                    client.arrayPlayers[client.id].moveRight();
                     moveStatus = 'right';
                 }
-                if(client.playerMap[client.id].entity.body.touching.down){
+                if(client.arrayPlayers[client.id].entity.body.touching.down){
                     if(controllers.up.isDown){
-                        client.playerMap[client.id].jump(0);
+                        client.arrayPlayers[client.id].jump(0);
                         moveStatus = 'jump0';
                     }
                 }else{
                     if(controllers.right.isDown){
-                        client.playerMap[client.id].jump(1);
+                        client.arrayPlayers[client.id].jump(1);
                         moveStatus = 'jump1';
                     }
                     if(controllers.left.isDown){
-                        client.playerMap[client.id].jump(-1);
+                        client.arrayPlayers[client.id].jump(-1);
                         moveStatus = 'jump-1';
                     }
                 }
@@ -208,7 +218,7 @@ function setTimer(doBefore, doAfter, time){
     timer.start();
 }
 
-client.askNewPlayer();
-client.newPlayer();
-client.allPlayers();
-client.removePlayer();
+client.newPlayer((newPlayer)=>{
+    console.log('Connected before the game: ' + newPlayer); 
+    console.log(client.arrayPlayers);
+});

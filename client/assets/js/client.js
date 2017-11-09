@@ -1,18 +1,20 @@
 var client = {
-	socket: io.connect('https://gamephaser.herokuapp.com', {'forceNew': true}),
-	playerMap: [],
+	socket: io.connect('http://localhost:8080', {'forceNew': true}),
+	arrayPlayers: [],
 	id: null,
 	askNewPlayer: ()=>{
 		client.socket.emit('newPlayer');
 	},
-	newPlayer: ()=>{
+	newPlayer: (callback)=>{
 		client.socket.on('newPlayer', (data)=>{
-			console.log(data);
-		 	client.addNewPlayer(data);
+			console.log('id newPlayer: ' + data);
+			client.addNewPlayer(data);
+			callback(client.arrayPlayers[data]);
 		});
 	},
 	allPlayers: ()=>{
 		client.socket.on('allPlayers', (data)=>{
+		    console.log('id host: ' + data.id);
 		    console.log(data.players);
 		    client.id = data.id;
 		    client.addNewPlayer(client.id);
@@ -22,7 +24,7 @@ var client = {
 		});
 	},
 	addNewPlayer: (id)=>{
-		client.playerMap[id] = new mario();
+		client.arrayPlayers[id] = new mario(id);
 	},
 	movePlayer: (move)=>{
 		client.socket.emit('movePlayer', {
@@ -31,15 +33,15 @@ var client = {
 		});
 	},
 	moveAllPlayers: (callback)=>{
-		client.socket.on('movePlayer', (data)=>{
+		client.socket.on('moveAllPlayers', (data)=>{
 			callback(data);
 		});
 	},
 	removePlayer: ()=>{
 		client.socket.on('remove', (id)=>{
-			// client.playerMap[id].destroy();
-			delete client.playerMap[id];
-			console.log(client.playerMap);
+			// client.arrayPlayers[id].destroy();
+			delete client.arrayPlayers[id];
+			console.log('Disconnect id: ' + client.arrayPlayers);
 		});
 	}
 }

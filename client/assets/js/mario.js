@@ -1,10 +1,12 @@
 class mario {
-  constructor(){
+  constructor(id){
     this.sprites = {
       x:18,
       y:18,
       url:'assets/sprites/mario.png'
     };
+    this.id = id;
+    this.move = true;
   }
   init () {
     this.entity = game.add.sprite(0, game.height - 26, 'mario');
@@ -14,7 +16,6 @@ class mario {
     this.entity.body.gravity.y = 300;
     this.entity.body.collideWorldBounds = true;
     this.entity.frame = 4;
-    this.move = true;
   }
   setAnimations () {
     this.entity.animations.add('left', [2,3], 5);
@@ -28,8 +29,8 @@ class mario {
   }
   moveRight () {
     if(this.move){
-        this.entity.body.velocity.x = 70;
-        this.entity.animations.play('right');
+      this.entity.body.velocity.x = 70;
+      this.entity.animations.play('right');
     }
   }
   jump (value) {
@@ -58,10 +59,10 @@ class mario {
   collides () {
     game.physics.arcade.collide(this.entity, platforms);
     game.physics.arcade.collide(this.entity, barriles, (mario, barrel) => {
-        lose(this.entity, this.move);
+        lose(this.entity, game, this.move);
     },null, this);
     game.physics.arcade.collide(this.entity, donkeyObject, (mario, donkey) => {
-        lose(this.entity, this.move);
+        lose(this.entity, game, this.move);
     },null, this);
     game.physics.arcade.collide(this.entity, pauline, (mario, pauline) => {
       if(score.total == 10){

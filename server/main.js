@@ -11,7 +11,7 @@ var lastPlayderID = 0;
 io.on('connection', (socket)=>{
 	console.log("New connection with client " + socket.handshake.address);
 	socket.on('newPlayer', ()=>{
-        socket.playerID = lastPlayderID++
+        socket.playerID = lastPlayderID++;
         socket.emit('allPlayers', {
             id: socket.playerID,
             players: getAllPlayers()
@@ -19,7 +19,7 @@ io.on('connection', (socket)=>{
         socket.broadcast.emit('newPlayer', socket.playerID);
     });
 	socket.on('movePlayer', (data)=>{
-		socket.broadcast.emit('movePlayer', data);
+		socket.broadcast.emit('moveAllPlayers', data);
 	})
 	socket.on('disconnect', ()=>{
 		console.log("Disconnect client: " + socket.handshake.address);
@@ -35,8 +35,9 @@ server.listen(port, ()=>{
 
 function getAllPlayers(){
     var players = [];
+    console.log(Object.keys(io.sockets.connected));
     Object.keys(io.sockets.connected).forEach(function(socketID){
-        var player = io.sockets.connected[socketID].player;
+        var player = io.sockets.connected[socketID].playerID;
         if(player) players.push(player);
     });
     return players;
