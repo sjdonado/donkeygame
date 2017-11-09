@@ -37,8 +37,8 @@ function getAllPlayers(){
     var players = [];
     console.log(Object.keys(io.sockets.connected));
     Object.keys(io.sockets.connected).forEach(function(socketID){
-        var player = io.sockets.connected[socketID].playerID;
-        if(player) players.push(player);
+        var player = io.sockets.connected[socketID];
+        if(player) players.push(player.playerID);
     });
     return players;
 }

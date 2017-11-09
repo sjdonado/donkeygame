@@ -8,8 +8,6 @@ var scContText;
 var mainMusic;
 var startMusic;
 
-client.askNewPlayer();
-client.allPlayers();
 // client.removePlayer();
 
 var states = {
@@ -58,6 +56,8 @@ var states = {
             game.load.audio('marioDies','assets/audios/marioDies.wav');
             game.load.audio('starCollide','assets/audios/starCollide.wav');
             game.load.audio('win','assets/audios/win.wav');
+            client.askNewPlayer();
+            client.allPlayers();
         },
 
         create: function() {
@@ -69,6 +69,7 @@ var states = {
             barrel.init();
             donkey.init();
             princess.init();
+            console.log(client.arrayPlayers);
             client.arrayPlayers.forEach((mario)=>{
                 mario.init();
                 mario.setAnimations();
@@ -216,7 +217,7 @@ function setTimer(doBefore, doAfter, time){
     timer.start();
 }
 
-client.newPlayer((newPlayer)=>{
-    console.log('Connected before the game: ' + newPlayer); 
-    console.log(client.arrayPlayers);
-});
+// client.newPlayer((newPlayer)=>{
+//     console.log('Connected before the game: ' + newPlayer); 
+//     console.log(client.arrayPlayers);
+// });
