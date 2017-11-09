@@ -1,5 +1,5 @@
 var client = {
-	socket: io.connect('http://port-8080.centos-sjdonado454850.codeanyapp.com', {'forceNew': true}),
+	socket: io.connect('localhost:8080', {'forceNew': true}),
 	playerMap: [],
 	id: null,
 	askNewPlayer: ()=>{
@@ -8,16 +8,19 @@ var client = {
 	newPlayer: ()=>{
 		client.socket.on('newPlayer', (data)=>{
 			console.log(data);
-			client.id = data.id;
-		 	// client.addNewPlayer(data.id, data.x, data.y);
+		 	client.addNewPlayer(data);
+		 	client.playerMap[data].init();
+            client.playerMap[data].setAnimations();
 		});
 	},
 	allPlayers: ()=>{
-		client.socket.on('allPlayers', (array)=>{
-		    console.log(array);
-		    // for(var i = 0; i < data.length; i++){
-		    //     client.addNewPlayer(data.id, data.x, data.y);
-		    // }
+		client.socket.on('allPlayers', (data)=>{
+		    console.log(data.players);
+		    client.id = data.id;
+		    client.addNewPlayer(client.id);
+		    data.players.forEach((element) => {
+		        client.addNewPlayer(element.id);
+		    })
 		});
 	},
 	addNewPlayer: (id)=>{
@@ -29,9 +32,9 @@ var client = {
 			move: move
 		});
 	},
-	moveAllPlayers: ()=>{
-		client.socket.on('moveAllPlayers', (data)=>{
-			console.log(data);
+	moveAllPlayers: (callback)=>{
+		client.socket.on('movePlayer', (data)=>{
+			callback(data);
 		});
 	},
 	removePlayer: ()=>{

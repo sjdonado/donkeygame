@@ -65,9 +65,9 @@ var states = {
             timer = game.time.create(false);
             barrel.init();
             donkey.init();
-            client.playerMap.forEach((element)=>{
-              element.init();
-              element.setAnimations();
+            client.playerMap.forEach((mario)=>{
+              mario.init();
+              mario.setAnimations();
             });
             princess.init();
             platform.init();
@@ -89,36 +89,13 @@ var states = {
             donkey.move();
             platform.physics();
             barrel.physics();
-            client.playerMap.forEach((element)=>{
-              element.physics();
-              element.collides();
+            client.playerMap.forEach((mario)=>{
+                mario.physics();
+                mario.collides();
             });
             princess.move();
             barrel.killBarrel();
             star.physics();
-            if (controllers.left.isDown){
-                mario.moveLeft();
-                moveStatus = 'left';
-            }
-            if (controllers.right.isDown){
-                mario.moveRight();
-                moveStatus = 'right';
-            }
-            if(mario.object.body.touching.down){
-                if(controllers.up.isDown){
-                    mario.jump(0);
-                    moveStatus = 'jump0';
-                }
-            }else{
-                if(controllers.right.isDown){
-                    mario.jump(1);
-                    moveStatus = 'jump1';
-                }
-                if(controllers.left.isDown){
-                    mario.jump(-1);
-                    moveStatus = 'jump-1';
-                }
-            }
             if(swFall){
                 setTimer(() => {}, () => {
                     princess.fall();
@@ -126,13 +103,60 @@ var states = {
                     swFall = false;
                 }, 1000);
             }
+            client.moveAllPlayers((data)=>{
+                console.log(data.move);
+                if(data.move != 'stop'){
+                    if (data.move == 'left'){
+                        client.playerMap[data.id].moveLeft();
+                    }
+                    if (data.move == 'right'){
+                        client.playerMap[data.id].moveRight();
+                    }
+                    if(client.playerMap[data.id].entity.body.touching.down){
+                        if(data.move == 'jump0'){
+                            client.playerMap[data.id].jump(0);
+                        }
+                    }else{
+                        if(data.move == 'jum1'){
+                            client.playerMap[data.id].jump(1);
+                        }
+                        if(data.move == 'jum-1'){
+                            client.playerMap[data.id].jump(-1);
+                        }
+                    }
+                }
+            });
+            if (controllers.left.isDown){
+                client.playerMap[client.id].moveLeft();
+                moveStatus = 'left';
+            }
+            if (controllers.right.isDown){
+                client.playerMap[client.id].moveRight();
+                moveStatus = 'right';
+            }
+            if(client.playerMap[client.id].entity.body.touching.down){
+                if(controllers.up.isDown){
+                    client.playerMap[client.id].jump(0);
+                    moveStatus = 'jump0';
+                }
+            }else{
+                if(controllers.right.isDown){
+                    client.playerMap[client.id].jump(1);
+                    moveStatus = 'jump1';
+                }
+                if(controllers.left.isDown){
+                    client.playerMap[client.id].jump(-1);
+                    moveStatus = 'jump-1';
+                }
+            }
             scContText.text = score.total;
-            if(controllers.up.isUp && controllers.down.isUp && controllers.left.isUp && controllers.right.isUp){
-              moveStatus = 'stop';
+            if(controllers.up.isUp && controllers.down.isUp && controllers.left.isUp && controllers.right.isUp && moveStatusSend != null){
+                moveStatus = 'stop';
             }
             if(moveStatus != moveStatusSend){
-              client.movePlayer(moveStatus);
-              moveStatusSend = moveStatus;
+                console.log(moveStatus);
+                client.movePlayer('jump0');
+                moveStatusSend = moveStatus;
             }
         }
     },
@@ -182,5 +206,4 @@ function setTimer(doBefore, doAfter, time){
 client.askNewPlayer();
 client.newPlayer();
 client.allPlayers();
-client.moveAllPlayers();
 client.removePlayer();
