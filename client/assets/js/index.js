@@ -97,12 +97,10 @@ var states = {
             donkey.move();
             platform.physics();
             barrel.physics();
-            // client.arrayPlayers.forEach((mario)=>{
-            //     mario.physics();
-            //     mario.collides();
-            // });
-            client.arrayPlayers[client.id].physics();
-            client.arrayPlayers[client.id].collides();
+            client.arrayPlayers.forEach((mario)=>{
+                mario.physics();
+                mario.collides();
+            });
             princess.move();
             barrel.killBarrel();
             if(swFall){
