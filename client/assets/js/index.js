@@ -8,8 +8,6 @@ var scContText;
 var mainMusic;
 var startMusic;
 
-// client.removePlayer();
-
 var states = {
     start: {
         preload: function() {
@@ -221,7 +219,4 @@ function setTimer(doBefore, doAfter, time){
     timer.start();
 }
 
-// client.newPlayer((newPlayer)=>{
-//     console.log('Connected before the game: ' + newPlayer); 
-//     console.log(client.arrayPlayers);
-// });
+client.removePlayer();

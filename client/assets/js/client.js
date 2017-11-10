@@ -1,6 +1,6 @@
 var client = {
 	//https://donkeygame.herokuapp.com',
-	socket: io.connect('https://donkeygame.herokuapp.com', {'forceNew': true}),
+	socket: io.connect('localhost:8080', {'forceNew': true}),
 	arrayPlayers: [],
 	id: null,
 	askNewPlayer: ()=>{
@@ -42,7 +42,7 @@ var client = {
 		client.socket.on('remove', (id)=>{
 			// client.arrayPlayers[id].destroy();
 			delete client.arrayPlayers[id];
-			console.log('Disconnect id: ' + client.arrayPlayers);
+			console.log('Disconnect id: ' + id);
 		});
 	}
 }

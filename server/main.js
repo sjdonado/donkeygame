@@ -5,25 +5,26 @@ var io = require('socket.io').listen(server);
 
 app.use(express.static('client'));
 
-var clients = [];
 var lastPlayderID = 0;
+// var clients [];
 
 io.on('connection', (socket)=>{
 	console.log("New connection with client " + socket.handshake.address);
-	socket.on('newPlayer', ()=>{
-        socket.playerID = lastPlayderID++;
+    socket.playerID = lastPlayderID++;
+    socket.on('newPlayer', ()=>{
         socket.emit('allPlayers', {
             id: socket.playerID,
             players: getAllPlayers()
         });
         socket.broadcast.emit('newPlayer', socket.playerID);
     });
-	socket.on('movePlayer', (data)=>{
-		socket.broadcast.emit('moveAllPlayers', data);
-	})
-	socket.on('disconnect', ()=>{
-		console.log("Disconnect client: " + socket.handshake.address);
-		io.emit('remove', socket.playerID);
+    socket.on('movePlayer', (data)=>{
+        socket.broadcast.emit('moveAllPlayers', data);
+    })
+    socket.on('disconnect', ()=>{
+        console.log(socket.playerID);
+		console.log("Disconnected client: " + socket.handshake.address);
+		io.sockets.emit('remove', socket.playerID);
 	})
 });
 
