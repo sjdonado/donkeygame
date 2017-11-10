@@ -88,7 +88,6 @@ var states = {
             win = false;
             moveStatusSend = null;
             moveStatus = null;
-            localMovePlayer = null;
             startMusic.stop();
             // mainMusic.play();
             swMovePlayer = null;
@@ -115,39 +114,23 @@ var states = {
             client.moveAllPlayers((data)=>{
                 if(swMovePlayer != data.move){
                     console.log('id:' + data.id + ' move:' + data.move);
-                    client.arrayPlayers[data.id].move = true;
                     if (data.move == 'left'){
-                        client.arrayPlayers[data.id].moveLeft(()=>{
-                            localMovePlayer = true;
-                        });
+                        client.arrayPlayers[data.id].moveLeft();
                     }
                     if (data.move == 'right'){   
-                        client.arrayPlayers[data.id].moveRight(()=>{
-                            localMovePlayer = true;
-                        });
+                        client.arrayPlayers[data.id].moveRight();
                     }
                     if(client.arrayPlayers[data.id].entity.body.touching.down){
                         if(data.move == 'jump0'){
-                            client.arrayPlayers[data.id].jump(0, ()=>{
-                                localMovePlayer = true;
-                            });
+                            client.arrayPlayers[data.id].jump(0);
                         }
                     }else{
                         if(data.move == 'jump1'){
-                            client.arrayPlayers[data.id].jump(1, ()=>{
-                                localMovePlayer = true;
-                            });
+                            client.arrayPlayers[data.id].jump(1);
                         }
                         if(data.move == 'jump-1'){
-                            client.arrayPlayers[data.id].jump(-1, ()=>{
-                                localMovePlayer = true;
-                            });
+                            client.arrayPlayers[data.id].jump(-1);
                         }
-                    }
-                    if(data.move == 'stop' && localMovePlayer){
-                        client.arrayPlayers[data.id].entity.body.velocity.x = 0;
-                        client.arrayPlayers[data.id].entity.animations.stop();
-                        localMovePlayer = false;
                     }
                     swMovePlayer = data.move;
                 }
