@@ -28,7 +28,7 @@ var states = {
             var javText = game.add.bitmapText(game.width/2-80,game.height -140,'font','Javier Roncallo',16);
             mainMusic = game.add.audio('mainMusic');
             startMusic = game.add.audio('startMusic');
-            // startMusic.play();
+            startMusic.play();
         },
 
         update: function() {
@@ -88,9 +88,9 @@ var states = {
             win = false;
             moveStatusSend = null;
             moveStatus = null;
-            moveStatusLoop = null;
+            moveStatusLoop = 'stop';
             startMusic.stop();
-            // mainMusic.play();
+            mainMusic.play();
             swMovePlayer = null;
         },
 
@@ -99,9 +99,9 @@ var states = {
             donkey.move();
             platform.physics();
             barrel.physics();
+            client.arrayPlayers[client.id].collides();
             client.arrayPlayers.forEach((mario)=>{
                 mario.physics();
-                mario.collides();
             });
             princess.move();
             barrel.killBarrel();
@@ -113,27 +113,32 @@ var states = {
                 }, 1000);
             }
             client.moveAllPlayers((data)=>{
-                if(swMovePlayer != data.move){
+                if(swMovePlayer != data.move || moveStatusLoop != 'stop'){
                     console.log('id:' + data.id + ' move:' + data.move);
-                    if (data.move == 'left'){
-                        client.arrayPlayers[data.id].moveLeft();
+                    if (data.move == 'left' || moveStatusLoop == 'left'){
+                        // client.arrayPlayers[data.id].moveLeft();
+                        client.arrayPlayers[data.id].entity.body.velocity.x = -140;
+                        client.arrayPlayers[data.id].entity.animations.play('left');
                     }
-                    if (data.move == 'right'){   
-                        client.arrayPlayers[data.id].moveRight();
+                    if (data.move == 'right' || moveStatusLoop == 'right'){   
+                        // client.arrayPlayers[data.id].moveRight();
+                        client.arrayPlayers[data.id].entity.body.velocity.x = -140;
+                        client.arrayPlayers[data.id].entity.animations.play('right');
                     }
                     if(client.arrayPlayers[data.id].entity.body.touching.down){
-                        if(data.move == 'jump0'){
+                        if(data.move == 'jump0' || moveStatusLoop == 'jump0'){
                             client.arrayPlayers[data.id].jump(0);
                         }
                     }else{
-                        if(data.move == 'jump1'){
+                        if(data.move == 'jump1' || moveStatusLoop == 'jump1'){
                             client.arrayPlayers[data.id].jump(1);
                         }
-                        if(data.move == 'jump-1'){
+                        if(data.move == 'jump-1' || moveStatusLoop == 'jump-1'){
                             client.arrayPlayers[data.id].jump(-1);
                         }
                     }
                     swMovePlayer = data.move;
+                    moveStatusLoop = data.move;
                 }
             });
             scContText.text = score.total;
@@ -143,24 +148,29 @@ var states = {
                 if (controllers.left.isDown){
                     client.arrayPlayers[client.id].moveLeft();
                     moveStatus = 'left';
+                    console.log(moveStatus);
                 }
                 if (controllers.right.isDown){
                     client.arrayPlayers[client.id].moveRight();
                     moveStatus = 'right';
+                    console.log(moveStatus);
                 }
                 if(client.arrayPlayers[client.id].entity.body.touching.down){
                     if(controllers.up.isDown){
                         client.arrayPlayers[client.id].jump(0);
                         moveStatus = 'jump0';
+                        console.log(moveStatus);
                     }
                 }else{
                     if(controllers.right.isDown){
                         client.arrayPlayers[client.id].jump(1);
                         moveStatus = 'jump1';
+                        console.log(moveStatus);
                     }
                     if(controllers.left.isDown){
                         client.arrayPlayers[client.id].jump(-1);
                         moveStatus = 'jump-1';
+                        console.log(moveStatus);
                     }
                 }
             }
