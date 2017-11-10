@@ -139,7 +139,7 @@ var states = {
             if(controllers.up.isUp && controllers.down.isUp && controllers.left.isUp && controllers.right.isUp && moveStatusSend != null){
                 setTimer(() => {}, () => {
                     moveStatus = 'stop';
-                }, 100);
+                }, 7000);
             }else{
                 if (controllers.left.isDown){
                     client.arrayPlayers[client.id].moveLeft();
