@@ -116,30 +116,51 @@ var states = {
                 if(swMovePlayer != data.move){
                     console.log('id:' + data.id + ' move:' + data.move);
                     client.arrayPlayers[data.id].move = true;
-                    if (data.move == 'left' || localMovePlayer == 'left'){
+                    if (data.move == 'left'){
                         client.arrayPlayers[data.id].moveLeft();
                     }
-                    if (data.move == 'right'|| localMovePlayer == 'right'){   
+                    if (data.move == 'right'){   
                         client.arrayPlayers[data.id].moveRight();
                     }
                     if(client.arrayPlayers[data.id].entity.body.touching.down){
-                        if(data.move == 'jump0'|| localMovePlayer == 'jump0'){
+                        if(data.move == 'jump0'){
                             client.arrayPlayers[data.id].jump(0);
                         }
                     }else{
-                        if(data.move == 'jump1'|| localMovePlayer == 'jump1'){
+                        if(data.move == 'jump1'){
                             client.arrayPlayers[data.id].jump(1);
                         }
-                        if(data.move == 'jump-1'|| localMovePlayer == 'jump-1'){
+                        if(data.move == 'jump-1'){
                             client.arrayPlayers[data.id].jump(-1);
                         }
                     }
-                    if(data.move == 'stop' || localMovePlayer == 'stop'){
+                    if(data.move == 'stop'){
                         client.arrayPlayers[data.id].entity.body.velocity.x = 0;
                         client.arrayPlayers[data.id].entity.animations.stop();
                     }
                     swMovePlayer = data.move;
                     localMovePlayer = data.move;
+                }else{
+                    if(localMovePlayer != 'stop'){
+                        if (localMovePlayer == 'left'){
+                            client.arrayPlayers[data.id].moveLeft();
+                        }
+                        if (localMovePlayer == 'right'){   
+                            client.arrayPlayers[data.id].moveRight();
+                        }
+                        if(client.arrayPlayers[data.id].entity.body.touching.down){
+                            if(localMovePlayer == 'jump0'){
+                                client.arrayPlayers[data.id].jump(0);
+                            }
+                        }else{
+                            if(localMovePlayer == 'jump1'){
+                                client.arrayPlayers[data.id].jump(1);
+                            }
+                            if(localMovePlayer == 'jump-1'){
+                                client.arrayPlayers[data.id].jump(-1);
+                            }
+                        }
+                    }
                 }
             });
             scContText.text = score.total;
