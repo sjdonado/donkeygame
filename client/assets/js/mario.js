@@ -56,26 +56,28 @@ class mario {
   physics () {
     this.entity.body.velocity.x = 0;
   }
-  collides () {
+  collides (clientID) {
     game.physics.arcade.collide(this.entity, platforms);
-    game.physics.arcade.collide(this.entity, barriles, (mario, barrel) => {
-        lose(this.entity, game, this.move);
-    },null, this);
-    game.physics.arcade.collide(this.entity, donkeyObject, (mario, donkey) => {
-        lose(this.entity, game, this.move);
-    },null, this);
-    game.physics.arcade.collide(this.entity, pauline, (mario, pauline) => {
-      if(score.total == 10){
-          setTimer(() => {
-              this.move = false;
-              if(!win){game.add.audio('win').play();}
-              win = true;
-              pauline.frame = 4;
-          }, () => {
-              game.state.start('finish');
-          }, 1000);
-      }
-    },null, this);
+    if(clientID == this.id){
+      game.physics.arcade.collide(this.entity, barriles, (mario, barrel) => {
+          lose(this.entity, game, this.move);
+      },null, this);
+      game.physics.arcade.collide(this.entity, donkeyObject, (mario, donkey) => {
+          lose(this.entity, game, this.move);
+      },null, this);
+      game.physics.arcade.collide(this.entity, pauline, (mario, pauline) => {
+        if(score.total == 10){
+            setTimer(() => {
+                this.move = false;
+                if(!win){game.add.audio('win').play();}
+                win = true;
+                pauline.frame = 4;
+            }, () => {
+                game.state.start('finish');
+            }, 1000);
+        }
+      },null, this);
+    }
     game.physics.arcade.collide(this.entity, stars, (mario, star) => {
       star.kill();
       game.add.audio('starCollide').play();

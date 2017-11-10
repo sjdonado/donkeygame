@@ -89,7 +89,7 @@ var states = {
             moveStatusSend = null;
             moveStatus = null;
             moveStatusLoop = 'stop';
-            startMusic.stop();
+            // startMusic.stop();
             mainMusic.play();
             swMovePlayer = null;
         },
@@ -99,8 +99,8 @@ var states = {
             donkey.move();
             platform.physics();
             barrel.physics();
-            client.arrayPlayers[client.id].collides();
             client.arrayPlayers.forEach((mario)=>{
+                mario.collides(client.id);
                 mario.physics();
             });
             princess.move();
