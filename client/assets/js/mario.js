@@ -53,8 +53,8 @@ class mario {
         }
     }
   }
-  physics () {
-    this.entity.body.velocity.x = 0;
+  physics (clientID) {
+    if(clientID == this.id) this.entity.body.velocity.x = 0;
   }
   collides (clientID) {
     game.physics.arcade.collide(this.entity, platforms);

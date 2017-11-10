@@ -100,7 +100,7 @@ var states = {
             barrel.physics();
             client.arrayPlayers.forEach((mario)=>{
                 mario.collides(client.id);
-                mario.physics();
+                mario.physics(client.id);
             });
             princess.move();
             barrel.killBarrel();
@@ -132,6 +132,9 @@ var states = {
                             client.arrayPlayers[data.id].jump(-1);
                         }
                     }
+                    if(data.move == 'stop'){
+                        client.arrayPlayers[data.id].entity.body.velocity.x = 0;
+                    }
                     swMovePlayer = data.move;
                 }
             });
@@ -142,29 +145,29 @@ var states = {
                 if (controllers.left.isDown){
                     client.arrayPlayers[client.id].moveLeft();
                     moveStatus = 'left';
-                    console.log(moveStatus);
+                    // console.log(moveStatus);
                 }
                 if (controllers.right.isDown){
                     client.arrayPlayers[client.id].moveRight();
                     moveStatus = 'right';
-                    console.log(moveStatus);
+                    // console.log(moveStatus);
                 }
                 if(client.arrayPlayers[client.id].entity.body.touching.down){
                     if(controllers.up.isDown){
                         client.arrayPlayers[client.id].jump(0);
                         moveStatus = 'jump0';
-                        console.log(moveStatus);
+                        // console.log(moveStatus);
                     }
                 }else{
                     if(controllers.right.isDown){
                         client.arrayPlayers[client.id].jump(1);
                         moveStatus = 'jump1';
-                        console.log(moveStatus);
+                        // console.log(moveStatus);
                     }
                     if(controllers.left.isDown){
                         client.arrayPlayers[client.id].jump(-1);
                         moveStatus = 'jump-1';
-                        console.log(moveStatus);
+                        // console.log(moveStatus);
                     }
                 }
             }
