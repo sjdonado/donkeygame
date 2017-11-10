@@ -88,7 +88,6 @@ var states = {
             win = false;
             moveStatusSend = null;
             moveStatus = null;
-            moveStatusLoop = 'stop';
             // startMusic.stop();
             mainMusic.play();
             swMovePlayer = null;
@@ -115,10 +114,10 @@ var states = {
             client.moveAllPlayers((data)=>{
                 if(swMovePlayer != data.move){
                     console.log('id:' + data.id + ' move:' + data.move);
-                    if (data.move == 'left' || moveStatusLoop == 'left'){
+                    if (data.move == 'left'){
                         client.arrayPlayers[data.id].moveLeft();
                     }
-                    if (data.move == 'right' || moveStatusLoop == 'right'){   
+                    if (data.move == 'right'){   
                         client.arrayPlayers[data.id].moveRight();
                     }
                     if(client.arrayPlayers[data.id].entity.body.touching.down){
@@ -134,7 +133,6 @@ var states = {
                         }
                     }
                     swMovePlayer = data.move;
-                    moveStatusLoop = data.move;
                 }
             });
             scContText.text = score.total;
