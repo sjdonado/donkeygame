@@ -117,10 +117,12 @@ var states = {
                     console.log('id:' + data.id + ' move:' + data.move);
                     client.arrayPlayers[data.id].move = true;
                     if (data.move == 'left'){
-                        client.arrayPlayers[data.id].moveLeft();
+                        client.arrayPlayers[data.id].entity.body.velocity.x = -700;
+                        client.arrayPlayers[data.id].entity.animations.play('left');
                     }
                     if (data.move == 'right'){   
-                        client.arrayPlayers[data.id].moveRight();
+                        client.arrayPlayers[data.id].entity.body.velocity.x = 700;
+                        client.arrayPlayers[data.id].entity.animations.play('right');
                     }
                     if(client.arrayPlayers[data.id].entity.body.touching.down){
                         if(data.move == 'jump0'){
@@ -140,27 +142,6 @@ var states = {
                     }
                     swMovePlayer = data.move;
                     localMovePlayer = data.move;
-                }else{
-                    if(localMovePlayer != 'stop'){
-                        if (localMovePlayer == 'left'){
-                            client.arrayPlayers[data.id].moveLeft();
-                        }
-                        if (localMovePlayer == 'right'){   
-                            client.arrayPlayers[data.id].moveRight();
-                        }
-                        if(client.arrayPlayers[data.id].entity.body.touching.down){
-                            if(localMovePlayer == 'jump0'){
-                                client.arrayPlayers[data.id].jump(0);
-                            }
-                        }else{
-                            if(localMovePlayer == 'jump1'){
-                                client.arrayPlayers[data.id].jump(1);
-                            }
-                            if(localMovePlayer == 'jump-1'){
-                                client.arrayPlayers[data.id].jump(-1);
-                            }
-                        }
-                    }
                 }
             });
             scContText.text = score.total;
