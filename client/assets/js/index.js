@@ -16,7 +16,7 @@ var states = {
             game.stage.backgroundColor="#ffff";
             game.load.bitmapFont('font','assets/fonts/font.png','assets/fonts/font.fnt');
             game.load.audio('mainMusic','assets/audios/mainMusic.mp3');
-            game.load.audio('startMusic','assets/audios/startMusic.mp3');
+            // game.load.audio('startMusic','assets/audios/startMusic.mp3');
         },
 
         create: function() {
@@ -27,8 +27,8 @@ var states = {
             var jrText = game.add.bitmapText(game.width/2-75,game.height -160,'font','Juan Rodriguez',16);
             var javText = game.add.bitmapText(game.width/2-80,game.height -140,'font','Javier Roncallo',16);
             mainMusic = game.add.audio('mainMusic');
-            startMusic = game.add.audio('startMusic');
-            startMusic.play();
+            // startMusic = game.add.audio('startMusic');
+            // startMusic.play();
         },
 
         update: function() {
