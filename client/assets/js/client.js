@@ -1,5 +1,6 @@
 var client = {
-	socket: io.connect('https://gamephaser.herokuapp.com', {'forceNew': true}),
+	//https://gamephaser.herokuapp.com
+	socket: io.connect('localhost:8080', {'forceNew': true}),
 	arrayPlayers: [],
 	id: null,
 	askNewPlayer: ()=>{
