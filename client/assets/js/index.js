@@ -132,16 +132,16 @@ var states = {
                             client.arrayPlayers[data.id].jump(-1);
                         }
                     }
-                    if(data.move == 'stop'){
-                        client.arrayPlayers[data.id].entity.body.velocity.x = 0;
-                        client.arrayPlayers[data.id].entity.animations.stop();
-                    }
+                    // if(data.move == 'stop'){
+                    //     client.arrayPlayers[data.id].entity.body.velocity.x = 0;
+                    //     client.arrayPlayers[data.id].entity.animations.stop();
+                    // }
                     swMovePlayer = data.move;
                 }
             });
             scContText.text = score.total;
             if(controllers.up.isUp && controllers.down.isUp && controllers.left.isUp && controllers.right.isUp && moveStatusSend != null){
-                moveStatus = 'stop';
+                // moveStatus = 'stop';
             }else{
                 if (controllers.left.isDown){
                     client.arrayPlayers[client.id].moveLeft();
