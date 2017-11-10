@@ -112,28 +112,28 @@ var states = {
                 }, 1000);
             }
             client.moveAllPlayers((data)=>{
-                if(swMovePlayer != data.move){
-                    console.log('id:' + data.id + ' move:' + data.move);
-                    if (data.move == 'left'){
-                        client.arrayPlayers[data.id].moveLeft();
-                    }
-                    if (data.move == 'right'){   
-                        client.arrayPlayers[data.id].moveRight();
-                    }
-                    if(client.arrayPlayers[data.id].entity.body.touching.down){
-                        if(data.move == 'jump0'){
-                            client.arrayPlayers[data.id].jump(0);
-                        }
-                    }else{
-                        if(data.move == 'jump1'){
-                            client.arrayPlayers[data.id].jump(1);
-                        }
-                        if(data.move == 'jump-1'){
-                            client.arrayPlayers[data.id].jump(-1);
-                        }
-                    }
-                    swMovePlayer = data.move;
+                console.log('id:' + data.id + ' move:' + data.move);
+                if (data.move == 'left'){
+                    client.arrayPlayers[data.id].moveLeft();
                 }
+                if (data.move == 'right'){   
+                    client.arrayPlayers[data.id].moveRight();
+                }
+                if(client.arrayPlayers[data.id].entity.body.touching.down){
+                    if(data.move == 'jump0'){
+                        client.arrayPlayers[data.id].jump(0);
+                    }
+                }else{
+                    if(data.move == 'jump1'){
+                        client.arrayPlayers[data.id].jump(1);
+                    }
+                    if(data.move == 'jump-1'){
+                        client.arrayPlayers[data.id].jump(-1);
+                    }
+                }
+                // swMovePlayer = data.move;
+                // if(swMovePlayer != data.move){
+                // }
             });
             scContText.text = score.total;
             if(controllers.up.isUp && controllers.down.isUp && controllers.left.isUp && controllers.right.isUp && moveStatusSend != null){
