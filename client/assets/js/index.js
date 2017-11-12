@@ -58,7 +58,7 @@ var states = {
         },
 
         create: function() {
-            // game.stage.disableVisibilityChangue = true;
+            game.stage.disableVisibilityChangue = true;
             controllers = game.input.keyboard.createCursorKeys();
             scoreText = game.add.bitmapText(12,10,'font','Score',16);
             scContText = game.add.bitmapText(30,30,'font','0',16);

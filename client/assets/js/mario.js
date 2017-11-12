@@ -70,15 +70,15 @@ class mario {
     }
     move = this.move;
     game.physics.arcade.collide(this.entity, pauline, (mario, pauline) => {
-      setTimer(() => {
-          move = false;
-          if(!win){game.add.audio('win').play();}
-          win = true;
-          pauline.frame = 4;
-      }, () => {
-          game.state.start('finish');
-      }, 1000);
       if(score.total == 10){
+        setTimer(() => {
+            move = false;
+            if(!win){game.add.audio('win').play();}
+            win = true;
+            pauline.frame = 4;
+        }, () => {
+            game.state.start('finish');
+        }, 1000);
       }
     },null, this);
     this.move = move;
