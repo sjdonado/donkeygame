@@ -120,14 +120,14 @@ var states = {
                     // console.log('Touching down :' + client.arrayPlayers[getIndex(data.id)].entity.body.touching.down);
                     if(client.arrayPlayers[getIndex(data.id)].entity.body.touching.down){
                         if(data.move == 'jump0'){
-                            client.arrayPlayers[getIndex(data.id)].jump(0);
+                            client.arrayPlayers[getIndex(data.id)].jump();
                         }
                     }else{
                         if(data.move == 'jump1'){
-                            client.arrayPlayers[getIndex(data.id)].jump(1);
+                            client.arrayPlayers[getIndex(data.id)].jump(0);
                         }
                         if(data.move == 'jump-1'){
-                            client.arrayPlayers[getIndex(data.id)].jump(0);
+                            client.arrayPlayers[getIndex(data.id)].jump(1);
                         }
                     }
                     if(data.move == 'stop'){
@@ -150,16 +150,16 @@ var states = {
                 }
                 if(client.arrayPlayers[client.id].entity.body.touching.down){
                     if(controllers.up.isDown){
-                        client.arrayPlayers[client.id].jump(0);
+                        client.arrayPlayers[client.id].jump();
                         moveStatus = 'jump0';
                     }
                 }else{
                     if(controllers.right.isDown){
-                        client.arrayPlayers[client.id].jump(1);
+                        client.arrayPlayers[client.id].jump(0);
                         moveStatus = 'jump1';
                     }
                     if(controllers.left.isDown){
-                        client.arrayPlayers[client.id].jump(-1);
+                        client.arrayPlayers[client.id].jump(1);
                         moveStatus = 'jump-1';
                     }
                 }
