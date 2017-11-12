@@ -26,13 +26,13 @@ class mario {
   moveLeft () {
     if(this.move){
       this.entity.body.velocity.x = -70;
-      this.entity.animations.play('left');
+      this.entity.animations.play('left', true);
     }
   }
   moveRight () {
     if(this.move){
       this.entity.body.velocity.x = 70;
-      this.entity.animations.play('right');
+      this.entity.animations.play('right', true);
     }
   }
   jump (value) {

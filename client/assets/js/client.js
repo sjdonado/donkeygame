@@ -34,12 +34,10 @@ var client = {
 		console.log(client.arrayPlayers);
 	},
 	movePlayer: (move)=>{
-		if(client.id != null){
-			client.socket.emit('movePlayer', {
-				id: client.dataId,
-				move: move
-			});
-		}
+		client.socket.emit('movePlayer', {
+			id: client.dataId,
+			move: move
+		});
 	},
 	moveAllPlayers: (callback)=>{
 		if(client.id != null){
