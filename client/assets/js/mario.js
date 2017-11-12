@@ -103,9 +103,11 @@ class mario {
 
 function lose (object, game){
   setTimer(() => {
-    object.move = false;
-    if (object.entity.frame != 0) {game.add.audio('marioDies').play();}
-    object.entity.frame = 0;
+    if(object.move){
+      object.move = false;
+      if (object.entity.frame != 0) {game.add.audio('marioDies').play();}
+      object.entity.frame = 0;
+    }
   }, () => {
       game.state.start('finish');
   }, 1000);
