@@ -51,8 +51,6 @@ var states = {
             game.load.audio('marioDies','assets/audios/marioDies.wav');
             game.load.audio('starCollide','assets/audios/starCollide.wav');
             game.load.audio('win','assets/audios/win.wav');
-            // if(client.id == null){
-            // }
             client.askNewPlayer();
             client.allPlayers();
         },

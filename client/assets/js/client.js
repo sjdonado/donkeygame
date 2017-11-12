@@ -53,6 +53,7 @@ var client = {
 		});
 	},
 	location: ()=>{
+		console.log(client.id);
 		if(client.arrayPlayers[client.id].move){
 			client.socket.emit('location', {
 				id: client.dataId,
