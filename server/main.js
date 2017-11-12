@@ -37,8 +37,10 @@ io.on('connection', (socket)=>{
         reset(socket, clients);
     });
     socket.on('location', (data)=>{
-        clients[getIndex(data.id)].x = data.x;
-        clients[getIndex(data.id)].y = data.y;
+        if(typeof clients[getIndex(data.id)] != "undefined"){
+            clients[getIndex(data.id)].x = data.x;
+            clients[getIndex(data.id)].y = data.y;
+        }
     });
 });
 
