@@ -108,28 +108,28 @@ var states = {
             }
             client.moveAllPlayers((data)=>{
                 if(swMovePlayer != data.move){
-                    console.log('id:' + data.id + ' move:' + data.move);
+                    console.log('id:' + getIndex(data.id) + ' move:' + data.move);
                     if (data.move == 'left'){
-                        client.arrayPlayers[data.id].moveLeft();
+                        client.arrayPlayers[getIndex(data.id)].moveLeft();
                     }
                     if (data.move == 'right'){   
-                        client.arrayPlayers[data.id].moveRight();
+                        client.arrayPlayers[getIndex(data.id)].moveRight();
                     }
-                    console.log('Touching down :' + client.arrayPlayers[data.id].entity.body.touching.down);
-                    if(client.arrayPlayers[data.id].entity.body.touching.down){
+                    console.log('Touching down :' + client.arrayPlayers[getIndex(data.id)].entity.body.touching.down);
+                    if(client.arrayPlayers[getIndex(data.id)].entity.body.touching.down){
                         if(data.move == 'jump0'){
-                            client.arrayPlayers[data.id].jump(0);
+                            client.arrayPlayers[getIndex(data.id)].jump(0);
                         }
                     }else{
                         if(data.move == 'jump1'){
-                            client.arrayPlayers[data.id].jump(1);
+                            client.arrayPlayers[getIndex(data.id)].jump(1);
                         }
                         if(data.move == 'jump-1'){
-                            client.arrayPlayers[data.id].jump(-1);
+                            client.arrayPlayers[getIndex(data.id)].jump(-1);
                         }
                     }
                     if(data.move == 'stop'){
-                        client.arrayPlayers[data.id].entity.body.velocity.x = 0;
+                        client.arrayPlayers[getIndex(data.id)].entity.body.velocity.x = 0;
                     }
                     swMovePlayer = data.move;
                 }

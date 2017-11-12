@@ -9,10 +9,12 @@ var client = {
 	},
 	newPlayer: (callback)=>{
 		client.socket.on('newPlayer', (data)=>{
-			console.log('id newPlayer: ' + data.id);
-			client.addNewPlayer(data);
-			client.id = getIndex(client.dataId);
-			callback(client.arrayPlayers[getIndex(data.id)]);
+			if(typeof client.arrayPlayers[getIndex(data.id)] === "undefined"){
+				console.log('id newPlayer: ' + data.id);
+				client.addNewPlayer(data);
+				client.id = getIndex(client.dataId);
+				callback(client.arrayPlayers[getIndex(data.id)]);
+			}
 		});
 	},
 	allPlayers: ()=>{
@@ -28,6 +30,7 @@ var client = {
 	},
 	addNewPlayer: (data)=>{
 		client.arrayPlayers.push(new mario(data.id, data.x, data.y));
+		console.log(client.arrayPlayers);
 	},
 	movePlayer: (move)=>{
 		client.socket.emit('movePlayer', {
@@ -53,22 +56,19 @@ var client = {
 		});
 	},
 	location: ()=>{
-		console.log(client.id);
-		console.log(client.arrayPlayers[client.id].move);
-		console.log(client.arrayPlayers[client.id].entity.body.x);
-		// if(client.arrayPlayers[client.id].move){
-		// 	client.socket.emit('location', {
-		// 		id: client.dataId,
-		// 		x: client.arrayPlayers[client.id].entity.body.x,
-		// 		y: client.arrayPlayers[client.id].entity.body.y 
-		// 	});
-		// }else{
-		// 	client.socket.emit('location', {
-		// 		id: client.dataId,
-		// 		x: 0,
-		// 		y: 0 
-		// 	});
-		// }
+		if(client.arrayPlayers[client.id].move){
+			client.socket.emit('location', {
+				id: client.dataId,
+				x: client.arrayPlayers[client.id].entity.body.x,
+				y: client.arrayPlayers[client.id].entity.body.y 
+			});
+		}else{
+			client.socket.emit('location', {
+				id: client.dataId,
+				x: 0,
+				y: 0 
+			});
+		}
 	}
 }
 
