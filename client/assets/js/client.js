@@ -42,13 +42,15 @@ var client = {
 		}
 	},
 	moveAllPlayers: (callback)=>{
-		client.socket.on('moveAllPlayers', (data)=>{
-			if(client.arrayPlayers[client.id].move){
-				callback(data);
-			}else{
-				callback(null);
-			}
-		});
+		if(client.id != null){
+			client.socket.on('moveAllPlayers', (data)=>{
+				if(client.arrayPlayers[client.id].move){
+					callback(data);
+				}else{
+					callback(null);
+				}
+			});
+		}
 	},
 	removePlayer: (gameStage)=>{
 		client.socket.on('remove', (id)=>{ 
