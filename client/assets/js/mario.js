@@ -20,19 +20,19 @@ class mario {
     this.entity.frame = 4;
   }
   setAnimations () {
-    this.entity.animations.add('left', [2,3], 5);
-    this.entity.animations.add('right', [5,4], 5);
+    this.entity.animations.add('left', [2,3], 5, true);
+    this.entity.animations.add('right', [5,4], 5, true);
   }
   moveLeft () {
     if(this.move){
       this.entity.body.velocity.x = -70;
-      this.entity.animations.play('left', true);
+      this.entity.animations.play('left');
     }
   }
   moveRight () {
     if(this.move){
       this.entity.body.velocity.x = 70;
-      this.entity.animations.play('right', true);
+      this.entity.animations.play('right');
     }
   }
   jump (value) {

@@ -48,6 +48,8 @@ var client = {
 					callback(null);
 				}
 			});
+		}else{
+			callback(null);
 		}
 	},
 	removePlayer: (gameStage)=>{
