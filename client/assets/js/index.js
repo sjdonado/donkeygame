@@ -179,8 +179,6 @@ var states = {
         },
         
         create: function() {
-            // client.arrayPlayers = [];
-            // client.reset();
             mainMusic.stop();
             // console.log(win);
             controllers = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
