@@ -126,10 +126,12 @@ var states = {
                     }else{
                         if(data.move == 'jump1'){
                             client.arrayPlayers[getIndex(data.id)].moveRight(false);
+                            client.arrayPlayers[getIndex(data.id)].entity.animations.stop();
                             client.arrayPlayers[getIndex(data.id)].jump(1);
                         }
                         if(data.move == 'jump-1'){
                             client.arrayPlayers[getIndex(data.id)].moveLeft(false);
+                            client.arrayPlayers[getIndex(data.id)].entity.animations.stop();
                             client.arrayPlayers[getIndex(data.id)].jump(-1);
                         }
                     }
