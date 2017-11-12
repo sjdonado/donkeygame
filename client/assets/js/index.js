@@ -14,15 +14,17 @@ var states = {
             game.stage.backgroundColor="#ffff";
             game.load.bitmapFont('font','assets/fonts/font.png','assets/fonts/font.fnt');
             game.load.audio('mainMusic','assets/audios/mainMusic.mp3');
+            game.load.image('logo', 'assets/imgs/logo.png');
         },
 
         create: function() {
+            game.add.image(90, 60, 'logo');
             controllers = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-            var mainText= game.add.bitmapText(game.width/2 - 115,game.height/2,'font','Press [SPACEBAR] to start',16);
-            var authorsT = game.add.bitmapText(game.width/2-40,game.height -200,'font','Authors',16);
-            var brText = game.add.bitmapText(game.width/2-70,game.height -180,'font','Brian Ramirez',16);
-            var jrText = game.add.bitmapText(game.width/2-75,game.height -160,'font','Juan Rodriguez',16);
-            var javText = game.add.bitmapText(game.width/2-80,game.height -140,'font','Javier Roncallo',16);
+            var mainText= game.add.bitmapText(game.width/2 - 115,game.height/2 +50,'font','Press [SPACEBAR] to start',16);
+            var authorsT = game.add.bitmapText(game.width/2-40,game.height -160,'font','Authors',16);
+            var brText = game.add.bitmapText(game.width/2-70,game.height -140,'font','Brian Ramirez',16);
+            var jrText = game.add.bitmapText(game.width/2-75,game.height -120,'font','Juan Rodriguez',16);
+            var javText = game.add.bitmapText(game.width/2-80,game.height -100,'font','Javier Roncallo',16);
             mainMusic = game.add.audio('mainMusic');
         },
 
@@ -71,7 +73,7 @@ var states = {
             client.newPlayer((newPlayer)=>{
                 if(newPlayer != null){
                     newPlayer.init();
-                    newPlayer.setAnimations(); 
+                    newPlayer.setAnimations();
                 }
             });
             platform.init();
@@ -170,12 +172,12 @@ var states = {
             client.location();
         }
     },
-    finish: {        
+    finish: {
         preload: function() {
             game.stage.backgroundColor="#ffff";
             game.load.bitmapFont('font','assets/fonts/font.png','assets/fonts/font.fnt');
         },
-        
+
         create: function() {
             mainMusic.stop();
             client.reset();
