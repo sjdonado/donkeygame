@@ -31,7 +31,7 @@ var client = {
 	},
 	movePlayer: (move)=>{
 		client.socket.emit('movePlayer', {
-			id: client.id,
+			id: client.dataId,
 			move: move
 		});
 	},
@@ -55,13 +55,13 @@ var client = {
 	location: ()=>{
 		if(client.arrayPlayers[getIndex(client.id)].move){
 			client.socket.emit('location', {
-				id: client.id,
+				id: client.dataId,
 				x: client.arrayPlayers[getIndex(client.id)].entity.body.x,
 				y: client.arrayPlayers[getIndex(client.id)].entity.body.y 
 			});
 		}else{
 			client.socket.emit('location', {
-				id: client.id,
+				id: client.dataId,
 				x: 0,
 				y: 0 
 			});
