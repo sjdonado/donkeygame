@@ -127,7 +127,7 @@ var states = {
                             client.arrayPlayers[getIndex(data.id)].jump(1);
                         }
                         if(data.move == 'jump-1'){
-                            client.arrayPlayers[getIndex(data.id)].jump(-1);
+                            client.arrayPlayers[getIndex(data.id)].jump(0);
                         }
                     }
                     if(data.move == 'stop'){

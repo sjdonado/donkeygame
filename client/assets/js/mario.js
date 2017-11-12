@@ -20,8 +20,8 @@ class mario {
     this.entity.frame = 4;
   }
   setAnimations () {
-    this.entity.animations.add('left', [2,3], 5, true);
-    this.entity.animations.add('right', [5,4], 5, true);
+    this.entity.animations.add('left', [2,3], 5);
+    this.entity.animations.add('right', [5,4], 5);
   }
   moveLeft () {
     if(this.move){
