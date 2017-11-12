@@ -19,6 +19,7 @@ var client = {
 	},
 	allPlayers: ()=>{
 		client.socket.on('allPlayers', (data)=>{
+			client.arrayPlayers = [];
 		    console.log('id host: ' + data.id);
 		    console.log('server response: ' + data.players.join());
 		    client.dataId = data.id;
@@ -40,7 +41,11 @@ var client = {
 	},
 	moveAllPlayers: (callback)=>{
 		client.socket.on('moveAllPlayers', (data)=>{
-			callback(data);
+			if(client.arrayPlayers[client.id].move){
+				callback(data);
+			}else{
+				callback(null);
+			}
 		});
 	},
 	removePlayer: (gameStage)=>{
@@ -50,25 +55,24 @@ var client = {
 				client.arrayPlayers[getIndex(id)].entity.body = null;
 				client.arrayPlayers[getIndex(id)].entity.destroy();	
 				client.arrayPlayers.splice(getIndex(id), 1)
+				client.id = getIndex(client.dataId);
 			}
-			if(client.arrayPlayers.length != 0) client.id = getIndex(client.dataId);
 			console.log(client.arrayPlayers);
 		});
 	},
 	location: ()=>{
-		if(client.arrayPlayers[client.id].move){
+		if(client.id != null){
 			client.socket.emit('location', {
 				id: client.dataId,
 				x: client.arrayPlayers[client.id].entity.body.x,
 				y: client.arrayPlayers[client.id].entity.body.y 
 			});
-		}else{
-			client.socket.emit('location', {
-				id: client.dataId,
-				x: 0,
-				y: 0 
-			});
 		}
+	},
+	reset: ()=>{
+        client.id = null;
+		client.dataId = null;
+		client.socket.emit('reset');
 	}
 }
 

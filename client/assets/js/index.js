@@ -51,6 +51,7 @@ var states = {
             game.load.audio('marioDies','assets/audios/marioDies.wav');
             game.load.audio('starCollide','assets/audios/starCollide.wav');
             game.load.audio('win','assets/audios/win.wav');
+            // win = null;
             client.askNewPlayer();
             client.allPlayers();
         },
@@ -81,9 +82,9 @@ var states = {
             star.generateStars();
             platform.generateWord();
             swFall = true;
-            win = false;
             moveStatusSend = null;
             moveStatus = null;
+            win = false;
             mainMusic.play();
             swMovePlayer = null;
         },
@@ -107,7 +108,7 @@ var states = {
                 }, 1000);
             }
             client.moveAllPlayers((data)=>{
-                if(swMovePlayer != data.move){
+                if(data != null && swMovePlayer != data.move){
                     console.log('id:' + getIndex(data.id) + ' move:' + data.move);
                     if (data.move == 'left'){
                         client.arrayPlayers[getIndex(data.id)].moveLeft();
@@ -115,7 +116,7 @@ var states = {
                     if (data.move == 'right'){   
                         client.arrayPlayers[getIndex(data.id)].moveRight();
                     }
-                    console.log('Touching down :' + client.arrayPlayers[getIndex(data.id)].entity.body.touching.down);
+                    // console.log('Touching down :' + client.arrayPlayers[getIndex(data.id)].entity.body.touching.down);
                     if(client.arrayPlayers[getIndex(data.id)].entity.body.touching.down){
                         if(data.move == 'jump0'){
                             client.arrayPlayers[getIndex(data.id)].jump(0);
@@ -178,6 +179,7 @@ var states = {
         
         create: function() {
             mainMusic.stop();
+            client.reset();
             // console.log(win);
             controllers = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
             if(win){
