@@ -40,17 +40,13 @@ var client = {
 		});
 	},
 	moveAllPlayers: (callback)=>{
-		if(client.id != null){
-			client.socket.on('moveAllPlayers', (data)=>{
-				if(client.arrayPlayers[client.id].move){
-					callback(data);
-				}else{
-					callback(null);
-				}
-			});
-		}else{
-			callback(null);
-		}
+		client.socket.on('moveAllPlayers', (data)=>{
+			if(client.id != null && client.arrayPlayers[client.id].move){
+				callback(data);
+			}else{
+				callback(null);
+			}
+		});
 	},
 	removePlayer: (gameStage)=>{
 		client.socket.on('remove', (id)=>{ 
