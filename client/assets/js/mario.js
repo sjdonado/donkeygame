@@ -23,16 +23,24 @@ class mario {
     this.entity.animations.add('left', [2,3]);
     this.entity.animations.add('right', [5,4]);
   }
-  moveLeft () {
+  moveLeft (type) {
     if(this.move){
       this.entity.body.velocity.x = -70;
-      this.entity.animations.play('left', 5, true);
+      if(type){
+        this.entity.animations.play('left', 5);
+      }else{
+        this.entity.animations.play('left', 5, true);
+      }
     }
   }
-  moveRight () {
+  moveRight (type) {
     if(this.move){
       this.entity.body.velocity.x = 70;
-      this.entity.animations.play('right', 5, true);
+      if(type){
+        this.entity.animations.play('right', 5);
+      }else{
+        this.entity.animations.play('left', 5, true);
+      }
     }
   }
   jump (value) {
@@ -58,7 +66,6 @@ class mario {
   physics (clientID) {
     if(clientID == this.id){
       this.entity.body.velocity.x = 0;
-      this.entity.animations.stop();
     } 
   }
   collides (clientID) {

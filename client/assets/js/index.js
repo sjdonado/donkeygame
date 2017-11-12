@@ -112,10 +112,10 @@ var states = {
                 if(data != null && swMovePlayer != data.move){
                     console.log('id:' + getIndex(data.id) + ' move:' + data.move);
                     if (data.move == 'left'){
-                        client.arrayPlayers[getIndex(data.id)].moveLeft();
+                        client.arrayPlayers[getIndex(data.id)].moveLeft(false);
                     }
                     if (data.move == 'right'){   
-                        client.arrayPlayers[getIndex(data.id)].moveRight();
+                        client.arrayPlayers[getIndex(data.id)].moveRight(false);
                     }
                     // console.log('Touching down :' + client.arrayPlayers[getIndex(data.id)].entity.body.touching.down);
                     if(client.arrayPlayers[getIndex(data.id)].entity.body.touching.down){
@@ -124,11 +124,11 @@ var states = {
                         }
                     }else{
                         if(data.move == 'jump1'){
-                            client.arrayPlayers[getIndex(data.id)].moveRight();
+                            client.arrayPlayers[getIndex(data.id)].moveRight(false);
                             client.arrayPlayers[getIndex(data.id)].jump(1);
                         }
                         if(data.move == 'jump-1'){
-                            client.arrayPlayers[getIndex(data.id)].moveLeft();
+                            client.arrayPlayers[getIndex(data.id)].moveLeft(false);
                             client.arrayPlayers[getIndex(data.id)].jump(-1);
                         }
                     }
@@ -144,11 +144,11 @@ var states = {
                 moveStatus = 'stop';
             }else{
                 if (controllers.left.isDown){
-                    client.arrayPlayers[client.id].moveLeft();
+                    client.arrayPlayers[client.id].moveLeft(true);
                     moveStatus = 'left';
                 }
                 if (controllers.right.isDown){
-                    client.arrayPlayers[client.id].moveRight();
+                    client.arrayPlayers[client.id].moveRight(true);
                     moveStatus = 'right';
                 }
                 if(client.arrayPlayers[client.id].entity.body.touching.down){
