@@ -136,6 +136,12 @@ var states = {
                     if(data.move == 'stop'){
                         client.arrayPlayers[getIndex(data.id)].entity.body.velocity.x = 0;
                         client.arrayPlayers[getIndex(data.id)].entity.animations.stop();
+                        if(swMovePlayer == 'right'){
+                            client.arrayPlayers[getIndex(data.id)].entity.frame = 4;
+                        }
+                        if(swMovePlayer == 'left'){
+                            client.arrayPlayers[getIndex(data.id)].entity.frame = 3;
+                        }
                     }
                     swMovePlayer = data.move;
                 }
