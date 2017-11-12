@@ -41,7 +41,7 @@ var client = {
 	},
 	moveAllPlayers: (callback)=>{
 		client.socket.on('moveAllPlayers', (data)=>{
-			if(client.id != null && client.arrayPlayers[client.id].move){
+			if(client.id != null){
 				callback(data);
 			}else{
 				callback(null);
