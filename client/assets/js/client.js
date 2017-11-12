@@ -1,6 +1,6 @@
 var client = {
 	//https://donkeygame.herokuapp.com',
-	socket: io.connect('https://donkeygame.herokuapp.com', {'forceNew': true}),
+	socket: io.connect('localhost:8080', {'forceNew': true}),
 	arrayPlayers: [],
 	id: null,
 	dataId: null,
@@ -9,7 +9,7 @@ var client = {
 	},
 	newPlayer: (callback)=>{
 		client.socket.on('newPlayer', (data)=>{
-			if(typeof client.arrayPlayers[getIndex(data.id)] === "undefined"){
+			if(typeof client.arrayPlayers[getIndex(data.id)] === "undefined" && client.id != null){
 				console.log('id newPlayer: ' + data.id);
 				client.addNewPlayer(data);
 				client.id = getIndex(client.dataId);
