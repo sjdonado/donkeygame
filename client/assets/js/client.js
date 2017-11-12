@@ -56,8 +56,8 @@ var client = {
 		if(client.arrayPlayers[client.id].move){
 			client.socket.emit('location', {
 				id: client.id,
-				x: client.arrayPlayers[client.id].entity.body.x,
-				y: client.arrayPlayers[client.id].entity.body.y 
+				x: client.arrayPlayers[getIndex(client.id)].entity.body.x,
+				y: client.arrayPlayers[getIndex(client.id)].entity.body.y 
 			});
 		}else{
 			client.socket.emit('location', {
