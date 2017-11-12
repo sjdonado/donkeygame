@@ -20,19 +20,19 @@ class mario {
     this.entity.frame = 4;
   }
   setAnimations () {
-    this.entity.animations.add('left', [2,3], 5);
-    this.entity.animations.add('right', [5,4], 5);
+    this.entity.animations.add('left', [2,3]);
+    this.entity.animations.add('right', [5,4]);
   }
   moveLeft () {
     if(this.move){
       this.entity.body.velocity.x = -70;
-      this.entity.animations.play('left');
+      this.entity.animations.play('left', 5, true);
     }
   }
   moveRight () {
     if(this.move){
       this.entity.body.velocity.x = 70;
-      this.entity.animations.play('right');
+      this.entity.animations.play('right', 5, true);
     }
   }
   jump (value) {
@@ -56,7 +56,10 @@ class mario {
     }
   }
   physics (clientID) {
-    if(clientID == this.id) this.entity.body.velocity.x = 0;
+    if(clientID == this.id){
+      this.entity.body.velocity.x = 0;
+      this.entity.animations.stop();
+    } 
   }
   collides (clientID) {
     game.physics.arcade.collide(this.entity, platforms);
