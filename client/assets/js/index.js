@@ -135,7 +135,7 @@ var states = {
                     }
                     if(data.move == 'stop'){
                         client.arrayPlayers[getIndex(data.id)].entity.body.velocity.x = 0;
-                        clients.arrayPlayers[getIndex(data.id)].entity.animations.stop();
+                        client.arrayPlayers[getIndex(data.id)].entity.animations.stop();
                     }
                     swMovePlayer = data.move;
                 }
