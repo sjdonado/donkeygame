@@ -37,20 +37,20 @@ class mario {
   }
   jump (value) {
     if(this.move){
-        game.add.audio('jump').play();
-        if(value == 0){
+        if(value == 1){
             setTimer(() => {
                 this.entity.frame = 6;
             }, () => {
                 this.entity.frame = 4;
             }, 1);
-        }else if(value == 1){
+        }else if(value == -1){
             setTimer(() => {
                 this.entity.frame = 1;
             }, () => {
                 this.entity.frame = 3;
             }, 1);
         }else{
+            game.add.audio('jump').play();
             this.entity.body.velocity.y = -175;
         }
     }
