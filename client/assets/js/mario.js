@@ -39,7 +39,7 @@ class mario {
       if(type){
         this.entity.animations.play('right', 5);
       }else{
-        this.entity.animations.play('left', 5, true);
+        this.entity.animations.play('right', 5, true);
       }
     }
   }
