@@ -53,11 +53,11 @@ var client = {
 		});
 	},
 	location: ()=>{
-		if(client.arrayPlayers[getIndex(client.id)].move){
+		if(client.arrayPlayers[client.id].move){
 			client.socket.emit('location', {
 				id: client.dataId,
-				x: client.arrayPlayers[getIndex(client.id)].entity.body.x,
-				y: client.arrayPlayers[getIndex(client.id)].entity.body.y 
+				x: client.arrayPlayers[client.id].entity.body.x,
+				y: client.arrayPlayers[client.id].entity.body.y 
 			});
 		}else{
 			client.socket.emit('location', {
