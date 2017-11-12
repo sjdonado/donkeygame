@@ -14,7 +14,6 @@ var states = {
             game.stage.backgroundColor="#ffff";
             game.load.bitmapFont('font','assets/fonts/font.png','assets/fonts/font.fnt');
             game.load.audio('mainMusic','assets/audios/mainMusic.mp3');
-            // game.load.audio('startMusic','assets/audios/startMusic.mp3');
         },
 
         create: function() {
@@ -25,8 +24,6 @@ var states = {
             var jrText = game.add.bitmapText(game.width/2-75,game.height -160,'font','Juan Rodriguez',16);
             var javText = game.add.bitmapText(game.width/2-80,game.height -140,'font','Javier Roncallo',16);
             mainMusic = game.add.audio('mainMusic');
-            // startMusic = game.add.audio('startMusic');
-            // startMusic.play();
         },
 
         update: function() {
@@ -54,12 +51,14 @@ var states = {
             game.load.audio('marioDies','assets/audios/marioDies.wav');
             game.load.audio('starCollide','assets/audios/starCollide.wav');
             game.load.audio('win','assets/audios/win.wav');
+            // if(client.id == null){
+            // }
             client.askNewPlayer();
             client.allPlayers();
         },
 
         create: function() {
-            game.stage.disableVisibilityChangue = true;
+            // game.stage.disableVisibilityChangue = true;
             controllers = game.input.keyboard.createCursorKeys();
             scoreText = game.add.bitmapText(12,10,'font','Score',16);
             scContText = game.add.bitmapText(30,30,'font','0',16);
@@ -67,14 +66,15 @@ var states = {
             barrel.init();
             donkey.init();
             princess.init();
-            console.log(client.arrayPlayers);
             client.arrayPlayers.forEach((mario)=>{
                 mario.init();
                 mario.setAnimations();
             });
             client.newPlayer((newPlayer)=>{
-                newPlayer.init();
-                newPlayer.setAnimations(); 
+                if(newPlayer != null){
+                    newPlayer.init();
+                    newPlayer.setAnimations(); 
+                }
             });
             platform.init();
             star.init();
@@ -86,7 +86,6 @@ var states = {
             win = false;
             moveStatusSend = null;
             moveStatus = null;
-            // startMusic.stop();
             mainMusic.play();
             swMovePlayer = null;
         },
@@ -96,9 +95,10 @@ var states = {
             donkey.move();
             platform.physics();
             barrel.physics();
+            client.location();
             client.arrayPlayers.forEach((mario)=>{
-                mario.collides(client.id);
-                mario.physics(client.id);
+                mario.collides(client.dataId);
+                mario.physics(client.dataId);
             });
             princess.move();
             barrel.killBarrel();
@@ -118,6 +118,7 @@ var states = {
                     if (data.move == 'right'){   
                         client.arrayPlayers[data.id].moveRight();
                     }
+                    console.log('Touching down :' + client.arrayPlayers[data.id].entity.body.touching.down);
                     if(client.arrayPlayers[data.id].entity.body.touching.down){
                         if(data.move == 'jump0'){
                             client.arrayPlayers[data.id].jump(0);
@@ -178,8 +179,10 @@ var states = {
         },
         
         create: function() {
+            // client.arrayPlayers = [];
+            // client.reset();
             mainMusic.stop();
-            console.log(win);
+            // console.log(win);
             controllers = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
             if(win){
                 text = 'YOU WIN';

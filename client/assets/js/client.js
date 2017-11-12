@@ -3,29 +3,31 @@ var client = {
 	socket: io.connect('localhost:8080', {'forceNew': true}),
 	arrayPlayers: [],
 	id: null,
+	dataId: null,
 	askNewPlayer: ()=>{
 		client.socket.emit('newPlayer');
 	},
 	newPlayer: (callback)=>{
 		client.socket.on('newPlayer', (data)=>{
-			console.log('id newPlayer: ' + data);
+			console.log('id newPlayer: ' + data.id);
 			client.addNewPlayer(data);
-			callback(client.arrayPlayers[data]);
+			client.id = getIndex(client.dataId);
+			callback(client.arrayPlayers[getIndex(data.id)]);
 		});
 	},
 	allPlayers: ()=>{
 		client.socket.on('allPlayers', (data)=>{
 		    console.log('id host: ' + data.id);
-		    console.log(data.players);
-		    client.id = data.id;
-		    client.addNewPlayer(client.id);
+		    console.log('server response: ' + data.players.join());
+		    client.dataId = data.id;
 		    data.players.forEach((element) => {
 		        client.addNewPlayer(element);
-		    })
+		    });
+		    client.id = getIndex(client.dataId);
 		});
 	},
-	addNewPlayer: (id)=>{
-		client.arrayPlayers[id] = new mario(id);
+	addNewPlayer: (data)=>{
+		client.arrayPlayers.push(new mario(data.id, data.x, data.y));
 	},
 	movePlayer: (move)=>{
 		client.socket.emit('movePlayer', {
@@ -39,14 +41,36 @@ var client = {
 		});
 	},
 	removePlayer: (gameStage)=>{
-		client.socket.on('remove', (id)=>{
-			if(typeof(client.arrayPlayers[id]) != "undefined"){
-				client.arrayPlayers[id].entity.body = null;
-				client.arrayPlayers[id].entity.destroy();	
-			} 
-			client.arrayPlayers.splice(client.arrayPlayers.indexOf(id), 1);
+		client.socket.on('remove', (id)=>{ 
+			client.arrayPlayers[getIndex(id)].entity.body = null;
+			client.arrayPlayers[getIndex(id)].entity.destroy();	
+			client.arrayPlayers.splice(getIndex(id), 1)
+			if(client.arrayPlayers.length !== 0) client.id = getIndex(client.dataId);
 			console.log('Disconnect id: ' + id);
 			console.log(client.arrayPlayers);
 		});
+	},
+	location: ()=>{
+		if(client.arrayPlayers[client.id].move){
+			client.socket.emit('location', {
+				id: client.id,
+				x: client.arrayPlayers[client.id].entity.body.x,
+				y: client.arrayPlayers[client.id].entity.body.y 
+			});
+		}else{
+			client.socket.emit('location', {
+				id: client.id,
+				x: 0,
+				y: 0 
+			});
+		}
 	}
+}
+
+function getIndex(id){
+	index = -1;
+	client.arrayPlayers.forEach((item) => {
+	  if(item.id == id) index = client.arrayPlayers.indexOf(item);
+	});
+	return index;
 }

@@ -1,5 +1,5 @@
 class mario {
-  constructor(id){
+  constructor(id, x, y){
     this.sprites = {
       x:18,
       y:18,
@@ -7,9 +7,11 @@ class mario {
     };
     this.id = id;
     this.move = true;
+    this.x = x;
+    this.y = y == 0 ? game.height - 26 : y;
   }
   init () {
-    this.entity = game.add.sprite(0, game.height - 26, 'mario');
+    this.entity = game.add.sprite(this.x, this.y, 'mario');
     game.physics.arcade.enable(this.entity);
     this.entity.enableBody = true;
     this.entity.body.bounce.y = 0.1;
@@ -60,24 +62,26 @@ class mario {
     game.physics.arcade.collide(this.entity, platforms);
     if(clientID == this.id){
       game.physics.arcade.collide(this.entity, barriles, (mario, barrel) => {
-          lose(this.entity, game, this.move);
+          lose(this, game);
       },null, this);
       game.physics.arcade.collide(this.entity, donkeyObject, (mario, donkey) => {
-          lose(this.entity, game, this.move);
-      },null, this);
-      game.physics.arcade.collide(this.entity, pauline, (mario, pauline) => {
-        if(score.total == 10){
-            setTimer(() => {
-                this.move = false;
-                if(!win){game.add.audio('win').play();}
-                win = true;
-                pauline.frame = 4;
-            }, () => {
-                game.state.start('finish');
-            }, 1000);
-        }
+          lose(this, game);
       },null, this);
     }
+    move = this.move;
+    game.physics.arcade.collide(this.entity, pauline, (mario, pauline) => {
+      setTimer(() => {
+          move = false;
+          if(!win){game.add.audio('win').play();}
+          win = true;
+          pauline.frame = 4;
+      }, () => {
+          game.state.start('finish');
+      }, 1000);
+      if(score.total == 10){
+      }
+    },null, this);
+    this.move = move;
     game.physics.arcade.collide(this.entity, stars, (mario, star) => {
       star.kill();
       game.add.audio('starCollide').play();
@@ -86,11 +90,11 @@ class mario {
   }
 }
 
-function lose (object, game, move){
+function lose (object, game){
   setTimer(() => {
-    move = false;
-    if (object.frame != 0) {game.add.audio('marioDies').play();}
-    object.frame = 0;
+    object.move = false;
+    if (object.entity.frame != 0) {game.add.audio('marioDies').play();}
+    object.entity.frame = 0;
   }, () => {
       game.state.start('finish');
   }, 1000);
