@@ -26,6 +26,7 @@ var states = {
             var jrText = game.add.bitmapText(game.width/2-75,game.height -120,'font','Juan Rodriguez',16);
             var javText = game.add.bitmapText(game.width/2-80,game.height -100,'font','Javier Roncallo',16);
             mainMusic = game.add.audio('mainMusic');
+            game.add.tween(mainText).to( { alpha: 0 }, 1000, "Linear", true,0,-1,true);
         },
 
         update: function() {
@@ -196,7 +197,8 @@ var states = {
                 game.add.bitmapText(game.world.centerX - game.width*0.17, game.world.centerY,'font', 'SCORE: ' + score.total, 36);
             }
             game.add.bitmapText(game.world.centerX - xWin, game.world.centerY - 100, 'font', text, 56);
-            game.add.bitmapText(game.world.centerX - game.width*0.42, game.world.centerY + 100, 'font', 'Press [SPACEBAR] to restart',26);
+            var resetText = game.add.bitmapText(game.world.centerX - game.width*0.42, game.world.centerY + 100, 'font', 'Press [SPACEBAR] to restart',26);
+            game.add.tween(resetText).to( { alpha: 0 }, 1000, "Linear", true,0,-1,true);
         },
 
         update: function() {
