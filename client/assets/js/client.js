@@ -9,7 +9,7 @@ var client = {
 	},
 	newPlayer: (callback)=>{
 		client.socket.on('newPlayer', (data)=>{
-			if(client.id != null && typeof client.arrayPlayers[getIndex(data.id)] === "undefined"){
+			if(typeof client.arrayPlayers[getIndex(data.id)] === "undefined"){
 				console.log('id newPlayer: ' + data.id);
 				client.addNewPlayer(data);
 				client.id = getIndex(client.dataId);
