@@ -95,7 +95,6 @@ var states = {
             donkey.move();
             platform.physics();
             barrel.physics();
-            client.location();
             client.arrayPlayers.forEach((mario)=>{
                 mario.collides(client.dataId);
                 mario.physics(client.dataId);
@@ -170,6 +169,7 @@ var states = {
                 client.movePlayer(moveStatus);
                 moveStatusSend = moveStatus;
             }
+            client.location();
         }
     },
     finish: {        
