@@ -54,14 +54,12 @@ var states = {
             game.load.audio('marioDies','assets/audios/marioDies.wav');
             game.load.audio('starCollide','assets/audios/starCollide.wav');
             game.load.audio('win','assets/audios/win.wav');
-            // if(client.id == null){
-            // }
             client.askNewPlayer();
             client.allPlayers();
         },
 
         create: function() {
-            // game.stage.disableVisibilityChangue = true;
+            game.stage.disableVisibilityChangue = true;
             controllers = game.input.keyboard.createCursorKeys();
             scoreText = game.add.bitmapText(12,10,'font','Score',16);
             scContText = game.add.bitmapText(30,30,'font','0',16);
@@ -86,9 +84,9 @@ var states = {
             star.generateStars();
             platform.generateWord();
             swFall = true;
-            win = false;
             moveStatusSend = null;
             moveStatus = null;
+            win = false;
             mainMusic.play();
             swMovePlayer = null;
         },
@@ -98,7 +96,6 @@ var states = {
             donkey.move();
             platform.physics();
             barrel.physics();
-            client.location();
             client.arrayPlayers.forEach((mario)=>{
                 mario.collides(client.dataId);
                 mario.physics(client.dataId);
@@ -113,29 +110,29 @@ var states = {
                 }, 1000);
             }
             client.moveAllPlayers((data)=>{
-                if(swMovePlayer != data.move){
-                    console.log('id:' + data.id + ' move:' + data.move);
+                if(data != null && swMovePlayer != data.move){
+                    console.log('id:' + getIndex(data.id) + ' move:' + data.move);
                     if (data.move == 'left'){
-                        client.arrayPlayers[data.id].moveLeft();
+                        client.arrayPlayers[getIndex(data.id)].moveLeft();
                     }
-                    if (data.move == 'right'){
-                        client.arrayPlayers[data.id].moveRight();
+                    if (data.move == 'right'){   
+                        client.arrayPlayers[getIndex(data.id)].moveRight();
                     }
-                    console.log('Touching down :' + client.arrayPlayers[data.id].entity.body.touching.down);
-                    if(client.arrayPlayers[data.id].entity.body.touching.down){
+                    // console.log('Touching down :' + client.arrayPlayers[getIndex(data.id)].entity.body.touching.down);
+                    if(client.arrayPlayers[getIndex(data.id)].entity.body.touching.down){
                         if(data.move == 'jump0'){
-                            client.arrayPlayers[data.id].jump(0);
+                            client.arrayPlayers[getIndex(data.id)].jump(0);
                         }
                     }else{
                         if(data.move == 'jump1'){
-                            client.arrayPlayers[data.id].jump(1);
+                            client.arrayPlayers[getIndex(data.id)].jump(1);
                         }
                         if(data.move == 'jump-1'){
-                            client.arrayPlayers[data.id].jump(-1);
+                            client.arrayPlayers[getIndex(data.id)].jump(-1);
                         }
                     }
                     if(data.move == 'stop'){
-                        client.arrayPlayers[data.id].entity.body.velocity.x = 0;
+                        client.arrayPlayers[getIndex(data.id)].entity.body.velocity.x = 0;
                     }
                     swMovePlayer = data.move;
                 }
@@ -173,6 +170,7 @@ var states = {
                 client.movePlayer(moveStatus);
                 moveStatusSend = moveStatus;
             }
+            client.location();
         }
     },
     finish: {
@@ -183,6 +181,7 @@ var states = {
 
         create: function() {
             mainMusic.stop();
+            client.reset();
             // console.log(win);
             controllers = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
             if(win){

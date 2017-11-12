@@ -67,26 +67,27 @@ class mario {
       game.physics.arcade.collide(this.entity, donkeyObject, (mario, donkey) => {
           lose(this, game);
       },null, this);
+      game.physics.arcade.collide(this.entity, stars, (mario, star) => {
+        star.body = null;
+        star.destroy();
+        game.add.audio('starCollide').play();
+        score.total += 1;
+     }, null, this);
     }
     move = this.move;
     game.physics.arcade.collide(this.entity, pauline, (mario, pauline) => {
-      setTimer(() => {
-          move = false;
-          if(!win){game.add.audio('win').play();}
-          win = true;
-          pauline.frame = 4;
-      }, () => {
-          game.state.start('finish');
-      }, 1000);
       if(score.total == 10){
+        setTimer(() => {
+            move = false;
+            if(!win){game.add.audio('win').play();}
+            win = true;
+            pauline.frame = 4;
+        }, () => {
+            game.state.start('finish');
+        }, 1000);
       }
     },null, this);
     this.move = move;
-    game.physics.arcade.collide(this.entity, stars, (mario, star) => {
-      star.kill();
-      game.add.audio('starCollide').play();
-      score.total += 1;
-   }, null, this);
   }
 }
 
