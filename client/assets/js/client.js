@@ -54,19 +54,21 @@ var client = {
 	},
 	location: ()=>{
 		console.log(client.id);
-		if(client.arrayPlayers[client.id].move){
-			client.socket.emit('location', {
-				id: client.dataId,
-				x: client.arrayPlayers[client.id].entity.body.x,
-				y: client.arrayPlayers[client.id].entity.body.y 
-			});
-		}else{
-			client.socket.emit('location', {
-				id: client.dataId,
-				x: 0,
-				y: 0 
-			});
-		}
+		console.log(client.arrayPlayers[client.id].move);
+		console.log(client.arrayPlayers[client.id].entity.body.x);
+		// if(client.arrayPlayers[client.id].move){
+		// 	client.socket.emit('location', {
+		// 		id: client.dataId,
+		// 		x: client.arrayPlayers[client.id].entity.body.x,
+		// 		y: client.arrayPlayers[client.id].entity.body.y 
+		// 	});
+		// }else{
+		// 	client.socket.emit('location', {
+		// 		id: client.dataId,
+		// 		x: 0,
+		// 		y: 0 
+		// 	});
+		// }
 	}
 }
 
