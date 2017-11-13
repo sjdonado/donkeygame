@@ -71,8 +71,8 @@ var states = {
             controllers = game.input.keyboard.createCursorKeys();
             scoreText = game.add.bitmapText(12,10,'font','Score',16);
             scContText = game.add.bitmapText(30,30,'font','0',16);
-            lvlText = game.add.bitmapText(game.width - 62,10,'font','Level',16);
-            lvlContText = game.add.bitmapText(game.width - 45,30,'font', lvl.total + '',16);
+            lvlText = game.add.bitmapText(game.width - 55,10,'font','Level',16);
+            lvlContText = game.add.bitmapText(game.width - 38,30,'font', lvl.total + '',16);
             timer = game.time.create(false);
             barrel.init();
             donkey.init();
@@ -203,16 +203,14 @@ var states = {
         create: function() {
             mainMusic.stop();
             client.reset();
-            if(win){
-                lvl.total++;
-                lvl.barrels *= lvl.total;
-            }
-            // console.log(win);
+            console.log(win);
             controllers = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
             if(win){
                 text = 'YOU WIN';
                 xWin = game.width*0.225;
-                msg = game.add.bitmapText(game.world.centerX - game.width*0.33, game.world.centerY,'font', 'CONGRATULATIONS!', 36);
+                msg = game.add.bitmapText(game.world.centerX - game.width*0.16, game.world.centerY,'font', 'LEVEL: ' + lvl.total, 36);
+                lvl.total++;
+                lvl.barrels *= lvl.total;
             }else{
                 text = 'GAME OVER';
                 xWin = game.width*0.305;
