@@ -72,7 +72,7 @@ class mario {
     game.physics.arcade.collide(this.entity, platforms);
     if(clientID == this.id){
       game.physics.arcade.collide(this.entity, barriles, (mario, barrel) => {
-          // lose(this, game);
+          lose(this, game);
       },null, this);
       game.physics.arcade.collide(this.entity, donkeyObject, (mario, donkey) => {
           lose(this, game);
