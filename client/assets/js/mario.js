@@ -1,18 +1,22 @@
 class mario {
-  constructor(id, x, y,isLuiggi){
+  constructor(id, x, y){
+    this.id = id;
     this.sprites = {
       x:18,
       y:18,
-      url:'assets/sprites/mario.png'
+      isMario: true
     };
-    if (id == client.dataId) this.sprites.url = 'assets/sprites/luiggi.png';
-    this.id = id;
+    if (id != client.dataId) this.sprites.isMario = false;
     this.move = true;
     this.x = x;
     this.y = y == 0 ? game.height - 26 : y;
   }
   init () {
-    this.entity = game.add.sprite(this.x, this.y, 'mario');
+    if(this.sprites.isMario){
+      this.entity = game.add.sprite(this.x, this.y, 'mario');
+    }else{
+      this.entity = game.add.sprite(this.x, this.y, 'luiggi');
+    }
     game.physics.arcade.enable(this.entity);
     this.entity.enableBody = true;
     this.entity.body.bounce.y = 0.1;

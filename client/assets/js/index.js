@@ -53,6 +53,7 @@ var states = {
             game.stage.backgroundColor="#ffff";
             game.load.bitmapFont('font','assets/fonts/font.png','assets/fonts/font.fnt');
             game.load.spritesheet('mario', 'assets/sprites/mario.png', 18, 18);
+            game.load.spritesheet('luiggi', 'assets/sprites/luiggi.png', 18, 18);
             game.load.spritesheet('dk', donkey.sprites.url, donkey.sprites.x, donkey.sprites.y);
             game.load.spritesheet('pauline', princess.sprites.url, princess.sprites.x, princess.sprites.y);
             game.load.spritesheet('barrel', barrel.sprites.url, barrel.sprites.x, barrel.sprites.y);
@@ -239,7 +240,7 @@ var states = {
 game.state.add('start', states['start']);
 game.state.add('main', states['main']);
 game.state.add('finish', states['finish']);
-game.state.start('finish');
+game.state.start('start');
 
 function setTimer(doBefore, doAfter, time){
     doBefore(mainText,authorsT);
