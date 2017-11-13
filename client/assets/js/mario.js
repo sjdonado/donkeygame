@@ -66,7 +66,7 @@ class mario {
   physics (clientID) {
     if(clientID == this.id){
       this.entity.body.velocity.x = 0;
-    } 
+    }
   }
   collides (clientID) {
     game.physics.arcade.collide(this.entity, platforms);
@@ -82,7 +82,7 @@ class mario {
         star.destroy();
         game.add.audio('starCollide').play();
         score.total += 1;
-     }, null, this);
+     }, null, this);     
     }
     move = this.move;
     game.physics.arcade.collide(this.entity, pauline, (mario, pauline) => {
