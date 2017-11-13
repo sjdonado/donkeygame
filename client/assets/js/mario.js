@@ -1,10 +1,11 @@
 class mario {
-  constructor(id, x, y){
+  constructor(id, x, y,isLuiggi){
     this.sprites = {
       x:18,
       y:18,
       url:'assets/sprites/mario.png'
     };
+    if (id == client.dataId) this.sprites.url = 'assets/sprites/luiggi.png';
     this.id = id;
     this.move = true;
     this.x = x;
@@ -82,7 +83,7 @@ class mario {
         star.destroy();
         game.add.audio('starCollide').play();
         score.total += 1;
-      }, null, this);     
+      }, null, this);
       game.physics.arcade.collide(this.entity, pauline, (mario, pauline) => {
         if(score.total == 10){
           setTimer(() => {

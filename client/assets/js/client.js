@@ -49,11 +49,11 @@ var client = {
 		});
 	},
 	removePlayer: (gameStage)=>{
-		client.socket.on('remove', (id)=>{ 
+		client.socket.on('remove', (id)=>{
 			console.log('Disconnect id: ' + id);
 			if(typeof client.arrayPlayers[getIndex(id)] != "undefined"){
 				client.arrayPlayers[getIndex(id)].entity.body = null;
-				client.arrayPlayers[getIndex(id)].entity.destroy();	
+				client.arrayPlayers[getIndex(id)].entity.destroy();
 				client.arrayPlayers.splice(getIndex(id), 1)
 				client.id = getIndex(client.dataId);
 			}
@@ -65,7 +65,7 @@ var client = {
 			client.socket.emit('location', {
 				id: client.dataId,
 				x: client.arrayPlayers[client.id].entity.body.x,
-				y: client.arrayPlayers[client.id].entity.body.y 
+				y: client.arrayPlayers[client.id].entity.body.y
 			});
 		}
 	},
