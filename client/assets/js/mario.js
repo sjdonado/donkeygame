@@ -91,6 +91,7 @@ class mario {
             move = false;
             if(!win){game.add.audio('win').play();}
             win = true;
+            princess.fall();
             pauline.frame = 4;
         }, () => {
             game.state.start('finish');

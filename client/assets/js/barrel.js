@@ -22,6 +22,13 @@ var barrel = {
 		}
 		if(contStart < 101){
 			contStart++;
+			swCont = 0;
+		}else{
+			if(swCont > 1000){
+				contStart = 0;
+			}else{
+				swCont++;
+			}
 		}
 	},
 	addBarrel: (value) => {
