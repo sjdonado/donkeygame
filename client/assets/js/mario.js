@@ -104,7 +104,6 @@ function lose (object, game){
   setTimer(() => {
     if(object.move){
       object.move = false;
-      object.enableBody = false;
       if (object.entity.frame != 0) {game.add.audio('marioDies').play();}
       object.entity.frame = 0;
     }
