@@ -205,12 +205,12 @@ var states = {
             client.reset();
             console.log(win);
             controllers = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-            if(win){
-                text = 'YOU WIN';
-                xWin = game.width*0.225;
-                msg = game.add.bitmapText(game.world.centerX - game.width*0.16, game.world.centerY,'font', 'LEVEL: ' + lvl.total, 36);
+            if(true){
                 lvl.total++;
                 lvl.barrels *= 1.5;
+                text = 'YOU WIN';
+                xWin = game.width*0.225;
+                msg = game.add.bitmapText(game.world.centerX - game.width*0.28, game.world.centerY,'font', 'NEXT LEVEL: ' + lvl.total, 36);
             }else{
                 text = 'GAME OVER';
                 xWin = game.width*0.305;
@@ -239,7 +239,7 @@ var states = {
 game.state.add('start', states['start']);
 game.state.add('main', states['main']);
 game.state.add('finish', states['finish']);
-game.state.start('start');
+game.state.start('finish');
 
 function setTimer(doBefore, doAfter, time){
     doBefore(mainText,authorsT);

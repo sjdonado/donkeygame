@@ -85,8 +85,9 @@ class mario {
       }, null, this);     
       game.physics.arcade.collide(this.entity, pauline, (mario, pauline) => {
         if(score.total == 10){
+          move = this.move;
           setTimer(() => {
-              this.move = false;
+              move = false;
               if(!win){game.add.audio('win').play();}
               win = true;
               princess.fall();
@@ -94,6 +95,7 @@ class mario {
           }, () => {
               game.state.start('finish');
           }, 1000);
+          this.move = move;
         }
       },null, this);
     }
