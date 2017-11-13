@@ -9,7 +9,7 @@ var client = {
 	},
 	newPlayer: (callback)=>{
 		client.socket.on('newPlayer', (data)=>{
-			if(typeof client.arrayPlayers[getIndex(data.id)] === "undefined" && client.id != null){
+			if(typeof client.arrayPlayers[getIndex(data.id)] === "undefined"){
 				console.log('id newPlayer: ' + data.id);
 				client.addNewPlayer(data);
 				client.id = getIndex(client.dataId);
@@ -34,16 +34,14 @@ var client = {
 		console.log(client.arrayPlayers);
 	},
 	movePlayer: (move)=>{
-		if(client.id != null){
-			client.socket.emit('movePlayer', {
-				id: client.dataId,
-				move: move
-			});
-		}
+		client.socket.emit('movePlayer', {
+			id: client.dataId,
+			move: move
+		});
 	},
 	moveAllPlayers: (callback)=>{
 		client.socket.on('moveAllPlayers', (data)=>{
-			if(client.arrayPlayers[client.id].move){
+			if(client.id != null){
 				callback(data);
 			}else{
 				callback(null);

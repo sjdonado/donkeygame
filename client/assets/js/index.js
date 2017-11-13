@@ -7,6 +7,16 @@ var scoreText;
 var scContText;
 var mainMusic;
 var startMusic;
+var mainText;
+var authorsT;
+var brText;
+var jrText;
+var javText;
+var logo;
+var tweenVar;
+var resetText;
+var text;
+var msg;
 
 var states = {
     start: {
@@ -18,25 +28,27 @@ var states = {
         },
 
         create: function() {
-            game.add.image(90, 60, 'logo');
+            logo = game.add.image(90, 60, 'logo');
             controllers = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-            var mainText= game.add.bitmapText(game.width/2 - 115,game.height/2 +50,'font','Press [SPACEBAR] to start',16);
-            var authorsT = game.add.bitmapText(game.width/2-40,game.height -160,'font','Authors',16);
-            var brText = game.add.bitmapText(game.width/2-70,game.height -140,'font','Brian Ramirez',16);
-            var jrText = game.add.bitmapText(game.width/2-75,game.height -120,'font','Juan Rodriguez',16);
-            var javText = game.add.bitmapText(game.width/2-80,game.height -100,'font','Javier Roncallo',16);
+            mainText= game.add.bitmapText(game.width/2 - 115,game.height/2 +50,'font','Press [SPACEBAR] to start',16);
+            authorsT = game.add.bitmapText(game.width/2-40,game.height -160,'font','Authors',16);
+            brText = game.add.bitmapText(game.width/2-70,game.height -140,'font','Brian Ramirez',16);
+            jrText = game.add.bitmapText(game.width/2-75,game.height -120,'font','Juan Rodriguez',16);
+            javText = game.add.bitmapText(game.width/2-80,game.height -100,'font','Javier Roncallo',16);
             mainMusic = game.add.audio('mainMusic');
+<<<<<<< HEAD
             game.add.tween(mainText).to( { alpha: 0 }, 1000, "Linear", true,0,-1,true);
+=======
+            tweenVar = game.add.tween(mainText).to( { alpha: 0 }, 1000, "Linear", true,0,-1,true);
+>>>>>>> abee0e4bc10dcef35e4efe8c40393cba69e4c842
         },
 
         update: function() {
             if(controllers.isDown){
-                game.time.events.add(2000, function() {    game.add.tween(maintText).to({y: 0}, 1500, Phaser.Easing.Linear.None, true);    game.add.tween(maintText).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);}, this);
-                game.time.events.add(2000, function() {    game.add.tween(authorsT).to({y: 0}, 1500, Phaser.Easing.Linear.None, true);    game.add.tween(authorsT).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);}, this);
-                game.time.events.add(2000, function() {    game.add.tween(brText).to({y: 0}, 1500, Phaser.Easing.Linear.None, true);    game.add.tween(brText).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);}, this);
-                game.time.events.add(2000, function() {    game.add.tween(jrText).to({y: 0}, 1500, Phaser.Easing.Linear.None, true);    game.add.tween(jrText).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);}, this);
-                game.time.events.add(2000, function() {    game.add.tween(javText).to({y: 0}, 1500, Phaser.Easing.Linear.None, true);    game.add.tween(javText).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);}, this);
-                game.state.start('main');
+              mainStateAnimation();
+              var timert = game.time.create(true);
+              timert.add(1500, ()=>{game.state.start('main');}, this);
+              timert.start();
             }
         }
     },
@@ -113,10 +125,10 @@ var states = {
                 if(data != null && swMovePlayer != data.move){
                     console.log('id:' + getIndex(data.id) + ' move:' + data.move);
                     if (data.move == 'left'){
-                        client.arrayPlayers[getIndex(data.id)].moveLeft();
+                        client.arrayPlayers[getIndex(data.id)].moveLeft(false);
                     }
-                    if (data.move == 'right'){   
-                        client.arrayPlayers[getIndex(data.id)].moveRight();
+                    if (data.move == 'right'){
+                        client.arrayPlayers[getIndex(data.id)].moveRight(false);
                     }
                     // console.log('Touching down :' + client.arrayPlayers[getIndex(data.id)].entity.body.touching.down);
                     if(client.arrayPlayers[getIndex(data.id)].entity.body.touching.down){
@@ -125,14 +137,25 @@ var states = {
                         }
                     }else{
                         if(data.move == 'jump1'){
+                            client.arrayPlayers[getIndex(data.id)].moveRight(false);
+                            client.arrayPlayers[getIndex(data.id)].entity.animations.stop();
                             client.arrayPlayers[getIndex(data.id)].jump(1);
                         }
                         if(data.move == 'jump-1'){
+                            client.arrayPlayers[getIndex(data.id)].moveLeft(false);
+                            client.arrayPlayers[getIndex(data.id)].entity.animations.stop();
                             client.arrayPlayers[getIndex(data.id)].jump(-1);
                         }
                     }
                     if(data.move == 'stop'){
                         client.arrayPlayers[getIndex(data.id)].entity.body.velocity.x = 0;
+                        client.arrayPlayers[getIndex(data.id)].entity.animations.stop();
+                        if(swMovePlayer == 'right'){
+                            client.arrayPlayers[getIndex(data.id)].entity.frame = 4;
+                        }
+                        if(swMovePlayer == 'left'){
+                            client.arrayPlayers[getIndex(data.id)].entity.frame = 3;
+                        }
                     }
                     swMovePlayer = data.move;
                 }
@@ -142,11 +165,11 @@ var states = {
                 moveStatus = 'stop';
             }else{
                 if (controllers.left.isDown){
-                    client.arrayPlayers[client.id].moveLeft();
+                    client.arrayPlayers[client.id].moveLeft(true);
                     moveStatus = 'left';
                 }
                 if (controllers.right.isDown){
-                    client.arrayPlayers[client.id].moveRight();
+                    client.arrayPlayers[client.id].moveRight(true);
                     moveStatus = 'right';
                 }
                 if(client.arrayPlayers[client.id].entity.body.touching.down){
@@ -187,21 +210,33 @@ var states = {
             if(win){
                 text = 'YOU WIN';
                 xWin = game.width*0.225;
-                game.add.bitmapText(game.world.centerX - game.width*0.33, game.world.centerY,'font', 'CONGRATULATIONS!', 36);
+                msg = game.add.bitmapText(game.world.centerX - game.width*0.33, game.world.centerY,'font', 'CONGRATULATIONS!', 36);
             }else{
                 text = 'GAME OVER';
                 xWin = game.width*0.305;
-                game.add.bitmapText(game.world.centerX - game.width*0.17, game.world.centerY,'font', 'SCORE: ' + score.total, 36);
+                msg = game.add.bitmapText(game.world.centerX - game.width*0.17, game.world.centerY,'font', 'SCORE: ' + score.total, 36);
             }
+<<<<<<< HEAD
             game.add.bitmapText(game.world.centerX - xWin, game.world.centerY - 100, 'font', text, 56);
             var reset = game.add.bitmapText(game.world.centerX - game.width*0.42, game.world.centerY + 100, 'font', 'Press [SPACEBAR] to restart',26);
             game.add.tween(reset).to( { alpha: 0 }, 1000, "Linear", true,0,-1,true);
+=======
+            text = game.add.bitmapText(game.world.centerX - xWin, game.world.centerY - 100, 'font', text, 56);
+            resetText = game.add.bitmapText(game.world.centerX - game.width*0.42, game.world.centerY + 100, 'font', 'Press [SPACEBAR] to restart',26);
+            tweenVar = game.add.tween(resetText).to( { alpha: 0 }, 1000, "Linear", true,0,-1,true);
+>>>>>>> abee0e4bc10dcef35e4efe8c40393cba69e4c842
         },
 
         update: function() {
             if(controllers.isDown){
-                game.state.start('main');
+                tweenVar.stop();
+                game.add.tween(text).to({y: 0}, 1500, Phaser.Easing.Linear.None, true); game.add.tween(text).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
+                game.add.tween(resetText).to({y: 0}, 1500, Phaser.Easing.Linear.None, true); game.add.tween(resetText).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
+                game.add.tween(msg).to({y: 0}, 1500, Phaser.Easing.Linear.None, true); game.add.tween(msg).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
                 score.total = 0;
+                var timert = game.time.create(true);
+                timert.add(1500, ()=>{game.state.start('main');}, this);
+                timert.start();
             }
         }
     }
@@ -213,9 +248,25 @@ game.state.add('finish', states['finish']);
 game.state.start('start');
 
 function setTimer(doBefore, doAfter, time){
-    doBefore();
+    doBefore(mainText,authorsT);
     timer.add(time, doAfter, this);
     timer.start();
+}
+
+function mainStateAnimation(){
+  tweenVar.stop();
+  game.add.tween(mainText).to({y: 0}, 1500, Phaser.Easing.Linear.None, true);
+  game.add.tween(mainText).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
+  game.add.tween(authorsT).to({y: 0}, 1500, Phaser.Easing.Linear.None, true);
+  game.add.tween(authorsT).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
+  game.add.tween(brText).to({y: 0}, 1500, Phaser.Easing.Linear.None, true);
+  game.add.tween(brText).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
+  game.add.tween(jrText).to({y: 0}, 1500, Phaser.Easing.Linear.None, true);
+  game.add.tween(jrText).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
+  game.add.tween(javText).to({y: 0}, 1500, Phaser.Easing.Linear.None, true);
+  game.add.tween(javText).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
+  game.add.tween(logo).to({y: 0}, 1500, Phaser.Easing.Linear.None, true);
+  game.add.tween(logo).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
 }
 
 client.removePlayer();
