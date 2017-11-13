@@ -107,8 +107,8 @@ var states = {
             platform.physics();
             barrel.physics();
             client.arrayPlayers.forEach((mario)=>{
-                mario.collides(client.dataId);
                 mario.physics(client.dataId);
+                mario.collides(client.dataId);
             });
             princess.move();
             barrel.killBarrel();
@@ -210,7 +210,7 @@ var states = {
                 xWin = game.width*0.225;
                 msg = game.add.bitmapText(game.world.centerX - game.width*0.16, game.world.centerY,'font', 'LEVEL: ' + lvl.total, 36);
                 lvl.total++;
-                lvl.barrels *= lvl.total;
+                lvl.barrels *= 1.5;
             }else{
                 text = 'GAME OVER';
                 xWin = game.width*0.305;

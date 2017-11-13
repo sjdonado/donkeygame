@@ -8,13 +8,14 @@ var star = {
    stars = game.add.group();
    stars.enableBody = true;
    //gamety = game.add.sprite(0,game.height-38, 'star');
-   //game.physics.arcade.enable(gamety);
+   // game.physics.arcade.enable(stars);
    //gamety.body.collideWorldBounds = true;
  },
  addStar: (x,y) => {
    starO = stars.create(x, y, 'star');
+   starO.body.checkCollision.up = false;
    // starO.body.immovable = true;
-   starO.body.moves = false;
+   // starO.body.moves = false;
    starO.animations.add('main', [1,2,3,2,1]);
    starO.animations.play('main', 8, true);
  },
