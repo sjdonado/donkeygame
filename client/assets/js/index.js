@@ -43,7 +43,7 @@ var states = {
             if(controllers.isDown){
               mainStateAnimation();
               var timert = game.time.create(true);
-              timert.add(1500, ()=>{game.state.start('main');}, this);
+              timert.add(750, ()=>{game.state.start('main');}, this);
               timert.start();
             }
         }
@@ -220,12 +220,12 @@ var states = {
         update: function() {
             if(controllers.isDown){
                 tweenVar.stop();
-                game.add.tween(text).to({y: 0}, 1500, Phaser.Easing.Linear.None, true); game.add.tween(text).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
-                game.add.tween(resetText).to({y: 0}, 1500, Phaser.Easing.Linear.None, true); game.add.tween(resetText).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
-                game.add.tween(msg).to({y: 0}, 1500, Phaser.Easing.Linear.None, true); game.add.tween(msg).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
+                game.add.tween(text).to({y: 0}, 750, Phaser.Easing.Linear.None, true); game.add.tween(text).to({alpha: 0}, 750, Phaser.Easing.Linear.None, true);
+                game.add.tween(resetText).to({y: 0}, 750, Phaser.Easing.Linear.None, true); game.add.tween(resetText).to({alpha: 0}, 750, Phaser.Easing.Linear.None, true);
+                game.add.tween(msg).to({y: 0}, 750, Phaser.Easing.Linear.None, true); game.add.tween(msg).to({alpha: 0}, 750, Phaser.Easing.Linear.None, true);
                 score.total = 0;
                 var timert = game.time.create(true);
-                timert.add(1500, ()=>{game.state.start('main');}, this);
+                timert.add(750, ()=>{game.state.start('main');}, this);
                 timert.start();
             }
         }
@@ -245,18 +245,18 @@ function setTimer(doBefore, doAfter, time){
 
 function mainStateAnimation(){
   tweenVar.stop();
-  game.add.tween(mainText).to({y: 0}, 1500, Phaser.Easing.Linear.None, true);
-  game.add.tween(mainText).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
-  game.add.tween(authorsT).to({y: 0}, 1500, Phaser.Easing.Linear.None, true);
-  game.add.tween(authorsT).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
-  game.add.tween(brText).to({y: 0}, 1500, Phaser.Easing.Linear.None, true);
-  game.add.tween(brText).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
-  game.add.tween(jrText).to({y: 0}, 1500, Phaser.Easing.Linear.None, true);
-  game.add.tween(jrText).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
-  game.add.tween(javText).to({y: 0}, 1500, Phaser.Easing.Linear.None, true);
-  game.add.tween(javText).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
-  game.add.tween(logo).to({y: 0}, 1500, Phaser.Easing.Linear.None, true);
-  game.add.tween(logo).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
+  game.add.tween(mainText).to({y: 0}, 750, Phaser.Easing.Linear.None, true);
+  game.add.tween(mainText).to({alpha: 0}, 750, Phaser.Easing.Linear.None, true);
+  game.add.tween(authorsT).to({y: 0}, 750, Phaser.Easing.Linear.None, true);
+  game.add.tween(authorsT).to({alpha: 0}, 750, Phaser.Easing.Linear.None, true);
+  game.add.tween(brText).to({y: 0}, 750, Phaser.Easing.Linear.None, true);
+  game.add.tween(brText).to({alpha: 0}, 750, Phaser.Easing.Linear.None, true);
+  game.add.tween(jrText).to({y: 0}, 750, Phaser.Easing.Linear.None, true);
+  game.add.tween(jrText).to({alpha: 0}, 750, Phaser.Easing.Linear.None, true);
+  game.add.tween(javText).to({y: 0}, 750, Phaser.Easing.Linear.None, true);
+  game.add.tween(javText).to({alpha: 0}, 750, Phaser.Easing.Linear.None, true);
+  game.add.tween(logo).to({y: 0}, 750, Phaser.Easing.Linear.None, true);
+  game.add.tween(logo).to({alpha: 0}, 750, Phaser.Easing.Linear.None, true);
 }
 
 client.removePlayer();

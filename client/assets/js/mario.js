@@ -82,7 +82,7 @@ class mario {
         star.destroy();
         game.add.audio('starCollide').play();
         score.total += 1;
-     }, null, this);     
+     }, null, this);
     }
     move = this.move;
     game.physics.arcade.collide(this.entity, pauline, (mario, pauline) => {
