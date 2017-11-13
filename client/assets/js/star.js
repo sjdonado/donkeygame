@@ -18,6 +18,7 @@ var star = {
    // starO.body.moves = false;
    starO.animations.add('main', [1,2,3,2,1]);
    starO.animations.play('main', 8, true);
+   //starO.body.enable = false;
  },
  generateStars: () => {
    star.addStar(this.game.width-16,this.game.height-30);

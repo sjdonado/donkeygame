@@ -35,7 +35,7 @@ var states = {
             brText = game.add.bitmapText(game.width/2-70,game.height -140,'font','Brian Ramirez',16);
             jrText = game.add.bitmapText(game.width/2-75,game.height -120,'font','Juan Rodriguez',16);
             javText = game.add.bitmapText(game.width/2-80,game.height -100,'font','Javier Roncallo',16);
-            mainMusic = game.add.audio('mainMusic');
+            mainMusic = game.add.audio('mainMusic',1,true);
             tweenVar = game.add.tween(mainText).to( { alpha: 0 }, 1000, "Linear", true,0,-1,true);
         },
 
@@ -43,7 +43,7 @@ var states = {
             if(controllers.isDown){
               mainStateAnimation();
               var timert = game.time.create(true);
-              timert.add(1500, ()=>{game.state.start('main');}, this);
+              timert.add(750, ()=>{game.state.start('main');}, this);
               timert.start();
             }
         }
@@ -224,12 +224,12 @@ var states = {
         update: function() {
             if(controllers.isDown){
                 tweenVar.stop();
-                game.add.tween(text).to({y: 0}, 1500, Phaser.Easing.Linear.None, true); game.add.tween(text).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
-                game.add.tween(resetText).to({y: 0}, 1500, Phaser.Easing.Linear.None, true); game.add.tween(resetText).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
-                game.add.tween(msg).to({y: 0}, 1500, Phaser.Easing.Linear.None, true); game.add.tween(msg).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
+                game.add.tween(text).to({y: 0}, 750, Phaser.Easing.Linear.None, true); game.add.tween(text).to({alpha: 0}, 750, Phaser.Easing.Linear.None, true);
+                game.add.tween(resetText).to({y: 0}, 750, Phaser.Easing.Linear.None, true); game.add.tween(resetText).to({alpha: 0}, 750, Phaser.Easing.Linear.None, true);
+                game.add.tween(msg).to({y: 0}, 750, Phaser.Easing.Linear.None, true); game.add.tween(msg).to({alpha: 0}, 750, Phaser.Easing.Linear.None, true);
                 score.total = 0;
                 var timert = game.time.create(true);
-                timert.add(1500, ()=>{game.state.start('main');}, this);
+                timert.add(750, ()=>{game.state.start('main');}, this);
                 timert.start();
             }
         }
@@ -249,18 +249,18 @@ function setTimer(doBefore, doAfter, time){
 
 function mainStateAnimation(){
   tweenVar.stop();
-  game.add.tween(mainText).to({y: 0}, 1500, Phaser.Easing.Linear.None, true);
-  game.add.tween(mainText).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
-  game.add.tween(authorsT).to({y: 0}, 1500, Phaser.Easing.Linear.None, true);
-  game.add.tween(authorsT).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
-  game.add.tween(brText).to({y: 0}, 1500, Phaser.Easing.Linear.None, true);
-  game.add.tween(brText).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
-  game.add.tween(jrText).to({y: 0}, 1500, Phaser.Easing.Linear.None, true);
-  game.add.tween(jrText).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
-  game.add.tween(javText).to({y: 0}, 1500, Phaser.Easing.Linear.None, true);
-  game.add.tween(javText).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
-  game.add.tween(logo).to({y: 0}, 1500, Phaser.Easing.Linear.None, true);
-  game.add.tween(logo).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
+  game.add.tween(mainText).to({y: 0}, 750, Phaser.Easing.Linear.None, true);
+  game.add.tween(mainText).to({alpha: 0}, 750, Phaser.Easing.Linear.None, true);
+  game.add.tween(authorsT).to({y: 0}, 750, Phaser.Easing.Linear.None, true);
+  game.add.tween(authorsT).to({alpha: 0}, 750, Phaser.Easing.Linear.None, true);
+  game.add.tween(brText).to({y: 0}, 750, Phaser.Easing.Linear.None, true);
+  game.add.tween(brText).to({alpha: 0}, 750, Phaser.Easing.Linear.None, true);
+  game.add.tween(jrText).to({y: 0}, 750, Phaser.Easing.Linear.None, true);
+  game.add.tween(jrText).to({alpha: 0}, 750, Phaser.Easing.Linear.None, true);
+  game.add.tween(javText).to({y: 0}, 750, Phaser.Easing.Linear.None, true);
+  game.add.tween(javText).to({alpha: 0}, 750, Phaser.Easing.Linear.None, true);
+  game.add.tween(logo).to({y: 0}, 750, Phaser.Easing.Linear.None, true);
+  game.add.tween(logo).to({alpha: 0}, 750, Phaser.Easing.Linear.None, true);
 }
 
 client.removePlayer();
