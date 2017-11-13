@@ -35,7 +35,7 @@ var states = {
             brText = game.add.bitmapText(game.width/2-70,game.height -140,'font','Brian Ramirez',16);
             jrText = game.add.bitmapText(game.width/2-75,game.height -120,'font','Juan Rodriguez',16);
             javText = game.add.bitmapText(game.width/2-80,game.height -100,'font','Javier Roncallo',16);
-            mainMusic = game.add.audio('mainMusic');
+            mainMusic = game.add.audio('mainMusic',1,true);
             tweenVar = game.add.tween(mainText).to( { alpha: 0 }, 1000, "Linear", true,0,-1,true);
         },
 
