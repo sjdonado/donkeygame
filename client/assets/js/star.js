@@ -14,6 +14,7 @@ var star = {
  addStar: (x,y) => {
    starO = stars.create(x, y, 'star');
    // starO.body.immovable = true;
+   starO.body.moves = false;
    starO.animations.add('main', [1,2,3,2,1]);
    starO.animations.play('main', 8, true);
  },
