@@ -72,40 +72,42 @@ class mario {
     game.physics.arcade.collide(this.entity, platforms);
     if(clientID == this.id){
       game.physics.arcade.collide(this.entity, barriles, (mario, barrel) => {
-          lose(this, game);
+        lose(this, game);
       },null, this);
       game.physics.arcade.collide(this.entity, donkeyObject, (mario, donkey) => {
-          lose(this, game);
+        lose(this, game);
       },null, this);
       game.physics.arcade.collide(this.entity, stars, (mario, star) => {
         star.body = null;
         star.destroy();
         game.add.audio('starCollide').play();
         score.total += 1;
-     }, null, this);
+      }, null, this);     
+      game.physics.arcade.collide(this.entity, pauline, (mario, pauline) => {
+        if(score.total == 10){
+          setTimer(() => {
+              this.move = false;
+              if(!win){game.add.audio('win').play();}
+              win = true;
+              princess.fall();
+              pauline.frame = 4;
+          }, () => {
+              game.state.start('finish');
+          }, 1000);
+        }
+      },null, this);
     }
-    move = this.move;
-    game.physics.arcade.collide(this.entity, pauline, (mario, pauline) => {
-      if(score.total == 10){
-        setTimer(() => {
-            move = false;
-            if(!win){game.add.audio('win').play();}
-            win = true;
-            pauline.frame = 4;
-        }, () => {
-            game.state.start('finish');
-        }, 1000);
-      }
-    },null, this);
-    this.move = move;
   }
 }
 
 function lose (object, game){
   setTimer(() => {
-    object.move = false;
-    if (object.entity.frame != 0) {game.add.audio('marioDies').play();}
-    object.entity.frame = 0;
+    if(object.move){
+      object.move = false;
+      object.enableBody = false;
+      if (object.entity.frame != 0) {game.add.audio('marioDies').play();}
+      object.entity.frame = 0;
+    }
   }, () => {
       game.state.start('finish');
   }, 1000);

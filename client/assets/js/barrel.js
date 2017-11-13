@@ -20,8 +20,15 @@ var barrel = {
 				barrel.addBarrel(-1);
 			}
 		}
-		if(contStart < 101){
+		if(contStart < lvl.barrels){
 			contStart++;
+			swCont = 0;
+		}else{
+			if(swCont > 1000){
+				contStart = 0;
+			}else{
+				swCont++;
+			}
 		}
 	},
 	addBarrel: (value) => {
