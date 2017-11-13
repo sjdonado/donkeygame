@@ -71,6 +71,8 @@ var states = {
             controllers = game.input.keyboard.createCursorKeys();
             scoreText = game.add.bitmapText(12,10,'font','Score',16);
             scContText = game.add.bitmapText(30,30,'font','0',16);
+            lvlText = game.add.bitmapText(game.width - 62,10,'font','Level',16);
+            lvlContText = game.add.bitmapText(game.width - 45,30,'font', lvl.total + '',16);
             timer = game.time.create(false);
             barrel.init();
             donkey.init();
@@ -201,6 +203,10 @@ var states = {
         create: function() {
             mainMusic.stop();
             client.reset();
+            if(win){
+                lvl.total++;
+                lvl.barrels *= lvl.total;
+            }
             // console.log(win);
             controllers = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
             if(win){
