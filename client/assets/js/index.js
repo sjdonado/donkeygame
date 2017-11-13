@@ -36,11 +36,7 @@ var states = {
             jrText = game.add.bitmapText(game.width/2-75,game.height -120,'font','Juan Rodriguez',16);
             javText = game.add.bitmapText(game.width/2-80,game.height -100,'font','Javier Roncallo',16);
             mainMusic = game.add.audio('mainMusic');
-<<<<<<< HEAD
-            game.add.tween(mainText).to( { alpha: 0 }, 1000, "Linear", true,0,-1,true);
-=======
             tweenVar = game.add.tween(mainText).to( { alpha: 0 }, 1000, "Linear", true,0,-1,true);
->>>>>>> abee0e4bc10dcef35e4efe8c40393cba69e4c842
         },
 
         update: function() {
@@ -216,15 +212,9 @@ var states = {
                 xWin = game.width*0.305;
                 msg = game.add.bitmapText(game.world.centerX - game.width*0.17, game.world.centerY,'font', 'SCORE: ' + score.total, 36);
             }
-<<<<<<< HEAD
-            game.add.bitmapText(game.world.centerX - xWin, game.world.centerY - 100, 'font', text, 56);
-            var reset = game.add.bitmapText(game.world.centerX - game.width*0.42, game.world.centerY + 100, 'font', 'Press [SPACEBAR] to restart',26);
-            game.add.tween(reset).to( { alpha: 0 }, 1000, "Linear", true,0,-1,true);
-=======
             text = game.add.bitmapText(game.world.centerX - xWin, game.world.centerY - 100, 'font', text, 56);
             resetText = game.add.bitmapText(game.world.centerX - game.width*0.42, game.world.centerY + 100, 'font', 'Press [SPACEBAR] to restart',26);
             tweenVar = game.add.tween(resetText).to( { alpha: 0 }, 1000, "Linear", true,0,-1,true);
->>>>>>> abee0e4bc10dcef35e4efe8c40393cba69e4c842
         },
 
         update: function() {
