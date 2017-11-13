@@ -206,7 +206,7 @@ var states = {
             client.reset();
             console.log(win);
             controllers = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-            if(true){
+            if(win){
                 lvl.total++;
                 lvl.barrels *= 1.5;
                 text = 'YOU WIN';
