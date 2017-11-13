@@ -108,6 +108,6 @@ function lose (object, game){
       object.entity.frame = 0;
     }
   }, () => {
-      game.state.start('finish');
-  }, 1000);
+    game.state.start('finish');
+  }, 900);
 }
