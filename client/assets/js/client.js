@@ -1,5 +1,5 @@
 var client = {
-	socket: io.connect('https://donkeygame.sjdonado.de', {'forceNew': true}),
+	socket: io.connect('https://donkeygame.sjdonado.com', {'forceNew': true}),
 	arrayPlayers: [],
 	id: null,
 	dataId: null,
