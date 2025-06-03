@@ -63,8 +63,9 @@ var states = {
             game.load.audio('marioDies','assets/audios/marioDies.wav');
             game.load.audio('starCollide','assets/audios/starCollide.wav');
             game.load.audio('win','assets/audios/win.wav');
+            // Initialize the single player for CDN deployment
             client.askNewPlayer();
-            client.allPlayers();
+            // client.allPlayers(); // Not needed in single player mode
         },
 
         create: function() {
@@ -78,16 +79,14 @@ var states = {
             barrel.init();
             donkey.init();
             princess.init();
-            client.arrayPlayers.forEach((mario)=>{
-                mario.init();
-                mario.setAnimations();
-            });
-            client.newPlayer((newPlayer)=>{
-                if(newPlayer != null){
-                    newPlayer.init();
-                    newPlayer.setAnimations();
-                }
-            });
+            // Initialize the local player
+            if (client.arrayPlayers.length > 0) {
+                client.arrayPlayers.forEach((mario)=>{
+                    mario.init();
+                    mario.setAnimations();
+                });
+            }
+            // No need for newPlayer callback in single player mode
             platform.init();
             star.init();
             donkey.setAnimations();
@@ -120,7 +119,8 @@ var states = {
                     swFall = false;
                 }, 1000);
             }
-            client.moveAllPlayers((data)=>{
+            // Socket.io call commented out for CDN deployment
+            /* client.moveAllPlayers((data)=>{
                 if(data != null && swMovePlayer != data.move){
                     console.log('id:' + getIndex(data.id) + ' move:' + data.move);
                     if (data.move == 'left'){
@@ -158,41 +158,44 @@ var states = {
                     }
                     swMovePlayer = data.move;
                 }
-            });
+            }); */
             scContText.text = score.total;
-            if(controllers.up.isUp && controllers.down.isUp && controllers.left.isUp && controllers.right.isUp && moveStatusSend != null){
-                moveStatus = 'stop';
-            }else{
-                if (controllers.left.isDown){
-                    client.arrayPlayers[client.id].moveLeft(true);
-                    moveStatus = 'left';
-                }
-                if (controllers.right.isDown){
-                    client.arrayPlayers[client.id].moveRight(true);
-                    moveStatus = 'right';
-                }
-                if(client.arrayPlayers[client.id].entity.body.touching.down){
-                    if(controllers.up.isDown){
-                        client.arrayPlayers[client.id].jump(0);
-                        moveStatus = 'jump0';
-                    }
+            // Make sure player exists before trying to access it
+            if (client.arrayPlayers.length > 0 && client.id !== null && client.arrayPlayers[client.id] && client.arrayPlayers[client.id].entity) {
+                if(controllers.up.isUp && controllers.down.isUp && controllers.left.isUp && controllers.right.isUp && moveStatusSend != null){
+                    moveStatus = 'stop';
                 }else{
-                    if(controllers.right.isDown){
-                        client.arrayPlayers[client.id].jump(1);
-                        moveStatus = 'jump1';
+                    if (controllers.left.isDown){
+                        client.arrayPlayers[client.id].moveLeft(true);
+                        moveStatus = 'left';
                     }
-                    if(controllers.left.isDown){
-                        client.arrayPlayers[client.id].jump(-1);
-                        moveStatus = 'jump-1';
+                    if (controllers.right.isDown){
+                        client.arrayPlayers[client.id].moveRight(true);
+                        moveStatus = 'right';
+                    }
+                    if(client.arrayPlayers[client.id].entity.body.touching.down){
+                        if(controllers.up.isDown){
+                            client.arrayPlayers[client.id].jump(0);
+                            moveStatus = 'jump0';
+                        }
+                    }else{
+                        if(controllers.right.isDown){
+                            client.arrayPlayers[client.id].jump(1);
+                            moveStatus = 'jump1';
+                        }
+                        if(controllers.left.isDown){
+                            client.arrayPlayers[client.id].jump(-1);
+                            moveStatus = 'jump-1';
+                        }
                     }
                 }
             }
             if(moveStatus != moveStatusSend){
                 console.log(moveStatus);
-                client.movePlayer(moveStatus);
+                client.movePlayer(moveStatus); // Keep this for logging
                 moveStatusSend = moveStatus;
             }
-            client.location();
+            // No need for client.location() in single player mode
         }
     },
     finish: {
@@ -203,7 +206,7 @@ var states = {
 
         create: function() {
             mainMusic.stop();
-            client.reset();
+            client.reset(); // Still need to reset the client state
             console.log(win);
             controllers = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
             if(win){
@@ -264,4 +267,4 @@ function mainStateAnimation(){
   game.add.tween(logo).to({alpha: 0}, 750, Phaser.Easing.Linear.None, true);
 }
 
-client.removePlayer();
+// No need for removePlayer in single player mode

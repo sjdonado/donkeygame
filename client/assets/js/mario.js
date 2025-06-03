@@ -6,23 +6,28 @@ class mario {
       y:18,
       isMario: true
     };
-    if (id != client.dataId) this.sprites.isMario = false;
+    // Always set to Mario in single player mode
+    this.sprites.isMario = true;
     this.move = true;
-    this.x = x;
-    this.y = y == 0 ? game.height - 26 : y;
+    this.x = x || 100;
+    this.y = y == 0 ? game.height - 26 : (y || game.height - 26);
   }
   init () {
-    if(this.sprites.isMario){
-      this.entity = game.add.sprite(this.x, this.y, 'mario');
-    }else{
-      this.entity = game.add.sprite(this.x, this.y, 'luiggi');
+    try {
+      if(this.sprites.isMario){
+        this.entity = game.add.sprite(this.x, this.y, 'mario');
+      }else{
+        this.entity = game.add.sprite(this.x, this.y, 'luiggi');
+      }
+      game.physics.arcade.enable(this.entity);
+      this.entity.enableBody = true;
+      this.entity.body.bounce.y = 0.1;
+      this.entity.body.gravity.y = 300;
+      this.entity.body.collideWorldBounds = true;
+      this.entity.frame = 4;
+    } catch (e) {
+      console.error("Error initializing mario entity:", e);
     }
-    game.physics.arcade.enable(this.entity);
-    this.entity.enableBody = true;
-    this.entity.body.bounce.y = 0.1;
-    this.entity.body.gravity.y = 300;
-    this.entity.body.collideWorldBounds = true;
-    this.entity.frame = 4;
   }
   setAnimations () {
     this.entity.animations.add('left', [2,3]);
@@ -69,47 +74,59 @@ class mario {
     }
   }
   physics (clientID) {
-    if(clientID == this.id){
-      this.entity.body.velocity.x = 0;
+    try {
+      if(clientID == this.id && this.entity && this.entity.body){
+        this.entity.body.velocity.x = 0;
+      }
+    } catch (e) {
+      console.error("Error in physics:", e);
     }
   }
   collides (clientID) {
-    game.physics.arcade.collide(this.entity, platforms);
-    if(clientID == this.id){
-      game.physics.arcade.collide(this.entity, barriles, (mario, barrel) => {
-        lose(this, game);
-      },null, this);
-      game.physics.arcade.collide(this.entity, donkeyObject, (mario, donkey) => {
-        lose(this, game);
-      },null, this);
-      game.physics.arcade.collide(this.entity, stars, (mario, star) => {
-        star.body = null;
-        star.destroy();
-        game.add.audio('starCollide').play();
-        score.total += 1;
-      }, null, this);
-      game.physics.arcade.collide(this.entity, pauline, (mario, pauline) => {
-        if(score.total == 10){
-          move = this.move;
-          setTimer(() => {
-              move = false;
-              if(!win){game.add.audio('win').play();}
-              win = true;
-              princess.fall();
-              pauline.frame = 4;
-          }, () => {
-              game.state.start('finish');
-          }, 1000);
-          this.move = move;
-        }
-      },null, this);
+    try {
+      if (!this.entity || !this.entity.body) {
+        return;
+      }
+      
+      game.physics.arcade.collide(this.entity, platforms);
+      if(clientID == this.id){
+        game.physics.arcade.collide(this.entity, barriles, (mario, barrel) => {
+          lose(this, game);
+        },null, this);
+        game.physics.arcade.collide(this.entity, donkeyObject, (mario, donkey) => {
+          lose(this, game);
+        },null, this);
+        game.physics.arcade.collide(this.entity, stars, (mario, star) => {
+          star.body = null;
+          star.destroy();
+          game.add.audio('starCollide').play();
+          score.total += 1;
+        }, null, this);
+        game.physics.arcade.collide(this.entity, pauline, (mario, pauline) => {
+          if(score.total == 10){
+            move = this.move;
+            setTimer(() => {
+                move = false;
+                if(!win){game.add.audio('win').play();}
+                win = true;
+                princess.fall();
+                pauline.frame = 4;
+            }, () => {
+                game.state.start('finish');
+            }, 1000);
+            this.move = move;
+          }
+        },null, this);
+      }
+    } catch (e) {
+      console.error("Error in collides:", e);
     }
   }
 }
 
 function lose (object, game){
   setTimer(() => {
-    if(object.move){
+    if(object.move && object.entity){
       object.move = false;
       if (object.entity.frame != 0) {game.add.audio('marioDies').play();}
       object.entity.frame = 0;
